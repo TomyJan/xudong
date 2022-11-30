@@ -1,0 +1,40 @@
+8
+
+dir
+1156110
+http://hk4esvn.mihoyo.com/svn/miHoYo/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/sql_temp
+http://hk4esvn.mihoyo.com/svn/miHoYo
+
+
+
+2022-08-31T11:39:00.622548Z
+1142612
+hao.guo
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9c0077b0-a215-4c19-9e1c-48051f2e5cdf
+
+0.1
+dir
+
+0.8.0
+dir
+
+0.9.0
+dir
+
+1.0.0
+dir
+

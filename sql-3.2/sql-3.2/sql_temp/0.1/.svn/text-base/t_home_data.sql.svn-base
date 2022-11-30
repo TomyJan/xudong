@@ -1,0 +1,14 @@
+CREATE TABLE `t_home_data_{idx}` (
+	`uid` INT(10) NOT NULL DEFAULT '0',
+	`bin_data` MEDIUMBLOB NOT NULL,
+	`data_version` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+	`block_end_time` DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '封禁结束时间',
+	`last_save_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	`is_delete` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '是否为polardb扩容后废弃数据',
+	`reserved_1` INT(10) unsigned NOT NULL DEFAULT '0' COMMENT '预留字段1',
+	`reserved_2` INT(10) unsigned NOT NULL DEFAULT '0' COMMENT '预留字段2',
+	PRIMARY KEY (`uid`) USING BTREE
+) 
+COMMENT='家园存档'
+ENGINE=InnoDB
+;

@@ -1,0 +1,2 @@
+# 测试环境的httpproxy和globaldispatch部署在同一个机器里面
+work_path: /home/data/hk4e_globaldis

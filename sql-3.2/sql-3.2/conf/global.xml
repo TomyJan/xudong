@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalConf>
+	<!--
+		正式的生产环境
+		region 编号 1-500
+		region_id由CMDB管理
+	-->
+
+
+	<Region name="sh-global-dp" conf_file="product/sh-global-dp.yaml"/>
+	<Region name="jp-global-dp" conf_file="product/jp-global-dp.yaml"/>
+	<Region name="ios-review" conf_file="product/ios-review.yaml"/>
+	<Region name="cb01_live" conf_file="product/cb01_live.yaml"/>
+	<Region name="cb01_ps4" conf_file="product/cb01_ps4.yaml"/>
+	<Region name="cjPS4" conf_file="product/cjPS4.yaml"/>
+	<Region name="package" conf_file="product/package.yaml"/>
+	<Region name="packagepre" conf_file="product/packagepre.yaml" opsmind_env="test"/>
+	<Region name="cjps4pre" conf_file="product/cjps4pre.yaml" />
+	<Region name="cjAndroid" conf_file="product/cjAndroid.yaml" opsmind_env="test"/>
+	<Region name="tgsps4" conf_file="product/tgsps4.yaml" />
+	<Region name="tgsios" conf_file="product/tgsios.yaml" />
+	<Region name="ps4banshu" conf_file="product/ps4banshu.yaml" />
+	<Region name="globaltest" conf_file="product/globaltest.yaml"/>
+	<Region name="cb02" conf_file="product/cb02.yaml"/>
+	<Region name="cb2_rel" conf_file="product/cb2_rel.yaml"/>
+	<Region name="cb2_live" conf_file="product/cb2_live.yaml"/>
+	<Region name="cb2_debug" conf_file="product/cb2_debug.yaml"/>
+	<Region name="GStar" conf_file="product/GStar.yaml"/>
+	<Region name="cb2_cloudgame_demo" conf_file="product/cb2_cloudgame_demo.yaml"/>
+	<Region name="Vendor" conf_file="product/Vendor.yaml" />
+	<Region name="glbpackage" conf_file="product/glbpackage.yaml" />
+	<Region name="cb2test_live" conf_file="product/cb2test_live.yaml" />
+	<Region name="cb2test_debug" conf_file="product/cb2test_debug.yaml" />
+	<Region name="cb2test_st" conf_file="product/cb2test_st.yaml" />
+	<Region name="cb2test" conf_file="product/cb2test.yaml" />
+	<Region name="cb2_dispatch" conf_file="product/cb2_dispatch.yaml" />
+	<Region name="cb2test_asia" conf_file="product/cb2test_asia.yaml" />
+	<Region name="cb2_hkdispatch" conf_file="product/cb2_hkdispatch.yaml" />
+	<Region name="cb2test_euro" conf_file="product/cb2test_euro.yaml" />
+    <Region name="cb2test_usa" conf_file="product/cb2test_usa.yaml" />
+    <Region name="cn_prod_httpproxy" conf_file="httpproxy/cn_prod_httpproxy.yaml"  />
+	<Region name="cn_test_httpproxy" conf_file="httpproxy/cn_test_httpproxy.yaml"  />
+	<Region name="cb2test_ovslive" conf_file="product/cb2test_ovslive.yaml" opsmind_env="test"/>
+	<Region name="cb2test_rel" conf_file="product/cb2test_rel.yaml" opsmind_env="test"/>
+	<Region name="cb2plus" conf_file="product/cb2plus.yaml" opsmind_env="test"/>
+	<Region name="cb2plus_mirror" conf_file="product/cb2plus_mirror.yaml" opsmind_env="test"/>
+	<Region name="cb2plus_live" conf_file="product/cb2plus_live.yaml" opsmind_env="test"/>
+	<Region name="cb2plus_rel" conf_file="product/cb2plus_rel.yaml" opsmind_env="test"/>
+	<Region name="cb2test_tw" conf_file="product/cb2test_tw.yaml" opsmind_env="test"/>
+	<Region name="cb2plus_asia" conf_file="product/cb2plus_asia.yaml" opsmind_env="test"/>
+	<Region name="cb2plus_ovslive" conf_file="product/cb2plus_ovslive.yaml" opsmind_env="test"/>
+	<Region name="cb2plus_euro" conf_file="product/cb2plus_euro.yaml" opsmind_env="test"/>
+	<Region name="cb2plus_usa" conf_file="product/cb2plus_usa.yaml" opsmind_env="test"/>
+	<Region name="cb2plus_relst" conf_file="product/cb2plus_relst.yaml" opsmind_env="test"/>
+	<Region name="cb2plus_copy" conf_file="product/cb2plus_copy.yaml" opsmind_env="test"/>
+	<Region name="weaknetwork" conf_file="product/weaknetwork.yaml" opsmind_env="test"/>
+
+	<!--
+		测试环境配置
+		region 编号 501-900
+		region_id由CMDB管理
+	-->
+	<Region name="dev_client" conf_file="dev/dev_client.yaml"/>
+	<Region name="globaldis" conf_file="dispatch/test_globaldis.yaml" opsmind_env="test"/>
+	<Region name="devdaily" conf_file="test/test_devdaily.yaml" opsmind_env="test"/>
+	<Region name="devweekly" conf_file="test/test_weekly.yaml" opsmind_env="test"/>
+	<Region name="microsoft" conf_file="test/test_microsoft.yaml"/>
+	<Region name="qa01" conf_file="test/test_qa01.yaml"/>
+	<Region name="qa03" conf_file="test/qa03.yaml" opsmind_env="test"/>
+	<Region name="qa_LD" conf_file="test/test_qa_LD.yaml" opsmind_env="test"/>
+	<Region name="yace" conf_file="test/test_yace.yaml" opsmind_env="test"/>
+	<Region name="shuzhi" conf_file="test/test_shuzhi.yaml" opsmind_env="test"/>
+	<Region name="zhandou" conf_file="test/test_zhandou.yaml" opsmind_env="test"/>
+	<Region name="banshutest" conf_file="test/test_banshutest.yaml"/>
+	<Region name="cb01_release" conf_file="test/test_cb01_release.yaml"/>
+	<Region name="yace_agent01" conf_file="test/test_yace_agent01.yaml"/>
+    <Region name="ps4_test01" conf_file="test/ps4_test01.yaml"/>
+	<Region name="dev_ld_private" conf_file="test/dev_ld_private.yaml" opsmind_env="test"/>
+	<Region name="master" conf_file="test/test_master.yaml" opsmind_env="test"/>
+	<Region name="autoDaily" conf_file="test/test_auto_daily.yaml" opsmind_env="test"/>
+	<Region name="testyc01" conf_file="test/testyc01.yaml" opsmind_env="test"/>
+	<Region name="weeklyqa" conf_file="test/test_weeklyqa.yaml" opsmind_env="test"/>
+	<Region name="cnoptest" conf_file="test/test_cnoptest.yaml"/>
+	<Region name="CB2_relDaily" conf_file="test/test_CB2_relDaily.yaml" opsmind_env="test"/>
+	<Region name="test_multi" conf_file="test/test_test_multi.yaml" />
+	<Region name="weeklymultilang" conf_file="test/test_weeklymultilang.yaml" opsmind_env="test"/>
+	<Region name="asb_optimization" conf_file="test/test_asb_optimization.yaml" opsmind_env="test"/>
+	<Region name="glbpackagepre" conf_file="test/test_glbpackagepre.yaml" opsmind_env="test"/>
+	<Region name="chltest" conf_file="test/chltest.yaml" opsmind_env="test"/>
+	<Region name="test_sdk" conf_file="test/test_test_sdk.yaml" opsmind_env="test"/>
+	<Region name="cb2test_qa03" conf_file="test/test_cb2test_qa03.yaml" opsmind_env="test"/>
+	<Region name="main_quest" conf_file="test/test_main_quest.yaml" opsmind_env="test"/>
+	<Region name="test1215" conf_file="test/test1215.yaml" />
+	<Region name="weeklymultilanghk" conf_file="test/test_weeklymultilanghk.yaml" />
+	<Region name="cb2plus_qa03" conf_file="test/test_cb2plus_qa03.yaml" opsmind_env="test"/>
+	<Region name="chl0107" conf_file="test/chl0107.yaml" opsmind_env="test"/>
+	<Region name="devvfx" conf_file="test/test_devvfx.yaml" />
+	<Region name="bt0109" conf_file="test/bt0109.yaml" opsmind_env="test"/>
+	<Region name="chl0111" conf_file="test/chl0111.yaml" opsmind_env="test"/>
+	<Region name="chl0112" conf_file="test/chl0112.yaml" opsmind_env="test"/>
+	<Region name="chl0113" conf_file="test/chl0113.yaml" opsmind_env="test"/>
+	<Region name="sdkpre" conf_file="test/test_sdkpre.yaml" opsmind_env="test"/>
+	<Region name="cb2plusyace" conf_file="test/test_cb2plusyace.yaml" opsmind_env="test"/>
+	<Region name="test0212" conf_file="test/test_test0212.yaml" opsmind_env="test"/>
+	<Region name="test0223" conf_file="test/test_test0223.yaml" opsmind_env="test"/>
+	<Region name="chl0221" conf_file="test/test_chl0221.yaml" opsmind_env="test"/>
+	<Region name="test0226" conf_file="test/test_test0226.yaml" opsmind_env="test"/>
+	<Region name="test0227" conf_file="test/test_test0227.yaml" opsmind_env="test"/>
+	<Region name="chl_0332" conf_file="test/test_chl_0332.yaml" opsmind_env="test"/>
+	<Region name="wd0332" conf_file="test/test_wd0332.yaml" opsmind_env="test"/>
+	<Region name="cb3_dev" conf_file="test/test_cb3_dev.yaml" opsmind_env="test"/>
+	<Region name="1.0_dev" conf_file="test/test_1.0_dev.yaml" opsmind_env="test"/>
+	<Region name="1.1_dev" conf_file="test/test_1.1_dev.yaml" opsmind_env="test"/>
+	<Region name="1.2_dev" conf_file="test/test_1.2_dev.yaml" opsmind_env="test"/>
+	<Region name="1.3_dev" conf_file="test/test_1.3_dev.yaml" opsmind_env="test"/>
+	<Region name="1.5_dev" conf_file="test/test_1.5_dev.yaml" opsmind_env="test"/>
+	<Region name="sdkyace" conf_file="test/sdkyace.yaml" opsmind_env="test"/>
+
+	<!--
+		测试环境配置
+		region 编号 901-1024
+		region_id 配在 global.xml中
+	-->
+   <!--Region name="dev_wjy" conf_file="dev/dev_wjy.yaml" region_id="901"/>
+	<Region name="dev_wjy148" conf_file="dev/dev_wjy148.yaml" region_id="902"/>
+	<Region name="dev_lx" conf_file="dev/dev_lx.yaml" region_id="903"-->
+	<Region name="dev_lq" conf_file="dev/dev_lq.yaml" region_id="904"/>
+	<Region name="dev_hp" conf_file="dev/dev_hp.yaml" region_id="905"/>
+	<Region name="dev_szy" conf_file="dev/dev_szy.yaml" region_id="906"/>
+	<Region name="dev_fyf" conf_file="dev/dev_fyf.yaml" region_id="907"/>
+    <Region name="dev_wzd" conf_file="dev/dev_wzd.yaml" region_id="908"/>
+    <Region name="dev_zjt" conf_file="dev/dev_zjt.yaml" region_id="909"/>
+	<!--Region name="dev_zjh" conf_file="dev/dev_zjh.yaml" region_id="910"-->
+	<Region name="dev_lr" conf_file="dev/dev_lr.yaml" region_id="911"/>
+	<Region name="dev_pathyace" conf_file="dev/dev_pathyace.yaml" region_id="912"/>
+	<Region name="dev_ly" conf_file="dev/dev_ly.yaml" region_id="913"/>
+	<!--Region name="dev_oyjc" conf_file="dev/dev_oyjc.yaml" region_id="914"-->
+	<Region name="dev_lj" conf_file="dev/dev_lj.yaml" region_id="915"/>
+	<Region name="dev_cjy" conf_file="dev/dev_cjy.yaml" region_id="916"/>
+	<Region name="dev_docker" conf_file="dev/dev_docker.yaml" region_id="917"/>
+	<Region name="dev_qzj" conf_file="dev/dev_qzj.yaml" region_id="918"/>
+	<Region name="dev_fychen" conf_file="dev/dev_fychen.yaml" region_id="919"/>
+	<Region name="dev_zt" conf_file="dev/dev_zt.yaml" region_id="920"/>
+	<Region name="dev_kcq" conf_file="dev/dev_kcq.yaml" region_id="921"/>
+	<Region name="dev_yxb" conf_file="dev/dev_yxb.yaml" region_id="922"/>
+	<Region name="dev_lxp" conf_file="dev/dev_lxp.yaml" region_id="923"/>
+	<Region name="dev_ttp" conf_file="dev/dev_ttp.yaml" region_id="924"/>
+	<Region name="dev_wh" conf_file="dev/dev_wh.yaml" region_id="925"/>
+    <Region name="dev_xkchen" conf_file="dev/dev_xkchen.yaml" region_id="926"/>
+    <Region name="dev_qy" conf_file="dev/dev_qy.yaml" region_id="927"/>
+	<Region name="dev_zyf" conf_file="dev/dev_zyf.yaml" region_id="928"/>
+	<Region name="dev_zy" conf_file="dev/dev_zy.yaml" region_id="929"/>
+	<Region name="dev_zf" conf_file="dev/dev_zf.yaml" region_id="930"/>
+	<Region name="dev_zc" conf_file="dev/dev_zc.yaml" region_id="931"/>
+	<Region name="dev_wms" conf_file="dev/dev_wms.yaml" region_id="932"/>
+	<Region name="dev_mqm" conf_file="dev/dev_mqm.yaml" region_id="933"/>
+	<Region name="dev_cyq" conf_file="dev/dev_cyq.yaml" region_id="934"/>
+	<Region name="dev_pcy" conf_file="dev/dev_pcy.yaml" region_id="935"/>
+	<Region name="dev_lzw" conf_file="dev/dev_lzw.yaml" region_id="936"/>
+	<Region name="dev_hyz" conf_file="dev/dev_hyz.yaml" region_id="937"/>
+</GlobalConf>

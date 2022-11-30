@@ -1,0 +1,41 @@
+---
+region_name: dev_zjt
+work_path: /home/jingtian.zhang/hk4e/2.2_dev/env
+port_begin: 50801
+
+mysql:
+    user_db:
+        dbname: 'db_hk4e_user_zjt'
+    config_db:
+        db_list:
+            - index: 1001
+              name: 'db_hk4e_local'
+              host: '192.168.10.148'
+              port: '3306'
+              dbname: 'db_hk4e_config_zjt'
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'db_hk4e_order_zjt'
+
+redis:
+    host: '10.13.50.19'
+    db: '15'
+
+is_simulation_open: 'true'
+
+# 主机列表
+server_list:
+    - id: 1
+      host: '10.13.50.19'
+      inner_ip: '10.13.50.19'
+      outer_ip: '10.13.50.19'
+      use_domain_name: 'false'
+      domain_name: 'v6test.mihoyo.com'
+
+gameserver:
+    servers:
+        - host: '1'
+          num: 1
+
+is_simulation_open: 'true'

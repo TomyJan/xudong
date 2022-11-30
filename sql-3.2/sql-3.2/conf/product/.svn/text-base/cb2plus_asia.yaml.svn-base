@@ -1,0 +1,51 @@
+﻿---
+region_name: cb2plus_asia
+dev_sdk_account: 'true'
+work_path: /home/data/hk4e
+is_gm_talk_open: 'true'
+
+# 进程部署配置
+multiserver:
+    short_name: 'mt'
+    thread_num: '1'
+    services:
+        - name: 'mailservice'
+          type: 'Mailservice'
+          thread_num: '1'
+          stat_log_level: ''
+        - name: 'mpservice'
+          type: 'Mpservice'
+          thread_num: '1'
+          stat_log_level: ''
+        - name: 'offlinemsgservice'
+          type: 'OfflineMsgservice'
+          thread_num: '1'
+          stat_log_level: ''
+        - name: 'activityservice'
+          type: 'Activityservice'
+          thread_num: '1'
+          stat_log_level: ''
+        - name: 'socialservice'
+          type: 'SocialService'
+          thread_num: '1'
+          stat_log_level: ''
+
+gateserver:
+    port_player: '22101'
+
+gameserver:
+    port_gt: '22201'
+    max_online_player: '1000'
+
+nodeserver:
+    port_service: '22302'
+
+dispatch:
+    port_http: '22401'
+    port_gt: '22402'
+
+muipserver:
+    port_http: '22411'
+
+pathfindingserver:
+    port_gt: '22501'

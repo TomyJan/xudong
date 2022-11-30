@@ -1,0 +1,54 @@
+---
+region_name: 'REGION_NAME'
+work_path: /home/data/hk4e_dev_ld_private
+
+# mysql 中的 user, pwd, dbname, host, port 字段需要重写
+mysql:
+    user: 'work'
+    pwd: 'miHoYo2012'
+    user_db:
+        dbname: 'hk4e_db_user_dev_ld_private'
+        host: '127.0.0.1'
+    config_db:
+        db_list:
+            - index: 1001
+              dbname: 'hk4e_db_config'
+              host: '127.0.0.1'
+            - index: 1002
+              name: 'db_hk4e_global'
+              host: 'mysql-test.mysql.polardb.rds.aliyuncs.com'
+              port: '3306'
+              user: 'work_read'
+              pwd: 'miHoYo2012'
+              dbname: 'hk4e_global_deploy_config_test'
+
+redis:
+    host: '127.0.0.1'
+    port: '6379'
+    pwd: '111111'
+    db: '0'
+
+# 主机列表，需要重写
+server_list:
+    - id: 1
+      host: 'SERVERNAME'
+      inner_ip: 'SERVERINNERIP'
+      outer_ip: 'SERVEROUTERIP'
+
+# 进程部署配置
+gateserver:
+    port_player: '18101'
+
+gameserver:
+    port_gt: '18201'
+
+nodeserver:
+    port_service: '18302'
+
+dispatch:
+    port_http: '18401'
+    port_gt: '18402'
+
+muipserver:
+    port_http: '18411'
+

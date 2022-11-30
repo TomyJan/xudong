@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/sql_temp/0.1
+END
+hk4e_db_deploy_config.sql
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/sql_temp/0.1/hk4e_db_deploy_config.sql
+END
+t_player_online_id_data.sql
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/sql_temp/0.1/t_player_online_id_data.sql
+END
+t_block_data.sql
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/sql_temp/0.1/t_block_data.sql
+END
+hk4e_db_config.sql
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/sql_temp/0.1/hk4e_db_config.sql
+END
+hk4e_db_order.sql
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/sql_temp/0.1/hk4e_db_order.sql
+END
+t_player_psn_online_id_data.sql
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/sql_temp/0.1/t_player_psn_online_id_data.sql
+END
+t_player_data.sql
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/sql_temp/0.1/t_player_data.sql
+END
+t_player_uid.sql
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/sql_temp/0.1/t_player_uid.sql
+END
+t_home_data.sql
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/sql_temp/0.1/t_home_data.sql
+END

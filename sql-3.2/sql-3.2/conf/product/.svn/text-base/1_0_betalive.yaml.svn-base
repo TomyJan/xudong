@@ -1,0 +1,8 @@
+---
+region_name: 1_0_betalive
+
+mysql_extra_conf:
+    player_db_count: 40
+    home_db_count: 40
+    is_judge_user_db_delete: 'true'
+

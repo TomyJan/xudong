@@ -1,0 +1,135 @@
+#!/bin/sh
+CUR_PATH=`dirname $0`
+source $CUR_PATH/common.sh
+
+REGION_NAME=$1
+MODULE_LIST="gateway gameserver dbgate nodeserver"
+if [ "" != "$2" ]
+then
+	MODULE_LIST=$2
+fi
+
+#
+
+
+# para check
+if [ "" = "${REGION_NAME}" ]
+then
+	echo "no region set."
+	exit 1
+fi
+if [ "" = "${MODULE_LIST}" ]
+then
+	echo "no module set."
+	exit 1
+fi
+
+# 二次确认
+echo -e "\033[36m${REGION_NAME}\033[0m"
+echo -e "\033[36m${MODULE_LIST}\033[0m"
+read -p "确定 停服？" YN
+case $YN in 
+Y | y)
+	echo "";;
+*)
+	exit 0;;
+esac
+
+function stop_module_server()
+{
+	# 解析参数
+    	local MODULE_NAME=$1
+	local HOST=$2
+	local PORT=$3
+	local WORK_PATH=$4
+	local MODULE_PATH=$5
+	local NUM=$6
+
+	if [ "$NUM" -gt "1" ]
+	then
+		echo -e "\033[36m ++++++ stop [$HOST:$MODULE_NAME] begin ++++++\033[0m"
+	fi
+
+	for((idx = 1; idx <= NUM; idx++))
+	do
+		if [ $idx -gt 1 ]
+		then
+			local FINAL_MODULE_PATH=$MODULE_PATH$idx
+			echo "stop $MODULE_NAME$idx on $HOST"
+		else
+			local FINAL_MODULE_PATH=$MODULE_PATH
+			echo "stop $MODULE_NAME on $HOST"
+		fi
+
+		# 关闭进程
+		ssh -f -p${PORT} ${HOST} "source ~/.bash_profile && cd ${WORK_PATH}/${FINAL_MODULE_PATH} && svc -d ./ && svc -x ./"
+		if [ $? -ne 0 ]
+		then
+			echo "stop ${MODULE_NAME} on ${HOST}, index:${idx} failed."
+			return 1
+		fi
+
+		# 等待进程关闭完成
+		echo "  wait for process exit ..."
+		for((IDX=0; IDX<20; IDX++))
+		do
+			usleep 500000
+			SVSTAT_INFO="`ssh -f -p${PORT} ${HOST} "source ~/.bash_profile && cd ${WORK_PATH}/${FINAL_MODULE_PATH} && svstat ./"`"
+			echo ${SVSTAT_INFO} | grep "seconds"
+			if [ $? -ne 0 ]
+			then
+				break
+			fi
+		done
+	done
+	return 0
+}
+
+function stop_module()
+{
+	local MODULE_NAME=$1
+
+	# step1: get module info
+	MODULE_INFO=`${CUR_PATH}/server_parse ${REGION_NAME}.${MODULE_NAME} host,port,work_path,name,num`
+	local PARSE_RET=$?
+	if [ $PARSE_RET -eq 20 ]
+	then
+		yello_echo "====== `date +%H:%M:%S`: stop [${MODULE_NAME}] start ======"
+		echo ${MODULE_INFO}
+		echo "skip {$MODULE_NAME}"
+		yello_echo "====== `date +%H:%M:%S`: stop [${MODULE_NAME}] end ======\n"
+		return 0
+	fi
+	
+	echo -e "\033[36m ====== `date +%H:%M:%S`: stop [${MODULE_NAME}] start ======\033[0m"
+	if [ $PARSE_RET -ne 0 ]
+	then
+		echo ${MODULE_INFO}
+		echo "get info of ${REGION_NAME}.${MODULE_NAME} failed."
+		return 1
+	fi
+
+	# step2: 
+	server_parse ${REGION_NAME}.${MODULE_NAME} host,port,work_path,name,num | while read LINE
+	do
+		stop_module_server $MODULE_NAME $LINE
+	done
+
+	echo -e "\033[36m ====== `date +%H:%M:%S`: stop [${MODULE_NAME}] succ ======\033[0m"
+	return 0
+}
+
+function auto_stop()
+{
+	for MODULE_NAME in ${MODULE_LIST}
+	do
+		stop_module $MODULE_NAME
+		if [ $? -ne 0 ]
+		then
+			return 1
+		fi
+	done
+	return 0	
+}
+
+auto_stop

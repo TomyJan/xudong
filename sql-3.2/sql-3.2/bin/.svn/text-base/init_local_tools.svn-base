@@ -1,0 +1,49 @@
+#!/bin/sh
+
+CUR_PATH=`dirname $0`
+source $CUR_PATH/common.sh
+
+# 读取分区名称
+REGION_NAME=$1
+if [ "" = "${REGION_NAME}" ]
+then
+	yelloEcho "no region set."
+	exit 1
+fi
+
+# 检查是否为单机分区
+SERVER_PARSE_CMD="server_parse ${REGION_NAME} host,port,work_path"
+PARSE_RESULT="`${SERVER_PARSE_CMD}`"
+if [ $? -ne 0 ]
+then
+	yelloEcho "${PARSE_RESULT}"
+	exit 1
+fi
+
+SERVER_NUM="`${SERVER_PARSE_CMD}|wc -l`"
+if [ "1" != "${SERVER_NUM}" ]
+then
+	${SERVER_PARSE_CMD}
+	yelloEcho "'${REGION_NAME}' 不是单机服，无法使用local工具"
+	exit 0
+fi
+
+# 解析参数
+HOST="`echo "${PARSE_RESULT}"|awk '{print $1;}'`"
+PORT="`echo "${PARSE_RESULT}"|awk '{print $2;}'`"
+WORK_PATH="`echo "${PARSE_RESULT}"|awk '{print $3;}'`"
+DEPLOY_PATH="${WORK_PATH}/deploy_space/"
+
+# 初始化deploy目录
+deepGreenEcho "mkdir -p ${DEPLOY_PATH}"
+ssh -p${PORT} ${HOST} "mkdir -p ${DEPLOY_PATH}"
+
+# scp文件
+SCP_FILE_LIST="*ftp crawl_file common.sh local_*"
+for SCP_FILE in ${SCP_FILE_LIST}
+do
+	scp -P${PORT} ${CUR_PATH}/${SCP_FILE} ${HOST}:${DEPLOY_PATH}
+done
+
+deepGreenEchoTimeFormat "init '${DEPLOY_PATH}' for ${REGION_NAME} succ"
+

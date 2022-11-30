@@ -1,0 +1,21 @@
+﻿---
+region_name: 'Vendor'
+work_path: '/home/data/hk4e'
+port: '58422'
+
+# 进程部署配置
+gateserver:
+    port_player: '22101'
+
+gameserver:
+    port_gt: '22201'
+
+nodeserver:
+    port_service: '22302'
+
+dispatch:
+    port_http: '22401'
+    port_gt: '22402'
+
+muipserver:
+    port_http: '22411'

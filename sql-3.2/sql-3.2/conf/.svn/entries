@@ -1,0 +1,72 @@
+8
+
+dir
+1156110
+http://hk4esvn.mihoyo.com/svn/miHoYo/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf
+http://hk4esvn.mihoyo.com/svn/miHoYo
+
+
+
+2022-09-26T11:59:38.780874Z
+1156109
+hao.guo
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9c0077b0-a215-4c19-9e1c-48051f2e5cdf
+
+dev
+dir
+
+dispatch
+dir
+
+global.xml
+file
+
+
+
+
+2022-09-26T09:18:03.458000Z
+cfbf48cfd21852385d07c96ff32b6102
+2022-08-31T11:56:17.820206Z
+1142629
+hao.guo
+has-props
+
+httpproxy
+dir
+
+port_begin.txt
+file
+
+
+
+
+2022-09-26T09:18:03.457000Z
+d96f5133accda6d2f06ea8cf340914d1
+2022-08-31T11:39:00.622548Z
+1142612
+hao.guo
+has-props
+
+product
+dir
+
+stage
+dir
+
+test
+dir
+

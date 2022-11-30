@@ -1,0 +1,26 @@
+---
+region_name: dev_lxp
+work_path: /home/xiangpeng.long/HK4E/hk4e/1.4_dev/env
+port_begin: 22501
+
+mysql:
+    user_db:
+        dbname: 'db_hk4e_user_lxp'
+    config_db:
+        db_list:
+            - index: 1001
+              dbname: 'db_hk4e_config_lxp'
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'db_hk4e_order_lxp'
+
+redis:
+    host: '10.13.50.85'
+    db: '5'
+
+server_list:
+    - id: 1
+      host: '10.13.50.95'
+      inner_ip: '10.13.50.95'
+      outer_ip: '10.13.50.95'

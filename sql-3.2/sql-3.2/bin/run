@@ -1,0 +1,19 @@
+#!/bin/sh
+
+SCRIPT=$(realpath -s "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+echo $SCRIPTPATH
+PARENTPATH=`echo $SCRIPTPATH | awk -F/ '{print $NF}'`
+echo $PARENTPATH
+
+BINNAME=`echo $PARENTPATH | awk -F_ '{print $1}'`
+echo $BINNAME
+APPID=`echo $PARENTPATH | awk -F_ '{print $2}'`
+echo $APPID
+
+if [[ $APPID == "" ]]
+then
+    exec $SCRIPTPATH/$BINNAME >> run.log 2>&1
+else
+    exec $SCRIPTPATH/$BINNAME -i $APPID >> run.log 2>&1
+fi

@@ -1,0 +1,17 @@
+region_name: 2_7_oslive
+is_internal_server: 'true'
+
+gameserver:
+    home_verify:
+        is_enable: true
+        host: 'jp-inner-api.hoyoverse.com'
+        port: '80'
+        uri: '/game/hk4e/outer_api/Game/Hk4eHomeAudit'
+        is_ssl: false
+        is_detail_log: false
+        token: '3b0f517ab4044fb06339361f0b18c7f5'
+    nickname_sign_audit:
+        is_ssl: false
+        host: 'jp-inner-api.hoyoverse.com'
+        port: 'http'
+        language: 'en-us'

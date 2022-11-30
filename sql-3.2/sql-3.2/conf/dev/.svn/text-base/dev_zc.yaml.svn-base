@@ -1,0 +1,38 @@
+---
+region_name: dev_zc
+work_path: /home/cong.zou/work_repo/trunk/env
+port_begin: 23701
+
+server_list:
+    - id: 1
+      host: '10.13.50.18'
+      inner_ip: '10.13.50.18'
+      outer_ip: '10.13.50.18'
+
+dbgate:
+    short_name: 'dg'
+    thread_num: '2' 
+    stat_log_level: ''
+    servers:
+        - host: '1'
+          num: 1
+    register_rate_conf:
+        - period_length: 10
+          max_register_num: 2
+          max_punish_value: 60
+
+mysql:
+    user_db:
+        dbname: 'db_hk4e_user_zc'
+    config_db:
+        db_list: 
+            - index: 1001
+              dbname: 'db_hk4e_config_zc'
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'db_hk4e_order_zc'
+
+redis:
+    host: '10.13.50.18'
+

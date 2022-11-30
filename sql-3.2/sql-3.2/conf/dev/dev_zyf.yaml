@@ -1,0 +1,35 @@
+---
+region_name: dev_zyf
+work_path: /home/yufei.zhang02/test
+port_begin: 25501
+tracing:
+    enabled: 'false'
+    force_enable_perf_span: 'false'
+
+# 主机列表
+server_list:
+    - id: 1
+      host: '10.13.50.95'
+      inner_ip: '10.13.50.95'
+      outer_ip: '10.13.50.95'
+
+mysql:
+    user_db:
+        dbname: 'db_hk4e_user_zyf'
+    config_db:
+        db_list: 
+            - index: 1001
+              dbname: 'db_hk4e_config_zyf'   
+            - index: 1002
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'db_hk4e_order_zyf'
+
+gateserver:
+    player_server_conf:
+        first_rto_limit: 500
+        redundance_ack: 10
+
+redis:
+    db: '8'

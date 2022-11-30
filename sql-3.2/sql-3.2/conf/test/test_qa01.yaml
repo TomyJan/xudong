@@ -1,0 +1,41 @@
+---
+region_name: qa01
+work_path: /home/data/hk4e_qa01
+
+# mysql 中的 user, pwd, dbname, host, port 字段需要重写
+mysql:
+    user: 'work'
+    pwd: 'miHoYo2012'
+    user_db:
+        dbname: 'hk4e_db_user_qa01'
+        host: '10.100.123.129'
+    config_db:
+        db_list:
+            - index: 1001
+              dbname: 'hk4e_db_config_qa02_yace'
+
+
+# 主机列表，需要重写
+server_list:
+    - id: 1
+      host: 'hk4e-qa-01'
+      inner_ip: '10.100.123.129'
+      outer_ip: '47.100.204.70'
+
+# 进程部署配置
+gateserver:
+    port_player: '19101'
+
+gameserver:
+    port_gt: '19201'
+
+nodeserver:
+    port_service: '19302'
+
+dispatch:
+    port_http: '19401'
+    port_gt: '19402'
+
+muipserver:
+    port_http: '19411'
+

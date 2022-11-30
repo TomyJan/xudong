@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/miHoYo/!svn/ver/1156109/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf_temp
+END
+template_muipserver.xml
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/miHoYo/!svn/ver/1156109/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf_temp/template_muipserver.xml
+END
+template_multiserver.xml
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/miHoYo/!svn/ver/1156109/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf_temp/template_multiserver.xml
+END
+template_nodeserver.xml
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/miHoYo/!svn/ver/1156109/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf_temp/template_nodeserver.xml
+END
+template_gameserver.xml
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/miHoYo/!svn/ver/1156109/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf_temp/template_gameserver.xml
+END
+template_oaserver.xml
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/miHoYo/!svn/ver/1156109/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf_temp/template_oaserver.xml
+END
+template_dbgate.xml
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/miHoYo/!svn/ver/1156109/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf_temp/template_dbgate.xml
+END
+template_dispatch.xml
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/miHoYo/!svn/ver/1156109/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf_temp/template_dispatch.xml
+END
+template_httpproxy.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/miHoYo/!svn/ver/1156109/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf_temp/template_httpproxy.xml
+END
+template_pathfindingserver.xml
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/miHoYo/!svn/ver/1156109/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf_temp/template_pathfindingserver.xml
+END
+template_gateserver.xml
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/miHoYo/!svn/ver/1156109/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf_temp/template_gateserver.xml
+END
+template_tothemoonserver.xml
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/miHoYo/!svn/ver/1156109/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf_temp/template_tothemoonserver.xml
+END

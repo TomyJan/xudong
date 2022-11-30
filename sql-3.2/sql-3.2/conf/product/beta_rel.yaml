@@ -1,0 +1,7 @@
+region_name: 'beta_rel'
+
+output_tcmalloc_interval: '30'
+
+item_output_config:
+    is_enable_extra_white_list: 'true'
+

@@ -1,0 +1,33 @@
+---
+region_name: dev_lj
+work_path: /home/jin.luo/1.1_dev/env
+port_begin: 20601
+
+mysql:
+    user_db:
+        dbname: 'db_hk4e_user_lj'
+    config_db:
+        db_list:
+            - index: 1001
+              dbname: 'db_hk4e_config_lj'
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'db_hk4e_order_lj'
+
+redis:
+    host: '10.13.50.18'
+
+# 主机列表
+server_list:
+    - id: 1
+      host: '10.13.50.18'
+      inner_ip: '10.13.50.18'
+      outer_ip: '10.13.50.18'
+
+gameserver:
+    servers:
+        - host: '1'
+          num: 1
+
+is_simulation_open: 'true'

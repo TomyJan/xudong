@@ -1,0 +1,30 @@
+#!/bin/sh
+
+CUR_PATH=`dirname $0`
+source $CUR_PATH/common.sh
+
+# 读取分区名称
+REGION_NAME=$1
+if [ "" = "${REGION_NAME}" ]
+then
+	yelloEcho "no region set."
+	exit 1
+fi
+
+BASE_OUTPUT_PATH="$2"
+if [ "" = "${BASE_OUTPUT_PATH}" ]
+then
+	yelloEcho "BASE_OUTPUT_PATH not set."
+	exit 1
+fi
+
+# cp文件
+mkdir -p ${BASE_OUTPUT_PATH}
+CP_FILE_LIST="crawl_file_oss common.sh local_*"
+for CP_FILE in ${CP_FILE_LIST}
+do
+	cp -f ${CUR_PATH}/${CP_FILE} ${BASE_OUTPUT_PATH}
+done
+
+deepGreenEchoTimeFormat "init '${BASE_OUTPUT_PATH}' for ${REGION_NAME} succ"
+

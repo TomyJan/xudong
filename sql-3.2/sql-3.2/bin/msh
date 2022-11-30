@@ -1,0 +1,3 @@
+#!/bin/sh
+#echo "ssh -p58422 root@$1"
+ssh -p58422 root@$1

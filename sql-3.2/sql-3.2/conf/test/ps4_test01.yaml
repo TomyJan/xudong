@@ -1,0 +1,108 @@
+---
+region_name: ps4_test01
+work_path: /home/data/ps4_test01
+port_begin: 18401
+
+# 主机列表
+server_list:
+    - id: 1
+      host: 'hk4e-sh-test-ps4-all01.mhy.com'
+      inner_ip: '10.11.7.172'
+      outer_ip: '47.103.56.36'
+
+mysql:
+    user: 'work'
+    pwd: 'miHoYo2012'
+    user_db:
+        dbname: 'hk4e_db_user_ps4_test01'
+        host: '127.0.0.1'
+        port: '3306'
+        db_list:
+            - index: 1
+              name: 'user_id'
+            - index: 2
+              name: 'user_info_0'
+            - index: 3
+              name: 'user_info_1'
+            - index: 4
+              name: 'user_info_2'
+            - index: 5
+              name: 'user_info_3'
+            - index: 6
+              name: 'user_info_4'
+            - index: 7
+              name: 'user_info_5'
+            - index: 8
+              name: 'user_info_6'
+            - index: 9
+              name: 'user_info_7'
+            - index: 10
+              name: 'user_info_8'
+            - index: 11
+              name: 'user_info_9'
+    config_db:
+        db_list:
+            - index: 1001
+              name: 'local_config'
+              host: '127.0.0.1'
+              port: '3306'
+              dbname: 'hk4e_db_config'
+            - index: 1002
+              name: 'global_config'
+              host: '10.100.124.13'
+              port: '3306'
+              user: 'work'
+              pwd: 'miHoYo2012'
+              dbname: 'hk4e_global_deploy_config_test'
+
+redis:
+    host: '127.0.0.1'
+    port: '6379'
+    pwd: '111111'
+    db: '5'
+
+# 进程部署配置
+gateserver:
+    servers:
+        - 1
+
+gameserver:
+    servers:
+        - 1
+
+nodeserver:
+    servers:
+        - 1
+
+dbgate:
+    servers:
+        - 1
+
+multiserver:
+    service_list:
+        - name: 'mailservice'
+          servers:
+              - 1
+        - name: 'mpservice'
+          servers:
+              - 1
+
+VisionList:
+    - name: '正常视距'
+      vision_range: 100
+      grid_width: 20
+    - name: '较远视距'
+      vision_range: 250
+      grid_width: 50
+    - name: '远视距'
+      vision_range: 1000
+      grid_width: 250
+    - name: '超级视距'
+      vision_range: 4000
+      grid_width: 1000
+    - name: '近视距'
+      vision_range: 60
+      grid_width: 20
+    - name: '超近视距'
+      vision_range: 40
+      grid_width: 20

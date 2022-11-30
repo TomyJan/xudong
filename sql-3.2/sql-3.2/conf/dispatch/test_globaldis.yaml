@@ -1,0 +1,44 @@
+---
+region_name: 'globaldis'
+work_path: '/home/data/hk4e_globaldis'
+port: 58422
+
+mysql:
+    user_db: 
+        db_list: []
+    config_db:    
+        db_list:
+            - index: 1002
+              name: 'global_config'
+              user: 'work'
+              pwd: 'miHoYo2012'
+              host: 'mysql-test.rwlb.rds.aliyuncs.com'
+              port: '3306'
+              dbname: 'hk4e_global_deploy_config_test'    
+
+redis:
+  db_list: []
+
+server_list:
+    - id: 1
+      host: "hk4e-sh-test-globaldp01"
+      inner_ip: "10.100.124.13"
+      outer_ip: "47.103.84.232"
+
+# 进程部署配置
+gateserver:
+    servers: []
+
+
+dispatch:
+    port_http: '12401'
+    port_gt: '12402'
+    short_name: 'dp'
+    gt_aserver_thread_num: 1
+    http_aserver_thread_num: 2
+    thread_num: '2'
+    stat_log_level: ''
+    servers:
+        - 1
+
+

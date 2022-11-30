@@ -1,0 +1,37 @@
+---
+region_name: 'banshutest'
+work_path: '/home/data/hk4e_banshutest'
+
+mysql:
+    user_db:
+        dbname: 'hk4e_db_user_banshutest'
+    config_db:
+        db_list:
+            - index: 1001
+              dbname: 'hk4e_db_config_banshutest'
+            - index: 1002
+              dbname: 'hk4e_db_deploy_config_banshutest'
+
+server_list:
+    - id: 1
+      host: "hk4e-qa-01"
+      inner_ip: "10.100.123.129"
+      outer_ip: "47.100.204.70"
+
+# 进程部署配置
+gateserver:
+    port_player: '23101'
+
+gameserver:
+    port_gt: '23201'
+
+nodeserver:
+    port_service: '23302'
+
+dispatch:
+    port_http: '23401'
+    port_gt: '23402'
+
+muipserver:
+    port_http: '23411'
+

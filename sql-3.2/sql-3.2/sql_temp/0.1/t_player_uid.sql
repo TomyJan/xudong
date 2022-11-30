@@ -1,0 +1,14 @@
+CREATE TABLE `t_player_uid` (
+	`uid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`account_type` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '账号类型',
+	`account_uid` VARCHAR(128)  NOT NULL DEFAULT '' COMMENT '绑定的账号UID' ,
+	`create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`ext` VARCHAR(512)   NOT NULL DEFAULT '' COMMENT '自定义信息，Json格式' ,
+	`tag` INT(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'TAG，由MUIP设置',
+	PRIMARY KEY (`uid`) USING BTREE,
+	UNIQUE INDEX `account_type_account_uid` (`account_type`, `account_uid`)
+)
+COMMENT='玩家身份信息表'
+ENGINE=InnoDB
+AUTO_INCREMENT=10000
+;

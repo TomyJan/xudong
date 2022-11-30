@@ -1,0 +1,18 @@
+region_name: ''
+work_path: /home/data/hk4e
+region_type: httpproxy
+tracing:
+    enabled: 'false'
+    
+httpproxy:
+    name: 'httpproxy'
+    short_name: 'hp'
+    http_aserver_thread_num: 6
+    port_http: "13222"
+
+is_dev: 0
+env: 'test'
+log_cut_time: 60
+log_keep_time: 20160
+
+# db配置在cmddb中

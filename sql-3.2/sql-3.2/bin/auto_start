@@ -1,0 +1,129 @@
+#!/bin/sh
+CUR_PATH=`dirname $0`
+source $CUR_PATH/common.sh
+
+REGION_NAME=$1
+MODULE_LIST="nodeserver dbgate gameserver gateway"
+if [ "" != "$2" ]
+then
+	MODULE_LIST=$2
+fi
+
+#
+
+
+# para check
+if [ "" = "${REGION_NAME}" ]
+then
+	echo "no region set."
+	exit 1
+fi
+
+# 二次确认
+echo -e "\033[36m${REGION_NAME}\033[0m"
+echo -e "\033[36m${MODULE_LIST}\033[0m"
+read -p "确定 开服？" YN
+case $YN in 
+Y | y)
+	echo "";;
+*)
+	exit 0;;
+esac
+
+#start a module on specified server
+function start_module_server()
+{
+	# 解析参数
+	local MODULE_NAME=$1
+	local HOST=$2
+	local PORT=$3
+	local WORK_PATH=$4
+	local MODULE_PATH=$5
+	local NUM=$6
+
+	if [ $NUM -gt 1 ]
+	then
+		echo -e "\033[36m ++++++ start [$HOST:$MODULE_NAME] begin ++++++\033[0m" 
+	fi
+
+	for((idx = 1; idx <= NUM; idx++))
+	do
+		if [ $idx -gt 1 ]
+		then
+			local FINAL_MODULE_PATH=$MODULE_PATH$idx
+			echo "start $MODULE_NAME$idx on $HOST"
+		else
+			local FINAL_MODULE_PATH=$MODULE_PATH
+		echo "start $MODULE_NAME on $HOST"
+		fi
+
+		# init run file
+		if [ "${MODULE_NAME}" = "fightserver" ]
+		then
+			ssh -f -p${PORT} ${HOST} "cd ${WORK_PATH}/${FINAL_MODULE_PATH} && echo \"#!/bin/sh\" > run && echo \"exec /opt/mono/bin/mono ./${MODULE_PATH} >/dev/null 2>&1\" >> run && chmod +x run"
+		else    
+			ssh -f -p${PORT} ${HOST} "cd ${WORK_PATH}/${FINAL_MODULE_PATH} && echo \"#!/bin/sh\" > run && echo \"exec ./${MODULE_PATH} >> run.log 2>&1\" >> run && chmod +x run"
+		fi
+
+		# start with supervise
+		ssh -f -p${PORT} ${HOST} "export LD_LIBRARY_PATH=../lib/ && export MONO_PATH=./lib && rm ${WORK_PATH}/${FINAL_MODULE_PATH}/down -f && ulimit -c unlimited && nohup supervise ${WORK_PATH}/${FINAL_MODULE_PATH} "
+		if [ $? -ne 0 ]
+		then
+			echo "start ${MODULE_NAME} on ${HOST}, index:${idx} failed."
+			return 1
+		fi
+	done
+	return 0
+}
+
+function start_module()
+{
+	local MODULE_NAME=$1
+
+	# step1: get module info
+	MODULE_INFO=`${CUR_PATH}/server_parse ${REGION_NAME}.${MODULE_NAME} host,port,work_path,name,num`
+	local parse_ret=$?
+	if [ $parse_ret -eq 20 ]
+	then
+		yello_echo "====== `date +%H:%M:%S`: start [${MODULE_NAME}] start ======"
+		echo ${MODULE_INFO}
+		echo "skip {$MODULE_NAME}"
+		yello_echo "====== `date +%H:%M:%S`: start [${MODULE_NAME}] end ======\n"
+		return 0
+	fi
+	
+	echo -e "\033[36m ====== `date +%H:%M:%S`: start [${MODULE_NAME}] start ======\033[0m"
+	if [ $parse_ret -ne 0 ]
+	then
+		echo ${MODULE_INFO}
+		echo "get info of ${REGION_NAME}.${MODULE_NAME} failed."
+		return 1
+	fi
+	
+	# step2: 
+	server_parse ${REGION_NAME}.${MODULE_NAME} host,port,work_path,name,num | while read LINE
+	do
+		start_module_server $MODULE_NAME $LINE
+		if [ $? -ne 0 ]
+		then
+			return 1
+		fi
+	done
+
+	echo -e "\033[36m ====== `date +%H:%M:%S`: start [${MODULE_NAME}] succ ======\033[0m"
+	return 0
+}
+
+function auto_start()
+{
+	for MODULE_NAME in ${MODULE_LIST}
+	do
+		start_module $MODULE_NAME
+		if [ $? -ne 0 ]
+		then
+			return 1
+		fi
+	done
+}
+
+auto_start

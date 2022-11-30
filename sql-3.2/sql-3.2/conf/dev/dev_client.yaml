@@ -1,0 +1,30 @@
+---
+region_name: dev_client
+work_path: /home/data/hk4e_dev_client
+port_begin: 15401
+
+mysql:
+    user: 'work'
+    pwd: 'miHoYo2012'
+    user_db:
+        dbname: 'hk4e_db_user_dev_client'
+        host: '10.100.123.129'
+    config_db:
+        db_list:
+            - index: 1001
+              host: '10.100.123.129'
+              dbname: 'hk4e_db_config_master'
+            - index: 1002
+              host: '10.100.124.13'
+              dbname: 'hk4e_db_deploy_config_new'
+
+redis:
+    name: 'redis0'
+    host: '10.100.123.129'
+    db: '3'
+
+server_list:
+    - id: 1
+      host: 'hk4e-qa-01'
+      inner_ip: '10.100.123.129'
+      outer_ip: '47.100.204.70'

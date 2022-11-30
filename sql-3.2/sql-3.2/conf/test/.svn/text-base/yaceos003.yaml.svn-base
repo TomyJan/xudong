@@ -1,0 +1,125 @@
+region_name: 'yaceos003'
+tracing:
+    enabled: 'false'
+    force_enable_perf_span: 'false'
+mem_perf:
+    force_open: 'true'
+cmd_report:
+    force_open: 'false'
+coroutine:
+    force_open: 'false'
+
+grid:
+    is_destory: 'true'
+    is_use_pool: 'true'
+
+group_limit:
+    max_unload_time_us: 5000
+
+gateserver:
+    game_aclient_thread_num: '1'
+    pf_aclient_thread_num: '1'
+    player_server_conf:
+        max_conn_num: 1000
+    packet_conf:
+        check_interval: 10000
+        max_count: 4000
+        max_size: 0
+    gameserver_mgr:
+        threshold_load_0: 400
+        threshold_load_1: 600
+        choose_add_load: 600
+
+gameserver:
+    gt_aserver_thread_num: 1
+    thread_num: '4'
+    async_thread_num: '16'
+    warn_online_player: '500'
+    max_online_player: '800'
+    max_conn_num: '8192'
+    save:
+        player_save_when_gacha: 'true'
+        player_save_when_recharge: 'true'
+    rate_limit:
+        login: 100
+    home_verify:
+        is_enable: true
+        host: 'ptsapi-takumi.mihoyo.com'
+        port: '80'
+        uri: '/game/hk4e_homeland/OuterApi/Record'
+        is_ssl: false
+        is_detail_log: false
+        token: '3b0f517ab4044fb06339361f0b18c7f5'
+    home:
+        home_no_player_destroy_time: 60
+
+nodeserver:
+    aserver_thread_num: 1
+    thread_num: '4'
+    max_conn_num: '128'
+
+dbgate:
+    thread_num: '6'
+    packet_queue_max_size: 1000
+
+dispatch:
+    http_aserver_thread_num: 6
+    thread_num: '4'
+
+muipserver:
+    http_aserver_thread_num: 2
+
+oaserver:
+    http_aserver_thread_num: 2
+    thread_num: '2'
+
+pathfindingserver:
+    thread_num: '8'
+    max_conn_num: '8192'
+
+multiserver:
+    node_aclient_thread_num: '1'
+    services:
+        - name: 'mailservice'
+          type: 'Mailservice'
+          thread_num: '4'
+          stat_log_level: 'MAIL_STAT'
+        - name: 'mpservice'
+          type: 'Mpservice'
+          thread_num: '1'
+          stat_log_level: ''
+        - name: 'offlinemsgservice'
+          type: 'OfflineMsgservice'
+          thread_num: '4'
+          stat_log_level: ''
+        - name: 'activityservice'
+          type: 'Activityservice'
+          thread_num: '4'
+          stat_log_level: ''
+        - name: 'socialservice'
+          type: 'Socialservice'
+          thread_num: '4'
+          stat_log_level: ''
+        - name: 'matchservice'
+          type: 'Matchservice'
+          thread_num: '4'
+          stat_log_level: ''
+        - name: 'offlineopservice'
+          type: 'OfflineOpservice'
+          thread_num: '4'
+          stat_log_level: ''
+
+# 反脱机挂相关配置，gameserver和gateserver用
+security_config:
+    is_move_speed_check_open: "false"            # 移速检测是否开启
+    is_move_speed_check_kick_player: 0          # 移动速度检查失败是否踢玩家下线
+    is_move_speed_check_drag_player: "false"     # 检测到超速后是否拉回
+    is_scene_time_move_speed_check_open: "false" # SceneTime移速检测是否开启
+    is_scene_time_move_speed_check_kick_player: 0   # SceneTime移动速度检查失败是否踢玩家下线
+    is_scene_time_move_speed_check_drag_player: "false" # SceneTime移动速度检查失败是否拉回
+
+log_cut_time: 60
+log_keep_time: 10080
+is_skip_sdk_verify_when_http_failed: 'true'
+is_high_freq_packet_log_open: 'false'
+auto_reload_config_interval: '300'

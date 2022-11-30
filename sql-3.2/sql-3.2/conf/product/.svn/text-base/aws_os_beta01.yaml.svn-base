@@ -1,0 +1,106 @@
+﻿---
+region_name: os_beta01
+is_internal_server: 'false'
+dev_sdk_account: 'false'
+work_path: /home/data/hk4e
+is_gm_talk_open: 'false'
+is_print_entity_debug_log: 'true'
+output_control_monitor:
+    host: 'log-upload-os.hoyoverse.com'
+    port: '443'
+    uri: '/hk4e/monitor'
+    is_ssl: 1
+
+gateserver:
+    player_server_conf:
+        max_conn_num: 1000
+        wait_snd_check_interval: 30
+        wait_snd_max: 10000
+    gameserver_mgr:
+        threshold_load_0: 800
+        threshold_load_1: 1000
+        choose_add_load: 1      
+gameserver:
+    warn_online_player: '800'
+    max_online_player: '1000'
+    word_filter:
+        is_ssl: false
+        host: 'us-game-api.hoyoverse.com'
+        port: 'http'
+        uri: '/game/hk4e/sensitive_word/sw/check'
+    push_tags:
+        host: 'hk4e-sdk-minor-os.hoyoverse.com'
+    home_verify:
+        is_ssl: false
+        host: 'us-game-api.hoyoverse.com'
+        port: 'http'
+        is_enable: true
+    nickname_sign_audit:
+        is_ssl: false
+        host: 'us-game-api.hoyoverse.com'
+        port: 'http'
+        language: 'en-us'
+    save:
+        is_async_save: 'true'
+        is_gacha_player_save_check_item_type: 'false'
+nodeserver:
+    log_buf_size: 64
+dbgate:
+    log_buf_size: 64
+    is_login_rsp_split: 'true'
+    login_rsp_split_size: '20480'
+dispatch:
+    log_buf_size: 64
+    gateserver_mgr:
+        threshold_load_0: 800
+        threshold_load_1: 1000
+        choose_add_load: 1     
+muipserver:
+    log_buf_size: 64
+oaserver:
+    log_buf_size: 64
+multiserver:
+    custom_dungeon:
+        is_enable_verify: 'true'
+        is_verify_ssl: 'false'
+        verify_host: 'us-inner-api.hoyoverse.com'
+        verify_port: '80'
+        verify_uri: '/game/hk4e_homeland/OuterApi/DungeonRecord'
+        verify_timeout: 5
+
+pathfindingserver:
+    use_havok_cut: 'true'
+
+mem_perf:
+    force_open: 'true'
+
+lua_script_cache_num:
+    clear_num: 300
+    clear_time: 300
+    start_clear_num: 100
+
+item_output_config:
+    is_enable_extra_white_list: 'true'
+
+security_config:
+    is_use_server_override_map: "true" # 启用server端override_map
+    safe_server_config:   # 和安全server交互用到的配置
+        connection_status_notify_config:  # 向安全server上报玩家在线状态的http地址
+            enable: "true"
+            host: "keeper-hk4e-global-os-beta01.hoyoverse.com"
+            port: 80
+            is_ssl: "false"
+    packet_cost_time_exceed_limit_config: # 玩家单个协议耗时过高
+        cost_time_percent: 20             # 耗时百分比
+        is_enable_kick: "true"            # 是否开启踢下线
+        kick_time_percent: 80             # 踢下线耗时百分比
+
+server_error_notify:
+    rate_limit: 0 # 配0表示不允许打印此日志到客户端
+
+ability_config:
+    is_client_anticheat_report_open: 'true'
+
+sdk_verify_host_darkrelease:
+    host: 'hk4e-beta-sdk-slb-os.hoyoverse.com'
+    weight: 50

@@ -1,0 +1,50 @@
+---
+region_name: microsoft
+work_path: /home/data/hk4e_microsoft
+
+log_cut_time: 60
+# mysql 中的 user, pwd, dbname, host, port 字段需要重写
+mysql:
+    user: 'work'
+    pwd: 'miHoYo2012'
+    user_db:
+        dbname: 'hk4e_db_user_microsoft'
+    config_db:
+        db_list:
+            - index: 1001
+              dbname: 'hk4e_db_config_microsoft'
+            - index: 1002
+              dbname: 'hk4e_db_deploy_config_new'              
+
+redis:
+    db: '5'
+
+# 主机列表，需要重写
+server_list:
+    - id: 1
+      host: 'microsoft-test'
+      inner_ip: '10.104.3.150'
+      outer_ip: '52.9.102.11'
+
+# 进程部署配置
+gateserver:
+    port_player: '18101'
+    # 放宽weekly的发包频率限制
+    packet_conf:
+        check_interval: 10000
+        max_count: 2000
+        max_size: 0
+
+gameserver:
+    port_gt: '18201'
+
+nodeserver:
+    port_service: '18302'
+
+dispatch:
+    port_http: '18401'
+    port_gt: '18402'
+
+muipserver:
+    port_http: '18411'
+

@@ -1,0 +1,44 @@
+---
+region_name: dev_docker
+work_path: /home/zijing.qin/test
+port_begin: 21701
+
+mysql:
+    user_db:
+        dbname: 'hk4e_db_user_oyjc'
+        host: '172.17.0.1'
+        port: '53306'
+    config_db:
+        db_list:
+            - index: 1001
+              dbname: 'db_hk4e_config_oyjc'
+              host: '172.17.0.1'
+              port: '53306'   
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'db_hk4e_order_oyjc'
+              host: '172.17.0.1'
+              port: '53306'
+
+redis:
+    host: '172.17.0.1'
+    port: '56379'
+    db: '3'
+
+server_list:
+    - id: 1
+      host: '127.0.0.1'
+      inner_ip: '127.0.0.1'
+      outer_ip: '127.0.0.1'
+
+httpproxy:
+    name: 'httpproxy'
+    short_name: 'oyjc'
+    http_aserver_thread_num: 2
+    port_http: "13222"
+    stat_log_level: ''
+    thread_num: '1' 
+    servers:
+        - host: '1'
+          num: 1

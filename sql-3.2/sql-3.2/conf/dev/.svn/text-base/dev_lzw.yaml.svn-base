@@ -1,0 +1,33 @@
+region_name: dev_lzw
+work_path: /home/zewei.li/3.0_dev/env
+dbgate:
+  register_rate_conf:
+  - max_punish_value: 60
+    max_register_num: 2
+    period_length: 10
+  thread_num: '2'
+  stat_log_level: ''
+  short_name: dg
+  servers:
+  - host: '1'
+    num: 1
+server_list:
+- host: 10.13.50.85
+  inner_ip: 10.13.50.85
+  id: 1
+  outer_ip: 10.13.50.85
+redis:
+  host: 10.13.50.85
+  db: '13'
+port_begin: 19901
+mysql:
+  data_db:
+    db_list:
+    - index: 2001
+      dbname: db_hk4e_order_lzw
+  user_db:
+    dbname: db_hk4e_user_lzw
+  config_db:
+    db_list:
+    - index: 1001
+      dbname: db_hk4e_config_lzw

@@ -1,0 +1,43 @@
+8
+
+dir
+1156110
+http://hk4esvn.mihoyo.com/svn/miHoYo/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools
+http://hk4esvn.mihoyo.com/svn/miHoYo
+
+
+
+2022-09-26T11:59:38.780874Z
+1156109
+hao.guo
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9c0077b0-a215-4c19-9e1c-48051f2e5cdf
+
+bin
+dir
+
+conf
+dir
+
+conf_temp
+dir
+
+opsmind
+dir
+
+sql_temp
+dir
+

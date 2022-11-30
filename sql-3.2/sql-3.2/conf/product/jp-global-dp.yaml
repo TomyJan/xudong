@@ -1,0 +1,58 @@
+---
+region_name: jp-global-dp
+work_path: /home/data/hk4e_jp-global-dp
+port: 58422
+
+# mysql 中的 user, pwd, dbname, host, port 字段需要重写
+mysql: 
+    user_db:
+        db_list: []
+    config_db:
+        db_list:
+            - index: 1002
+              user: 'work'
+              pwd: 'O9tWTrSva9VHkxEfWLDx'
+              host: 'rm-6wewh1x1t7s338s3b.mysql.japan.rds.aliyuncs.com'
+              port: '3306'
+              dbname: 'hk4e_db_deploy_config'      
+
+redis:
+  db_list: []
+
+# 主机列表，需要重写
+server_list:
+    - id: 1
+      host: 'hk4e-jp-global-dp01'
+      inner_ip: '10.101.197.19'
+      outer_ip: '10.101.197.19'
+    - id: 2
+      host: 'hk4e-jp-global-dp02'
+      inner_ip: '10.101.197.20'
+      outer_ip: '10.101.197.20'
+     
+# 进程部署配置
+dispatch:
+    port_http: '12401'
+    port_gt: '12402'
+    short_name: 'dp'
+    thread_num: '2' 
+    stat_log_level: ''
+    servers:
+        - 1
+        - 2
+        
+gateserver:
+    servers: []
+
+
+# 开发用的字段
+is_dev: 0
+env: 'prod'
+log_cut_time: 1440
+log_keep_time: 20160
+
+account_list:
+    - is_dev: 1
+      xml: '<Account type="mihoyo" sdk_host="https://gameapi.account.mihoyo.com/" account_verify_url="/sdk/token_login" get_account_url="" />'
+    - is_dev: 0
+      xml: '<Account type="mihoyo" sdk_host="https://gameapi.account.mihoyo.com/" account_verify_url="/sdk/token_login" get_account_url="" />'

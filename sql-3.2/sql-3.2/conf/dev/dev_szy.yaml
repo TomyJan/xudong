@@ -1,0 +1,34 @@
+---
+region_name: dev_szy
+work_path: /home/zhengyi.shen/test
+port_begin: 9000
+is_high_freq_packet_log_open: 'false'
+mem_perf:
+    force_open: 'false'
+    output_interval: '1800'
+    app_list:
+        - app_id: '906.2.1.1'
+          is_to_monitor: 'false'
+mysql:
+    user_db:
+        dbname: 'hk4_db_user_szy'
+    config_db:
+        db_list:
+            - index: 1001
+              name: 'db_hk4e_local'
+              host: '192.168.10.148'
+              port: '3306'
+              dbname: 'db_hk4e_config_szy'
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'db_hk4e_order_szy'
+server_list:
+    - id: 1
+      host: '10.13.50.95'
+      inner_ip: '10.13.50.95'
+      outer_ip: '10.13.50.95'
+
+redis: 
+    host: '10.13.50.19'
+    db: '2'

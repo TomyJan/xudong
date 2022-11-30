@@ -1,0 +1,34 @@
+---
+region_name: 'yace_agent01'
+work_path: '/home/data/hk4e_yace_agent01'
+
+mysql:
+    user_db:
+        dbname: 'hk4e_db_user_weekly'
+
+redis:
+    db: '5'
+
+server_list:
+    - id: 1
+      host: "hk4e-sh-test-yc01-agent001"
+      inner_ip: "10.11.7.169"
+      outer_ip: "47.103.96.31"
+
+# 进程部署配置
+gateserver:
+    port_player: '18101'
+
+gameserver:
+    port_gt: '18201'
+
+nodeserver:
+    port_service: '18302'
+
+dispatch:
+    port_http: '18401'
+    port_gt: '18402'
+
+muipserver:
+    port_http: '18411'
+

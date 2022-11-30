@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+    {% if conf.build_ver is defined %}
+    <BuildVersion value="{{conf.build_ver}}" />
+    {% endif %}
+    <!-- 日志配置 -->
+    <LogConf>
+        <LogLevelMask value="" />
+        <MaxLogLen value="8192" />
+        <LogCutTime value="{{conf.log_cut_time}}" />
+        <LogKeepTime value="{{conf.log_keep_time}}" />
+        <LogList>
+            <DebugFile path="log/httpproxy.log" level="DEBUG INFO WARNING ERROR FATAL" />
+            <WarningFile path="log/httpproxy.warning.log" level="WARNING ERROR FATAL" />
+            <ErrorFile path="log/httpproxy.error.log" level="ERROR FATAL" />
+            <CmdFile path="log/httpproxy.cmd.log" level="CMD" />
+        </LogList>
+    </LogConf>
+
+    <!-- 网络配置 -->
+    <NetConf>
+        <HttpProxyConf>
+            <ListenPort value="0" />
+            <RecvBufLen value="16" />
+            <ThreadNum value="{{conf.httpproxy.http_aserver_thread_num}}" />
+            <TimeoutSec value="30" />
+            <KeepAliveSec value="0" />
+            <MaxConnNum value="4096" />
+            <CutPacket value="0" />
+            <Backlog value="{{conf.aserver_listen_backlog}}" />
+        </HttpServerConf>
+    </NetConf>
+
+
+    <!-- 数据库配置 -->
+    <MysqlConf>
+        {% for db in conf.mysql %}
+        <Db index="{{db.index}}" name="{{db.name}}" host="{{db.host}}" port="{{db.port}}" user="{{db.user}}" pwd="{{db.pwd}}" dbname="{{db.dbname}}" />
+        {% endfor %}
+    </MysqlConf>
+        <RedisConf>
+    </RedisConf>
+
+	<!-- 数据库额外配置 扩容操作相关 -->
+	<MysqlExtraConf player_db_count="{{conf.mysql_extra_conf.player_db_count}}" home_db_count="{{conf.mysql_extra_conf.home_db_count}}" is_judge_user_db_delete="{{conf.mysql_extra_conf.is_judge_user_db_delete}}"/>
+
+    <!-- 分区配置 -->
+    <RegionConf name="{{conf.region_name}}" />
+
+    <ServiceList>
+        <HttpProxy name="httpproxy" thread_num="1" />
+    </ServiceList>
+
+    <AppList>
+        {% for process in conf['httpproxy'].processes %}
+        <App app_id="{{process.app_id}}" >
+            {% for port_key, port_value in process.items() %}
+            {% if port_key.startswith('port') %}
+            <Port name="{{port_key}}" port="{{port_value}}"/>
+            {% endif %}
+            {% endfor %}
+        </App>
+        {% endfor %}
+    </AppList>
+
+    <ServerList>
+        {% for server in conf.server_list %}
+        <Server id="{{server.id}}" host="{{server.host}}" inner_ip="{{server.inner_ip}}" outer_ip="{{server.outer_ip}}" />
+        {% endfor %}
+    </ServerList>
+    <MysqlPoolMaxSize value ="{{conf.mysql_conn_pool_max_size}}" />
+    <RedisPoolMaxSize value ="{{conf.redis_conn_pool_max_size}}" />
+    <MemPerfConfig force_open="{{conf.mem_perf.force_open}}" output_interval="{{conf.mem_perf.output_interval}}" 
+       black_list="{{conf.mem_perf.black_list}}" white_list="{{conf.mem_perf.white_list}}">
+      <MemPerfAppList>
+        {% if conf.mem_perf.app_list is defined %}
+        {% for item in conf.mem_perf.app_list %}
+        <App app_id="{{item.app_id}}" is_to_monitor="{{item.is_to_monitor}}"/>
+        {% endfor %}
+        {% endif %}
+      </MemPerfAppList>
+    </MemPerfConfig>
+    <CmdReportConfig force_open="{{conf.cmd_report.force_open}}" output_interval="{{conf.cmd_report.output_interval}}">
+      <CmdReportAppList>
+        {% if conf.cmd_report.app_list is defined %}
+        {% for item in conf.cmd_report.app_list %}
+        <App app_id="{{item.app_id}}" />
+        {% endfor %}
+        {% endif %}
+      </CmdReportAppList>
+    </CmdReportConfig>
+	<MonitorReport port="{{conf.monitor_report.port}}" svn_report_interval="{{conf.monitor_report.svn_report_interval}}"/>
+	<DataReadConfig is_readlink="{{conf.is_readlink}}"/>
+    <TCMallocConfig output_tcmalloc_interval="{{conf.output_tcmalloc_interval}}" tcmalloc_free_interval="{{conf.tcmalloc_free_interval}}"/>
+	<AutoReloadConfig interval="{{conf.auto_reload_config_interval}}" />
+</Root>

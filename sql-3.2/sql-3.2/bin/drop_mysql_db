@@ -1,0 +1,66 @@
+#!/bin/sh
+
+CUR_DIR=`dirname "$0"`
+
+# 读取分区名称
+REGION_NAME="$1"
+if [ "" = "${REGION_NAME}" ]
+then
+	echo "region_name is empty"
+	exit 1
+fi
+
+# 读取mysql参数
+SERVER_PARSE_BIN="${CUR_DIR}/server_parse ${REGION_NAME}.mysql host,port,user,pwd,dbname,index"
+RES="`${SERVER_PARSE_BIN}`"
+if [ $? -ne 0 ]
+then
+	echo "${RES}"
+	exit 1
+fi
+
+# 二次确认
+echo -e "分区：\033[36m${REGION_NAME}\033[0m"
+read -p "确定 删除数据库？[Y/N] " YN
+case $YN in 
+Y | y)
+	echo "";;
+*)
+	exit 0;;
+esac
+
+# 汇总执行命令
+SQL_BIN_FILE=".drop_mysql_db.tmp"
+rm ${SQL_BIN_FILE} -f
+${SERVER_PARSE_BIN} | awk '{key="$1_$2_$5"; db_list[key]++; if($NF < 1000 && db_list[key] == 1) print $0;}' | while read LINE
+do
+    HOST="`echo ${LINE}|awk '{print $1}'`"
+    PORT="`echo ${LINE}|awk '{print $2}'`"
+    USER="`echo ${LINE}|awk '{print $3}'`"
+    PASSWD="`echo ${LINE}|awk '{print $4}'`"
+    DBNAME="`echo ${LINE}|awk '{print $5}'`"
+
+    SQL_BIN="mysql -h${HOST} -P${PORT} -u${USER} -p${PASSWD} -e \"drop database ${DBNAME}\""
+    echo "${SQL_BIN}" >> ${SQL_BIN_FILE}
+done
+
+# 再次确认执行
+ID=1
+cat "${SQL_BIN_FILE}" | while read LINE
+do
+    echo -e "\033[36m[${ID}]\033[0m ${LINE}"
+    ID=$[ ${ID} + 1 ]
+done
+
+read -p "确定 执行以上命令删除DB？[Y/N] " YN
+case $YN in 
+    Y | y)
+	echo "";;
+    *)
+	echo "操作取消"
+	exit 0;;
+esac
+
+
+# 执行
+sh ${SQL_BIN_FILE} && rm ${SQL_BIN_FILE} -f

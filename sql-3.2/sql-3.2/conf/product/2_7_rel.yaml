@@ -1,0 +1,8 @@
+---
+region_name: 2_7_rel
+
+security_config:
+    safe_server_config:   # 和安全server交互用到的配置
+        connection_status_notify_config:  # 向安全server上报玩家在线状态的http地址
+            enable: "true"
+            host: "api-beta.mihoyo.com"

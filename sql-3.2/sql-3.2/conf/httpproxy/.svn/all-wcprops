@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf/httpproxy
+END
+httpproxy_common.yaml
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf/httpproxy/httpproxy_common.yaml
+END
+cn_prod_httpproxy.yaml
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf/httpproxy/cn_prod_httpproxy.yaml
+END
+cn_test_httpproxy.yaml
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/conf/httpproxy/cn_test_httpproxy.yaml
+END

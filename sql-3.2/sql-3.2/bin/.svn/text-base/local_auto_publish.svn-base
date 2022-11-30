@@ -1,0 +1,51 @@
+#!/bin/sh
+
+CUR_PATH=`dirname $0`
+source ${CUR_PATH}/common.sh
+
+TAR_FILE="hk4e_output.tar.gz"
+TAR_DIR="hk4e_output/"
+
+JOB_NAME="$1"
+
+# 判断supervise目录
+SUPERVISE_PATH=""
+which svc
+if [ $? -ne 0 ]
+then
+	SUPERVISE_PATH="/usr/local/bin/"
+fi
+
+
+#
+# STEP 1 从hudson抓取文件
+#
+./crawl_file_oss ${JOB_NAME}
+if [ $? -ne 0 ]
+then
+	echo "download failed."
+    exit 1
+fi
+deepGreenEchoTimeFormat "download succ"
+
+#
+# STEP 2 更新文件
+#
+rm ../lib -rf
+cp ${TAR_DIR}/lib .. -r
+deepGreenEchoTimeFormat "upate lib succ"
+for MODULE in ${FULL_MODULE_LIST}
+do
+	rm ../${MODULE}/${MODULE} -f && cp -rf ${TAR_DIR}/${MODULE}/* ../${MODULE}/ && ${SUPERVISE_PATH}svc -t ../${MODULE}/
+	export LD_LIBRARY_PATH=../lib && ../${MODULE}/${MODULE} -v
+	deepGreenEchoTimeFormat "update ${MODULE} succ"
+done
+
+#
+# STEP 4 检查
+#
+sleep 5
+for MODULE in ${MODULE_LIST}
+do
+	${SUPERVISE_PATH}svstat ../${MODULE}/
+done

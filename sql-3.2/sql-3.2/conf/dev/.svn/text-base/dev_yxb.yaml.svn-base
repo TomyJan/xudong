@@ -1,0 +1,35 @@
+---
+region_name: dev_yxb
+work_path: /home/xiaobo.yang/1.4_dev
+port_begin: 18901
+tracing:
+    enabled: 'false'
+    force_enable_perf_span: 'false'
+
+# 主机列表
+server_list:
+    - id: 1
+      host: '10.13.50.16'
+      inner_ip: '10.13.50.16'
+      outer_ip: '10.13.50.16'
+
+mysql:
+    user_db:
+        dbname: 'db_hk4e_user_yxb'
+    config_db:
+        db_list: 
+            - index: 1001
+              dbname: 'db_hk4e_config_yxb'   
+            - index: 1002
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'db_hk4e_order_yxb'
+
+gateserver:
+    player_server_conf:
+        first_rto_limit: 500
+        redundance_ack: 10
+
+redis:
+    db: '14'

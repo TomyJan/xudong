@@ -1,0 +1,41 @@
+---
+region_name: dev_zt
+work_path: /home/tao.zhang/test
+port_begin: 25301
+tracing:
+    enabled: 'false'
+    # force_enable_perf_span: 'true'
+    # perf_span_app_list:
+    #     - app_id: '920.2.1.1'
+
+# 主机列表
+server_list:
+    - id: 1
+      host: '10.13.50.95'
+      inner_ip: '10.13.50.95'
+      outer_ip: '10.13.50.95'
+
+mysql:
+    user_db:
+        dbname: 'db_hk4e_user_zt'
+    config_db:
+        db_list: 
+            - index: 1001
+              dbname: 'db_hk4e_config_zt'   
+            - index: 1002
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'db_hk4e_order_zt'
+
+gateserver:
+    player_server_conf:
+        first_rto_limit: 500
+        redundance_ack: 10
+
+gameserver:
+    home:
+        home_no_player_destroy_time: 60
+
+redis:
+    db: '15'

@@ -1,0 +1,37 @@
+﻿---
+region_name: dev_mqm
+work_path: /home/qiming.ma/2.5_dev/env/
+port_begin: 10230
+tracing:
+    enabled: 'false'
+    force_enable_perf_span: 'false'
+
+# 主机列表
+server_list:
+    - id: 1
+      host: '10.13.50.17'
+      inner_ip: '10.13.50.17'
+      outer_ip: '10.13.50.17'
+
+mysql:
+    user_db:
+        dbname: 'db_hk4e_user_mqm'
+    config_db:
+        db_list: 
+            - index: 1001
+              dbname: 'db_hk4e_config_mqm'   
+            - index: 1002
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'db_hk4e_order_mqm'
+
+gateserver:
+    player_server_conf:
+        first_rto_limit: 500
+        redundance_ack: 10
+
+redis:
+  db: '11'
+  host: '10.13.50.85'
+

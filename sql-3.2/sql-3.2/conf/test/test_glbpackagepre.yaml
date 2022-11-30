@@ -1,0 +1,23 @@
+﻿---
+region_name: 'glbpackagepre'
+work_path: '/home/data/hk4e'
+
+# 进程部署配置
+gateserver:
+    port_player: '18101'
+
+gameserver:
+    port_gt: '18201'
+
+nodeserver:
+    port_service: '18302'
+
+dispatch:
+    port_http: '18401'
+    port_gt: '18402'
+
+muipserver:
+    port_http: '18411'
+
+pathfindingserver:
+    port_gt: '18501'

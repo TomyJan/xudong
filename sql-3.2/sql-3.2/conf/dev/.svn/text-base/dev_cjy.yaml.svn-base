@@ -1,0 +1,21 @@
+---
+region_name: dev_cjy
+work_path: /home/jingyi.cai/hk4e/server/1.0_dev
+port_begin: 18601
+
+mysql:
+    user_db:
+        dbname: 'db_hk4e_user_cjy'
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'hk4e_db_order_cjy'
+
+redis:
+    host: '10.13.50.19'
+
+pathfindingserver:
+    thread_num: '10'
+    test_player_count: 2
+    cpu_profiling_mode: 2
+

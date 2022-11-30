@@ -1,0 +1,44 @@
+---
+region_name: dev_zf
+work_path: /home/fan.zhang/PP/2.3_dev/env
+port_begin: 13467
+
+# 主机列表
+server_list:
+    - id: 1
+      host: '10.13.50.18'
+      inner_ip: '10.13.50.18'
+      outer_ip: '10.13.50.18'
+
+mysql:
+    user_db:
+        dbname: 'db_hk4e_user_zf'
+    config_db:
+        db_list: 
+            - index: 1001
+              dbname: 'db_hk4e_config_zf'   
+            - index: 1002
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'db_hk4e_order_zf'
+
+gateserver:
+    player_server_conf:
+        first_rto_limit: 500
+        redundance_ack: 10
+
+httpproxy:
+    name: 'httpproxy'
+    short_name: 'hp'
+    http_aserver_thread_num: 2
+    port_http: "13222"
+    stat_log_level: ''
+    thread_num: '1' 
+    servers:
+        - host: '1'
+          num: 1
+
+redis:
+    host: '10.13.50.18'
+    db: '13'

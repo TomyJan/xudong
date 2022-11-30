@@ -1,0 +1,162 @@
+---
+region_name: ios-review
+work_path: /home/data/hk4e_ios_review
+
+# mysql 中的 user, pwd, dbname, host, port 字段需要重写
+mysql:
+    user: 'work'
+    pwd: 'miHoYo2012'
+    port: '3306'
+    user_db:
+        dbname: 'hk4e_db_user_ios_review'
+        host: '10.104.166.202'
+        db_list:
+            - index: 1
+              name: 'user_id'
+            - index: 2
+              name: 'user_info_0'
+            - index: 3
+              name: 'user_info_1'
+            - index: 4
+              name: 'user_info_2'
+            - index: 5
+              name: 'user_info_3'
+            - index: 6
+              name: 'user_info_4'
+            - index: 7
+              name: 'user_info_5'
+            - index: 8
+              name: 'user_info_6'
+            - index: 9
+              name: 'user_info_7'
+            - index: 10
+              name: 'user_info_8'
+            - index: 11
+              name: 'user_info_9'  
+    config_db:
+        db_list:
+            - index: 1001
+              user: 'work'
+              pwd: 'miHoYo2012'
+              host: '10.104.166.202'
+              dbname: 'hk4e_db_config'
+            - index: 1002
+              user: 'readonly'
+              pwd: 'WmdUxe5zgiX1nWFVMpkn'
+              host: 'mysql-sh-globaldis-public.rwlb.rds.aliyuncs.com'
+              dbname: 'hk4e_db_deploy_config'      
+
+redis:
+    name: 'player_basic_data'
+    host: '127.0.0.1'
+    port: '6379'
+    pwd: '111111'
+    db: '0' 
+    db_list:
+        - index: 1
+        - index: 2
+
+# 主机列表，需要重写
+server_list:
+    - id: 1
+      host: 'hk4e-uscan-prod-iosreview-all001'
+      inner_ip: '10.104.166.202'
+      outer_ip: '52.52.98.227'
+
+# 进程部署配置
+gateserver:
+    short_name: 'gt'
+    port_player: '18101'
+    thread_num: '1' 
+    stat_log_level: ''
+    packet_conf:
+        check_interval: 10000
+        max_count: 500
+        max_size: 0
+    servers:
+        - 1
+
+
+gameserver:
+    short_name: 'gs'
+    port_gt: '18201'
+    async_thread_num: '2'
+    warn_online_player: '80'
+    max_online_player: '100'
+    stat_log_soft_limit: '10000'
+    stat_log_limit: '20000'
+    stat_log_level: 'STAT_PLAYER'
+    servers:
+        - 1
+    
+
+nodeserver:
+    short_name: 'ns'
+    port_service: '18302'
+    thread_num: '2' 
+    stat_log_level: ''
+    servers:
+        - 1
+
+dbgate:
+    short_name: 'dg'
+    thread_num: '2' 
+    stat_log_level: ''
+    servers:
+        - 1
+
+dispatch:
+    short_name: 'dp'
+    port_http: '18401'
+    port_gt: '18402'
+    thread_num: '2' 
+    stat_log_level: ''
+    servers:
+        - 1
+
+muipserver:
+    short_name: 'ms'
+    port_http: '18411'
+    thread_num: '2' 
+    stat_log_level: ''
+    sign_key: 'e3b966f709f57adc80c01f174ea8c23ebb7773bd'
+    servers:
+        - 1
+
+multiserver:
+    short_name: 'mt'
+    thread_num: '1' 
+    service_list:
+        - name: 'mailservice'
+          type: 'Mailservice'
+          thread_num: '1'
+          stat_log_level: ''
+          servers:
+              - 1
+        - name: 'mpservice'
+          type: 'Mpservice'
+          thread_num: '1'
+          stat_log_level: ''
+          servers:
+              - 1
+        - name: 'offlinemsgservice'
+          type: 'OfflineMsgservice'
+          thread_num: '1'
+          stat_log_level: ''
+          servers:
+              - 1
+  
+# 开发用的字段
+is_dev: 0
+env: 'prod'
+log_cut_time: 1440
+log_keep_time: 20160
+
+account_list:
+    - is_dev: 1
+      xml: '<Account type="mihoyo" sdk_host="https://gameapi.account.mihoyo.com/" account_verify_url="/sdk/token_login" get_account_url="" />'
+    - is_dev: 0
+      xml: '<Account type="mihoyo" sdk_host="https://gameapi.account.mihoyo.com/" account_verify_url="/sdk/token_login" get_account_url="" />'
+
+server_error_notify:
+    rate_limit: 0 # 配0表示不允许打印此日志到客户端

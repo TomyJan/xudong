@@ -1,0 +1,74 @@
+﻿---
+# 测试和正式环境的进程端口由各个分区的配置显式配置，不能设置port_begin
+region_name: ''
+work_path: /home/data/hk4e
+region_type: dispatch
+port: 58422
+is_audit: 'false'       # 是否是提审服
+sandbox_recharge: 'false'   # 是否支持沙盒支付
+is_ps4_recharge_card: 'true'
+dev_sdk_account: 'false'
+is_async_send: 'true'
+query_config_from_cmdb: 'false'
+mysql_conn_pool_max_size: 0
+redis_conn_pool_max_size: 0
+check_login_black_ip: 'true'
+check_register_black_ip: 'true'
+is_tamper_client_msg_: 'false'
+is_readlink: 'true'
+output_tcmalloc_interval: '0'
+tcmalloc_free_interval: '0'
+lua_memory_report_interval: '30'
+aserver_listen_backlog: '2048'
+aclient_reconnect_min_interval: '1000'
+aclient_reconnect_max_interval: '3000'
+tracing:
+    enabled: 'false'
+    force_enable_perf_span: 'false'
+mem_perf:
+    force_open: 'false'
+    output_interval: '1800'
+    black_list: 'proto Watcher WeakptrObserver Event Ability Impl Comp Handler data::'
+    white_list: 'BuffComp EquipComp GatherComp ActorAbility'
+cmd_report:
+    force_open: 'false'
+    output_interval: '10'
+
+# 开发用的字段
+is_dev: 0
+env: 'prod'
+is_gm_talk_open: 'false'
+is_check_unexpected_pos: 'true'
+is_simulation_open: 'false'
+is_high_freq_packet_log_open: 'false'
+is_client_data_version_not_latest_ban_mp_open: 'true'
+output_control_monitor:
+    host: 'log-upload.mihoyo.com'
+    port: '443'
+    uri: '/hk4e/monitor'
+    is_ssl: 1
+log_cut_time: 60
+log_keep_time: 10080
+app_host_check:
+    is_check_inner_ip: 'true'
+
+monitor_report:
+    port: 9777
+    svn_report_interval: 120
+
+dispatch:
+    name: 'dispatch'
+    port_http: ''
+    port_gt: ''
+    gt_aserver_thread_num: 1
+    http_aserver_thread_num: 6
+    short_name: 'dp'
+    thread_num: '2' 
+    max_conn_num: '128'
+    log_queue_size : 6144
+    log_buf_size : 24576
+    gateserver_mgr:
+        threshold_load_0: 400
+        threshold_load_1: 600
+        choose_add_load: 20
+    # 1级dispatch请勿配置local_dispatch_config字段

@@ -1,0 +1,106 @@
+﻿---
+region_name: dev_pathyace
+work_path: /home/data/hk4e
+
+gateserver:
+    port_player: '18101'
+    max_count: 4000
+
+gameserver:
+    port_gt: '18201'
+    warn_online_player: '10000'
+    max_online_player: '10000'
+
+nodeserver:
+    port_service: '18302'
+
+dispatch:
+    port_http: '18401'
+    port_gt: '18402'
+
+muipserver:
+    port_http: '18411'
+
+
+
+# 主机列表
+server_list:
+    - id: 1
+      host: 'hk4e-sh-test-pathyace-0001.mhy.com'
+      inner_ip: '10.11.1.245'
+      outer_ip: '47.103.207.175'
+
+
+
+
+pathfindingserver:
+    short_name: 'paths'
+    port_gt: '18501'
+    thread_num: '1'
+    stat_log_level: ''
+    version_count: '2'
+    obstacle_extend_log_limit:
+        x: 35
+        y: 15
+        z: 35
+    test_player_count: 0
+    cpu_profiling_mode: 2
+    servers:
+        - host: '1'
+          num: 2
+
+mysql:
+    user: 'work'
+    pwd: 'miHoYo2012'
+    user_db:
+        dbname: 'hk4e_db_user_pathyace'
+        host: 'mysql-test.rwlb.rds.aliyuncs.com'
+        port: '3306'
+        db_list:
+            - index: 1
+              name: 'user_id'
+            - index: 2
+              name: 'user_info_0'
+            - index: 3
+              name: 'user_info_1'
+            - index: 4
+              name: 'user_info_2'
+            - index: 5
+              name: 'user_info_3'
+            - index: 6
+              name: 'user_info_4'
+            - index: 7
+              name: 'user_info_5'
+            - index: 8
+              name: 'user_info_6'
+            - index: 9
+              name: 'user_info_7'
+            - index: 10
+              name: 'user_info_8'
+            - index: 11
+              name: 'user_info_9'
+    config_db:
+        db_list:
+            - index: 1001
+              host: 'mysql-test.rwlb.rds.aliyuncs.com'
+              port: '3306'
+              dbname: 'hk4e_db_config_pathyace'
+            - index: 1002
+              host: 'mysql-test.rwlb.rds.aliyuncs.com'
+              port: '3306'
+              user: 'work_read'
+              pwd: 'miHoYo2012'
+              dbname: 'hk4e_global_deploy_config_test'
+
+redis:
+    host: 'hk4e-redis-test.redis.rds.aliyuncs.com'
+    port: '6379'
+    pwd: 'miHoYo2012'
+    db: '20'
+    db_list:
+        - index: 1
+          name: 'player_status'
+        - index: 2
+          name: 'mail_box'
+        - index: 3
+          name: 'offline_msg'

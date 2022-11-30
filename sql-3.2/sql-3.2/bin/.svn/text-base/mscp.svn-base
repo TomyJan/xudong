@@ -1,0 +1,70 @@
+#!/bin/sh
+
+CUR_DIR=`dirname $0`
+SCP_BIN="scp -o ConnectionAttempts=10 -o ConnectTimeout=5 -r "
+
+MODULE_NAME=$1
+LOCAL_FILE=$2
+HOST_PATH=$3
+
+function usage()
+{
+	echo "usage:"
+	echo "  ./mscp region_name.module_name local_file host_path"
+}
+
+
+#
+#	param check
+#
+if [ ! "$MODULE_NAME" ]
+then
+	usage
+	exit 1
+fi
+if [ ! "$LOCAL_FILE" ]
+then
+	usage
+	exit 1
+fi
+if [ ! "$HOST_PATH" ]
+then
+	usage
+	exit 1
+fi
+
+
+#
+#	get host info
+#
+HOST_INFO=`server_parse ${MODULE_NAME} host,port`
+if [ $? -ne 0 ]
+then
+	echo ${HOST_INFO}
+	echo "fail to get host info."
+	exit 1
+fi
+
+
+#
+#	exec
+#
+ID=1
+server_parse ${MODULE_NAME} host,port | while read LINE
+do
+	# load item
+	IP=`echo ${LINE}|awk '{print $1}'`
+	PORT=`echo ${LINE}|awk '{print $2}'`
+
+	echo -e "\033[32m ========== [${ID}] * ${IP} ========== \033[0m"
+	ID=$[ ${ID} + 1 ]
+
+	${SCP_BIN} -P${PORT} ${LOCAL_FILE} ${IP}:${HOST_PATH} </dev/null
+	if [ $? -eq 0 ]
+	then
+		echo -e "scp \033[36m${LOCAL_FILE}\033[0m succ"
+	else
+		echo -e "scp \033[31m${LOCAL_FILE}\033[0m fail"
+		exit 1
+	fi
+done

@@ -1,0 +1,388 @@
+#!/bin/sh
+MAKE_CMD=merge
+BIN_DIR=$(readlink -f $(dirname $0))
+WORKSPACE=$(readlink -f $BIN_DIR/../../../)
+REGION_NAME=$1
+SERVER_PARSE=$(readlink -f $BIN_DIR/server_parse.py)
+HOST_IP=$(hostname -I | head -n1 | awk '{print $1}')
+
+set +o posix
+source $BIN_DIR/common.sh
+trap "exit" INT
+
+MODULE_LIST=()
+START_SERVER_ORDER=(dispatch nodeserver dbgate muipserver oaserver multiserver gameserver gateserver)
+STOP_SERVER_ORDER=(gateserver gameserver multiserver oaserver muipserver dbgate nodeserver dispatch)
+
+for module in $FULL_MODULE_LIST
+do
+    MODULE_LIST+=($module)
+done
+
+if [ "${#MODULE_LIST[@]}" != "${#START_SERVER_ORDER[@]}" ] || [ "${#MODULE_LIST[@]}" != "${#STOP_SERVER_ORDER[@]}" ]
+then
+    declare -p MODULE_LIST
+    declare -p START_SERVER_ORDER
+    declare -p STOP_SERVER_ORDER
+    echo "server order not equal"
+    exit
+fi
+
+function usage()
+{
+    echo -e "usage:"
+    echo -e "\t$0 <region> <cmd>"
+    echo -e "\tcmd: <empty>, <module>, build, deploy, status, start, stop"
+}
+
+function list_servers()
+{
+    ${SERVER_PARSE} ${REGION_NAME}.$1 host,port,work_path
+}
+
+function execute_command()
+{
+    local TARGET_HOST=`echo "$1" | awk '{print $1}'`
+    local TARGET_PORT=`echo "$1" | awk '{print $2}'`
+    local TARGET_WORKSPACE=`echo "$1" | awk '{print $3}'`
+
+    if [ "$TARGET_HOST" == "$HOST_IP" ]
+    then
+        yelloEcho "[$TARGET_HOST] $2"
+        eval $2
+    else
+        yelloEcho "[$TARGET_HOST] ssh $TARGET_HOST -p$TARGET_PORT \"$2\""
+        ssh $TARGET_HOST -p$TARGET_PORT "$2"
+    fi
+
+    if [ "0" != "$?" ]
+    then
+        exit 1
+    fi
+}
+
+function execute_command_remote()
+{
+    local TARGET_HOST=`echo "$1" | awk '{print $1}'`
+    local TARGET_PORT=`echo "$1" | awk '{print $2}'`
+    local TARGET_WORKSPACE=`echo "$1" | awk '{print $3}'`
+    if [ "$TARGET_HOST" == "$HOST_IP" ]
+    then
+        yelloEcho "skip $TARGET_HOST"
+    else
+        yelloEcho "[$TARGET_HOST] ssh $TARGET_HOST -p$TARGET_PORT \"$2\""
+        ssh $TARGET_HOST -p$TARGET_PORT "$2"
+    fi
+    if [ "0" != "$?" ]
+    then
+        exit 1
+    fi
+}
+
+function check_retcode()
+{
+    if [ "0" != "$1" ]
+    then
+        redEcho "$2失败"
+        exit 1
+    else
+        deepGreenEcho "$2成功"
+    fi
+}
+
+# 服务器状态
+function check_status()
+{
+    deepGreenEchoTimeFormat "目标服务器状态"
+    list_servers all | while read LINE
+    do
+        TARGET_WORKSPACE=`echo "$LINE" | awk '{print $3}'`
+        execute_command "$LINE" "mkdir -p $TARGET_WORKSPACE && cd $TARGET_WORKSPACE && ./status.sh"
+    done
+}
+
+# 启动进程
+function start_server()
+{
+    local TARGET_HOST=`echo "$1" | awk '{print $1}'`
+    local TARGET_PORT=`echo "$1" | awk '{print $2}'`
+    local TARGET_WORKSPACE=`echo "$1" | awk '{print $3}'`
+
+    if [ "$TARGET_HOST" == "$HOST_IP" ]
+    then
+        COMMAND="cd $TARGET_WORKSPACE; ./start.sh $2"
+        yelloEcho "$COMMAND"
+        eval "$COMMAND"
+    else
+        COMMAND="cd $TARGET_WORKSPACE; export LD_LIBRARY_PATH=\"$TARGET_WORKSPACE/lib:\$LD_LIBRARY_PATH\"; nohup supervise $2 > /dev/null 2>&1 &"
+        yelloEcho "[$TARGET_HOST] $COMMAND"
+        ssh $TARGET_HOST -p$TARGET_PORT "$COMMAND"
+    fi
+
+    if [ "0" != "$?" ]
+    then
+        exit 1
+    fi
+}
+
+# 按顺序启动
+function start_servers()
+{
+    deepGreenEchoTimeFormat "启动服务器"
+    for MODULE in ${START_SERVER_ORDER[@]}
+    do
+        list_servers ${MODULE} | while read LINE
+        do
+            start_server "$LINE" "$MODULE"
+        done
+    done
+
+    sleep 2
+    check_status
+}
+
+# 按顺序关闭
+function stop_servers()
+{
+    deepGreenEchoTimeFormat "关闭服务器"
+    for MODULE in ${STOP_SERVER_ORDER[@]}
+    do
+        list_servers ${MODULE} | while read LINE
+        do
+            TARGET_WORKSPACE=`echo "$LINE" | awk '{print $3}'`
+            execute_command "$LINE" "cd $TARGET_WORKSPACE && ./stop.sh $MODULE"
+        done
+    done
+}
+
+# 关闭所有服务器
+function stop_all()
+{
+    deepGreenEchoTimeFormat "关闭所有服务器"
+    list_servers all | while read LINE
+    do
+        TARGET_WORKSPACE=`echo "$LINE" | awk '{print $3}'`
+        execute_command "$LINE" "cd $TARGET_WORKSPACE && ./stop.sh"
+    done
+}
+
+# 重启指定进程
+function restart_server()
+{
+    deepGreenEchoTimeFormat "重启$1"
+    list_servers all | while read LINE
+    do
+        TARGET_WORKSPACE=`echo "$LINE" | awk '{print $3}'`
+        execute_command "$LINE" "cd $TARGET_WORKSPACE && ./stop.sh $1"
+        start_server "$LINE" "$1"
+    done
+}
+
+# 生成配置
+function build_config()
+{
+    MSG="生成服务器配置"
+    deepGreenEchoTimeFormat "$MSG"
+    cd $WORKSPACE/tools/op_tools/bin && echo 'y' | ./build_conf.py $REGION_NAME $WORKSPACE
+    check_retcode "$?" "$MSG"
+}
+
+# 编译
+function build_source()
+{
+    MSG="编译$2"
+    deepGreenEchoTimeFormat "$MSG"
+    cd $WORKSPACE/$1 && make $MAKE_CMD -j12
+    check_retcode "$?" "$MSG"
+}
+
+# 更新数值
+function update_data()
+{
+    MSG="更新数值"
+    deepGreenEchoTimeFormat "$MSG"
+    cd $WORKSPACE && ./copy_jenkins_data.sh > /dev/null
+    check_retcode "$?" "$MSG"
+}
+
+# 复制文件
+function scp_file()
+{
+    local TARGET_HOST=`echo "$1" | awk '{print $1}'`
+    local TARGET_PORT=`echo "$1" | awk '{print $2}'`
+    local TARGET_WORKSPACE=`echo "$1" | awk '{print $3}'`
+    local LOCAL_FILE_LIST=$2
+    local TARGET_DIR=$3
+    if [ "$TARGET_HOST" == "$HOST_IP" ]
+    then
+        return
+    fi
+    ssh $TARGET_HOST -p$TARGET_PORT "mkdir -p $TARGET_DIR"
+    echo -e "scp -r -q -P$TARGET_PORT $LOCAL_FILE_LIST $TARGET_HOST:$TARGET_DIR"
+    scp -r -q -P$TARGET_PORT $LOCAL_FILE_LIST $TARGET_HOST:$TARGET_DIR
+}
+
+# 复制配置
+function scp_conf_files()
+{
+    # 复制到目标服务器
+    list_servers all | while read LINE
+    do
+        TARGET_WORKSPACE=`echo "$LINE" | awk '{print $3}'`
+        cd $WORKSPACE
+        for MODULE in $FULL_MODULE_LIST
+        do (
+            cd $MODULE
+            # 配置文件
+            execute_command_remote "$LINE" "rm -rf conf"
+            scp_file "$LINE" "conf" "$TARGET_WORKSPACE/$MODULE"
+        ) done
+    done
+}
+
+# 复制文件，要在关闭服务器后执行
+function copy_files()
+{
+    deepGreenEchoTimeFormat "复制文件"
+
+    # 列出lib
+    LIB_LIST=
+    for MODULE in $FULL_MODULE_LIST
+    do
+        cd $WORKSPACE/$MODULE
+        LIST=$(export LD_LIBRARY_PATH="$(make libpath):$LD_LIBRARY_PATH" ; ldd $MODULE | grep -E 'ext|common|framework' | grep -v 'not found' | awk '{print $(NF-1)}' | sed -e 's#^#'"${PWD}"'/#')
+        LIB_LIST="$LIB_LIST
+        $LIST"
+    done
+
+    # lib去重
+    LIB_LIST="$(echo "$LIB_LIST" | awk -v RS="[ \n]+" '!n[$0]++')"
+    LIB_LIST="$(echo "$LIB_LIST" | tr '\n' ' ')"
+
+    # 复制到目标服务器
+    list_servers all | while read LINE
+    do
+        TARGET_WORKSPACE=`echo "$LINE" | awk '{print $3}'`
+        execute_command_remote "$LINE" "rm -rf $TARGET_WORKSPACE"
+        cd $WORKSPACE
+        for MODULE in $FULL_MODULE_LIST
+        do (
+            cd $MODULE
+            # 可执行文件
+            scp_file "$LINE" "$MODULE run conf" "$TARGET_WORKSPACE/$MODULE"
+        ) done
+        # 数值文件和脚本等文件
+        scp_file "$LINE" "data/ res/ common.sh start.sh restart.sh stop.sh status.sh time_offset.txt" "$TARGET_WORKSPACE"
+        # 库文件
+        scp_file "$LINE" "$LIB_LIST" "$TARGET_WORKSPACE/lib"
+    done
+}
+
+# 复制数值文件到其他服务器
+function deploy_data()
+{
+    deepGreenEchoTimeFormat "复制数值文件"
+    list_servers all | while read LINE
+    do
+        TARGET_WORKSPACE=`echo "$LINE" | awk '{print $3}'`
+        execute_command_remote "$LINE" "rm -rf $TARGET_WORKSPACE/data"
+        cd $WORKSPACE
+        # 复制数值文件
+        scp_file "$LINE" "data/ res/" "$TARGET_WORKSPACE"
+        # 重新加载数值文件
+        execute_command "$LINE" 'kill -s SIGHUP $(ps -u $UID -o pid,cmd | grep ./gameserver | grep -v grep | awk -e '\''{print $1}'\'')'
+    done
+}
+
+# 复制本地文件到其他服务器上、重启所有服务器
+function deploy_all()
+{
+    stop_servers
+    copy_files
+    start_servers
+}
+
+# 执行指令
+# example:
+#   ./deploy dev_fyf                    # 重新生成配置、编译代码、更新数值文件、部署并重启所有服务器
+#   ./deploy dev_fyf build data deploy  # 重新生成服务器配置、更新数值文件、重启所有服务器
+#   ./deploy dev_fyf gs gt              # 编译并重启gameserver和gateserver
+
+CMD_LIST=()
+for ARG in "$@"
+do
+    CMD_LIST+=("$ARG")
+done
+unset CMD_LIST[0]
+
+if [ "${#CMD_LIST[@]}" -eq 0 ]
+then
+    CMD_LIST+=('')
+fi
+
+function main()
+{
+    for CMD in "${CMD_LIST[@]}"
+    do
+        case "$CMD" in
+            # 重新生成配置、编译代码、更新数值文件、部署并重启所有服务器
+            '')
+                build_config
+                build_source '' all
+                update_data
+                deploy_all
+                ;;
+            # 只编译重启特定进程
+            *server|dbgate|dispatch|gt|gs|ns|db|dp|ms|mt)
+                TARGET=$(${SERVER_PARSE} ${REGION_NAME}.${CMD} fullname)
+                build_source $TARGET $TARGET
+                deploy_all
+                ;;
+            # 重新生成配置、编译代码
+            build|make)
+                build_config
+                build_source '' all
+                ;;
+            # 只更新数值文件
+            data)
+                update_data
+                deploy_data
+                ;;
+            # 只更新数值文件
+            reload)
+                deploy_data
+                ;;
+            # 复制文件到其他服务器上并重启
+            copy|deploy)
+                deploy_all
+                ;;
+            # 重启所有服务器
+            start|restart)
+                stop_servers
+                stop_all
+                start_servers
+                ;;
+            # 查看所有服务器的状态
+            status)
+                check_status
+                ;;
+            # 按顺序依次关闭所有服务器
+            stop)
+                stop_servers
+                ;;
+            # 直接关闭所有服务器
+            stop_all)
+                stop_all
+                ;;
+            conf|config)
+                build_config
+                scp_conf_files
+                ;;
+            *)
+                echo "unknown cmd $CMD"
+                exit 1
+        esac
+    done
+}
+
+(main)

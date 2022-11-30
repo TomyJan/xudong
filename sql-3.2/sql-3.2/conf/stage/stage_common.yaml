@@ -1,0 +1,451 @@
+﻿---
+region_name: ''
+dev_sdk_account: 'false'
+work_path: /home/data/hk4e
+port: "58422"
+is_async_send: 'true'
+query_config_from_cmdb: 'false'
+aserver_listen_backlog: '2048'
+aclient_reconnect_min_interval: '1000'
+aclient_reconnect_max_interval: '3000'
+tracing:
+    enabled: 'false'
+    
+gateserver:
+    name: 'gateserver'
+    port_player: ''
+    short_name: 'gt'
+    thread_num: '1' 
+    player_server_conf:
+        max_conn_num: 500
+    packet_conf:
+        check_interval: 10000
+        max_count: 4000
+        max_size: 0
+
+
+gameserver:
+    name: 'gameserver'
+    port_gt: ''
+    short_name: 'gs'
+    gt_aserver_thread_num: 1
+    thread_num: '3' 
+    async_thread_num: '2'
+    warn_online_player: '300'
+    max_online_player: '500'
+    time_wait_reconnect: '120'
+    stat_logs:
+        - id: 1
+          stat_log_level: 'STAT_PLAYER'
+          thread_name: 'stat_log'
+          stat_log_soft_limit: '10000'
+          stat_log_limit: '20000'
+          max_wait_time_us: '1000000'
+          max_busy_time_us: '1000000'
+        - id: 2
+          stat_log_level: 'STAT_FIGHT'
+          thread_name: 'fight_stat_log'
+          stat_log_soft_limit: '10000'
+          stat_log_limit: '20000'
+          max_wait_time_us: '1000000'
+          max_busy_time_us: '1000000'
+    custom_dungeon:
+        cache_timeout: 60
+        enable_layout_check: 'true'
+        min_enter_interval: 1
+        min_recommend_interval: 1
+        min_social_interval: 1
+        store_cache_timeout: 60
+    word_filter:
+        is_use_remote: true
+        is_ssl: true
+        host: 'intraapi-takumi.mihoyo.com'
+        port: 'https'
+        uri: '/game/sensitive_word/sw/check'
+    nickname_sign_audit:
+        host: 'intraapi-takumi.mihoyo.com'
+        port: '443'
+        uri: '/game/hk4e/outer_api/Outer/Call'
+        is_ssl: true
+        timeout: 5
+        language: 'zh-cn'
+        queue_key: 'hk4e_nickname_sign'
+
+nodeserver:
+    name: 'nodeserver'
+    port_service: ''
+    aserver_thread_num: 1
+    short_name: 'ns'
+    thread_num: '4' 
+
+
+dbgate:
+    name: 'dbgate'
+    short_name: 'dg'
+    thread_num: '4' 
+
+
+dispatch:
+    name: 'dispatch'
+    port_http: ''
+    port_gt: ''
+    gt_aserver_thread_num: 1
+    http_aserver_thread_num: 2
+    short_name: 'dp'
+    thread_num: '2' 
+    local_dispatch_config:
+        is_forbid_first_dispatch: 'true'
+
+
+muipserver:
+    name: 'muipserver'
+    port_http: ''
+    short_name: 'ms'
+    http_aserver_thread_num: 2
+    thread_num: '2' 
+    sign_key: 'e3b966f709f57adc80c01f174ea8c23ebb7773bd'
+
+oaserver:
+    name: 'oaserver'
+    port_http: ''
+    short_name: 'oa'
+    http_aserver_thread_num: 2
+    thread_num: '2' 
+    stat_logs:
+        - id: 1
+          stat_log_level: 'ORDER_STAT'
+          thread_name: 'stat_log'
+          stat_log_soft_limit: '10000'
+          stat_log_limit: '20000'
+          max_wait_time_us: '1000000'
+          max_busy_time_us: '1000000'
+
+multiserver:
+    name: 'multiserver'
+    short_name: 'mt'
+    thread_num: '1' 
+    services:
+        - name: 'mailservice'
+          type: 'Mailservice'
+          thread_num: '4'
+          stat_logs:
+              - id: 1
+                stat_log_level: 'MAIL_STAT'
+                thread_name: 'stat_log'
+                stat_log_soft_limit: '20000'
+                stat_log_limit: '50000'
+                max_wait_time_us: '1000000'
+                max_busy_time_us: '1000000'
+        - name: 'mpservice'
+          type: 'Mpservice'
+          thread_num: '1'
+          servers: []
+        - name: 'offlinemsgservice'
+          type: 'OfflineMsgservice'
+          thread_num: '1'
+        - name: 'socialservice'
+          type: 'Socialservice'
+          thread_num: '1'
+    custom_dungeon:
+        is_enable_verify: 'true'
+        is_verify_ssl: 'false'
+        verify_host: 'devapi-takumi.mihoyo.com'
+        verify_port: '80'
+        verify_uri: '/hk4e_homeland/OuterApi/DungeonRecord'
+        verify_timeout: 5
+        cache_max_size: 500
+        cache_timeout: 3600
+        search_cache_max_size: 200
+        search_cache_timeout: 120
+        recommend_timeout: 10
+        old_recommend_num: 10
+        new_recommend_num: 13
+          
+pathfindingserver:
+    short_name: 'paths'
+    port_gt: ''
+    thread_num: '1'
+    token_alive_time: '300000'
+    use_havok_cut: 'true'
+    version_count: '1'
+    obstacle_extend_log_limit:
+        x: 35
+        y: 15
+        z: 35
+    test_player_count: 0
+    cpu_profiling_mode: 0
+    log_queue_size : 85
+    log_buf_size : 12288
+
+# 开发用的字段
+is_dev: 0
+env: 'stage'
+is_gm_talk_open: 'false'
+is_check_unexpected_pos: 'true'
+is_simulation_open: 'false'
+is_high_freq_packet_log_open: 'false'
+output_control_monitor:
+    host: '106.14.151.240'
+    port: '9090'
+    uri: '/hk4e/monitor'
+    is_ssl: 1
+log_cut_time: 60
+log_keep_time: 20160
+VisionList: 
+        - name: '正常视距'
+          vision_range: 80
+          grid_width: 20
+        - name: '较远视距'
+          vision_range: 160
+          grid_width: 40
+        - name: '远视距'
+          vision_range: 1000
+          grid_width: 250
+        - name: '超级视距'
+          vision_range: 4000
+          grid_width: 1000
+        - name: '近视距'
+          vision_range: 40
+          grid_width: 20
+
+
+item_output_limit:
+    - item_id: 201
+      reward_limit: 1000
+      drop_limit: 1000
+      mail_limit: 9999
+    - item_id: 223
+      reward_limit: 100
+      drop_limit: 100
+      mail_limit: 100
+    - item_id: 224
+      reward_limit: 100
+      drop_limit: 100
+      mail_limit: 100
+
+item_output_config:
+    is_output_limit_can_alarm: 'true'
+    is_output_control_can_alarm: 'true'
+    is_enable_extra_white_list: 'false'
+
+trackingio_config:
+    host: 'log.trackingio.com'
+    port: '443'     # https的默认端口
+    uri: '/receive/tkio/payment'
+    is_ssl: 'true'
+    is_enable: 'true'
+
+adjust_tracking_config:
+    host: 's2s.adjust.com'
+    port: '443'     # https的默认端口
+    uri: '/event'
+    is_ssl: 'true'
+    is_enable: 'false'
+
+union_packet:
+    max_freq: 8000
+    union_notify_max_freq: 200
+    combat_notify_max_freq: 1500
+    union_packet_kick_cheat_count: 10
+
+# 反脱机挂相关配置，gameserver和gateserver用
+security_config:
+    # 每种设备分别设置开关，开关类型需要和define.proto的PlatformType定义的一样
+    # is_anti_offline_open: 是否进行反脱机挂检验
+    # forbid_login_level: 禁止登录的最小安全等级，0表示不禁止登录
+    # max_check_level: 生成校验信息时传入的最大等级，由于客户端生成校验结果有错误，需要通过这个开关禁止生成高等级的验证信息
+    # 不在此列的platform类型按PC处理
+    platform_config_list:
+        - platform_type: "IOS"
+          is_anti_offline_open: 'true'
+          forbid_login_level: 0
+          max_check_level: 0
+          forbid_login_result_type_list:  # 反脱机挂强对抗开关
+              - "ANTI_OFFLINE_RESULT_EMPTY"
+              - "ANTI_OFFLINE_RESULT_DECRYPT_FAIL"
+        - platform_type: "ANDROID"
+          is_anti_offline_open: 'true'
+          forbid_login_level: 0
+          max_check_level: 0
+          forbid_login_result_type_list:  # 反脱机挂强对抗开关
+              - "ANTI_OFFLINE_RESULT_EMPTY"
+              - "ANTI_OFFLINE_RESULT_DECRYPT_FAIL"
+        - platform_type: "PC"
+          is_anti_offline_open: 'true'
+          forbid_login_level: 0
+          max_check_level: 0
+          forbid_login_result_type_list:  # 反脱机挂强对抗开关
+              - "ANTI_OFFLINE_RESULT_EMPTY"
+              - "ANTI_OFFLINE_RESULT_DECRYPT_FAIL"
+        - platform_type: "PS4"
+          is_anti_offline_open: 'true'
+          forbid_login_level: 0
+          max_check_level: 0
+          forbid_login_result_type_list:  # 反脱机挂强对抗开关
+              - "ANTI_OFFLINE_RESULT_EMPTY"
+              - "ANTI_OFFLINE_RESULT_DECRYPT_FAIL"
+        - platform_type: "PS5"
+          is_anti_offline_open: 'false'     # TODO 等1.6校验通过了再开正式服开关
+          forbid_login_level: 0
+          max_check_level: 0
+          forbid_login_result_type_list:  # 反脱机挂强对抗开关
+              - "ANTI_OFFLINE_RESULT_EMPTY"
+              - "ANTI_OFFLINE_RESULT_DECRYPT_FAIL"
+    level_config_list:
+        - check_type: 1     # 登录检查类型(proto::SecurityCheckType)
+          down_grade_num: 20    # 连续成功几次后降级，0表示不降级
+          up_grade_num: 5   # 连续失败几次后升级，0表示不升级
+    is_other_platform_need_check_anti_offline: 'false'  # 不在platform_config_list里的设备类型是否需要进行反脱机挂校验
+    is_sec_channel_open: 0
+    is_checksum_version_not_found_forbid_login: 0  # CheckSum的Version配置不存在时是否禁止登录
+    is_segment_crc_open: 0  # 分段CRC总开关
+    is_checksum_version_not_found_segment_crc_default_open: 0   # ChecksumClientVersion对应的配置不存在的话CRC检查是否还要进行检查
+    segment_crc_max_interact_count: 100 # 分段CRC一次校验最多进行几次协议交互
+    segment_crc_config_list: # 分段CRC校验用的各个平台下的JSON文件及其编号
+        - platform_type: "IOS"
+          platform_directory: "iOS"
+          segment_crc_module_config_list:
+              - crc_module_index: 1
+                crc_module_type: "IOS_HK4E"
+                crc_module_file: "HK4E.json"
+        - platform_type: "ANDROID"
+          platform_directory: "Android"
+          segment_crc_module_config_list:
+              - crc_module_index: 1
+                crc_module_type: "ANDROID_LIBIL2CPP"
+                crc_module_file: "libil2cpp.json"
+              - crc_module_index: 2
+                crc_module_type: "ANDROID_LIBUNITY"
+                crc_module_file: "libunity.json"
+              - crc_module_index: 3
+                crc_module_type: "ANDROID_LIBXLUA"
+                crc_module_file: "libxlua.json"
+        - platform_type: "PC"
+          platform_directory: "StandaloneWindows64"
+          segment_crc_module_config_list:
+              - crc_module_index: 1
+                crc_module_type: "PC_UNITYPLAYER"
+                crc_module_file: "UnityPlayer.json"
+              - crc_module_index: 2
+                crc_module_type: "PC_USERASSEMBLY"
+                crc_module_file: "UserAssembly.json"
+              - crc_module_index: 3
+                crc_module_type: "PC_XLUA"
+                crc_module_file: "xlua.json"
+    is_move_speed_check_open: "true"            # 移速检测是否开启
+    is_move_speed_check_kick_player: 0          # 移动速度检查失败是否踢玩家下线
+    is_move_speed_check_drag_player: "true"     # 检测到超速后是否拉回
+    is_scene_time_move_speed_check_open: "true" # SceneTime移速检测是否开启
+    is_scene_time_move_speed_check_kick_player: 0   # SceneTime移动速度检查失败是否踢玩家下线
+    is_scene_time_move_speed_check_drag_player: "true" # SceneTime移动速度检查失败是否拉回
+    is_ability_config_hash_open: "true" # Ability配置哈希校验是否开启，不开启的话不做检查
+    ability_config_hash_whitelist: "" # Ability配置哈希校验白名单，逗号分隔的ability_name字符串
+    is_enable_client_hash_debug: "false" # 客户端是否记录hash计算流程
+    unity_engine_timescale_limit: 2 # 客户端加速检测加速倍数上限
+    is_forbid_monster_disallowed_death: 'false' # 怪物非法死亡时是否拒绝这次死亡
+    is_move_back_monster_on_forbid_death: 'false' # 怪物非法死亡时是否将怪物重新设置回出生点
+    is_revive_monster_on_forbid_death: 'false' # 怪物非法死亡时是否将怪物恢复成满血
+    is_use_server_override_map: 'false'  # 是否启用server端override map
+    is_mouse_macro_check_open: 'true'   # 是否开启鼠标宏检测日志记录
+    environment_error_config:
+        - platform_type: "IOS"
+          is_open: 'true'                 # 登录时是否进行regex的检查
+          white_regex: '.{2}00.*'         # 检查成功后不再进行后续检查；检查失败时打印anticheat日志
+          is_check_black_regex: 'false'   # 如果white_regex检查失败，是否检查black_regex
+          black_regex: '.{2}(11|54|13).*' # 检查失败时禁止玩家登录
+        - platform_type: "ANDROID"
+          is_open: 'true'
+          white_regex: '.{2}00.*'
+          is_check_black_regex: 'false'
+          black_regex: '.{2}(11|54|13).*'
+        - platform_type: "PC"
+          is_open: 'true'
+          white_regex: '.{2}00.*'
+          is_check_black_regex: 'false'
+          black_regex: '.{2}(11|54|13).*'
+        - platform_type: "PS4"
+          is_open: 'true'
+          white_regex: '.{2}00.*'
+          is_check_black_regex: 'false'
+          black_regex: '.{2}(11|54|13).*'
+    safe_server_config:   # 和安全server交互用到的配置
+        connection_status_notify_config:  # 向安全server上报玩家在线状态的http地址
+            enable: "true"
+            host: "devapi-takumi.mihoyo.com"
+            port: 443
+            login_uri: "/bat/game/gameLoginNotify"
+            logout_uri: "/bat/game/gameLogoutNotify"
+            heartbeat_uri: "/bat/game/gameHeartBeatNotify"
+            is_ssl: "true"
+            method: "POST"
+            timeout: 5
+            heartbeat_interval: 300
+            head_map:
+              - name: "Content-Type"
+                value: "application/json"
+    check_qiandaogua_config:  # 千刀挂校验参数
+        is_enable: 'true'
+        attack_count_limit: 4
+        record_entry_limit: 100
+        anticheat_log_limit: 100
+    client_total_tick_time_config:
+        max_delay_time: 60    # 累计tick时间校验最大网络延迟时间
+        anticheat_log_limit: 100    # 单次登录日志数量上限
+    client_server_global_value_config:
+        is_open: "true"                   # 是否开启校验
+        sgv_name: "SGV_CAN_CLEAR_THREAT"  # server global value名字
+        timeout_seconds: 10               # 客户端设置SGV的时间超过服务器设置时间的指定秒后算校验失败
+        anticheat_log_limit: 100          # 单次登录日志数量上限
+    stamina_check_config:
+        is_enable: "true"                 # 是否开启校验
+        record_limit: "-50"               # 体力极小值低于这个值时记录anticheat日志
+        low_limit: "-500"                 # 倒扣最小值
+        anticheat_log_limit: 100          # 单次登录日志数量上限
+    packet_cost_time_exceed_limit_config: # 玩家单个协议耗时过高
+        is_enable: "true"
+        log_interval: 60
+        log_limit: 10
+        check_interval_ms: 5000           # 统计协议耗时的时间间隔
+        cost_time_percent: 20             # 耗时百分比
+        is_enable_kick: "false"           # 是否开启踢下线
+        kick_time_percent: 80             # 踢下线耗时百分比
+        check_kick_interval: 60           # 踢下线检查多少秒内算连续触发
+        trigger_kick_count: 2             # 连续触发几次踢下线后真的踢下线
+        thread_kick_interval: 60          # 线程内连续踢人至少间隔几秒
+    recv_packet_freq_exceed_limit_config: # 所有消息总频率异常
+        is_enable: "true"
+        log_interval: 600
+        log_limit: 10
+    single_packet_freq_exceed_limit_config: # 单个消息总频率异常
+        is_enable: "true"
+        log_interval: 600
+        log_limit: 10
+    gadget_interact_beyond_check_distance_config: # 超检查范围和物件交互
+        is_enable: "true"
+        log_interval: 60
+        log_limit: 1
+        min_record_count: 5
+    lua_shell_security_config:
+        is_check_timeout_open: 'true'     # 保底配置，是否开启超时检测功能
+        lua_shell_timeout_seconds: 60     # luashell客户端上报超时时间（秒）
+
+async_http_client:
+    thread: 1
+    capacity: 1000
+    first_login_nickname_capacity: 1000
+    home_verify_post_capacity: 1000
+    safe_server_capacity: 1000
+    output_control_monitor_capacity: 1000
+
+ability_config:
+    is_client_anticheat_report_open: 'false'
+
+vision_conf:
+    is_delete_in_sight_when_appear: "true"
+
+new_language_config:
+    is_enable_setting_new_language: "false"
+    new_language_type_list: "LANGUAGE_TR LANGUAGE_IT"
+
+mail_message_max_size: '200'
+max_batch_mail_count: '40'    # 拉邮件协议每次最多返回几封

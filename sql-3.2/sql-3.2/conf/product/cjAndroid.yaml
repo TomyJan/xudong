@@ -1,0 +1,46 @@
+﻿---
+region_name: cjAndroid
+work_path: /home/data/hk4e
+is_gm_talk_open: 'true'
+
+# 进程部署配置
+multiserver:
+    short_name: 'mt'
+    thread_num: '1'
+    services:
+        - name: 'mailservice'
+          type: 'Mailservice'
+          thread_num: '1'
+          stat_log_level: ''
+        - name: 'mpservice'
+          type: 'Mpservice'
+          thread_num: '1'
+          stat_log_level: ''
+        - name: 'offlinemsgservice'
+          type: 'OfflineMsgservice'
+          thread_num: '1'
+          stat_log_level: ''
+        - name: 'activityservice'
+          type: 'Activityservice'
+          thread_num: '1'
+          stat_log_level: ''
+        - name: 'socialservice'
+          type: 'SocialService'
+          thread_num: '1'
+          stat_log_level: ''
+
+gateserver:
+    port_player: '12101'
+
+gameserver:
+    port_gt: '12201'
+
+nodeserver:
+    port_service: '12302'
+
+dispatch:
+    port_http: '12401'
+    port_gt: '12402'
+
+muipserver:
+    port_http: '12411'

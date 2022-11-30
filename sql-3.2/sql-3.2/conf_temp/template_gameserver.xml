@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+    {% if conf.build_ver is defined %}
+    <BuildVersion value="{{conf.build_ver}}" />
+    {% endif %}
+    <!-- 日志配置 -->
+    <LogConf>
+        <LogLevelMask value="" />
+        <MaxLogLen value="8192" />
+        <LogCutTime value="{{conf.log_cut_time}}" />
+        <LogKeepTime value="{{conf.log_keep_time}}" />
+        <LogQueueSize value="{{conf.gameserver.log_queue_size}}" />
+        <LogBufSize value="{{conf.gameserver.log_buf_size}}" />
+        <LogList>
+            <DebugFile path="log/gameserver.log" level="DEBUG INFO WARNING ERROR NOTICE FATAL FIGHT_DEBUG FIGHT_INFO FIGHT_WARNING VIEW_DEBUG" />
+            <WarningFile path="log/gameserver.warning.log" level="WARNING ERROR FATAL GROUP_WARNING" />
+            <ErrorFile path="log/gameserver.error.log" level="ERROR FATAL" />
+            <CmdFile path="log/gameserver.cmd.log" level="CMD" />
+            <PacketFile path="log/gameserver.packet.log" level="PACKET" />
+            <PlayerStatFile path="log/player.stat.log" level="STAT_PLAYER" />
+            <LuaFile path="log/gameserver.lua.log" level="LUA_INFO LUA_WARNING GROUP_WARNING" />
+            <PosFile path="log/gameserver.pos.log" level="POS" />
+            <FightStatFile path="log/gameserver.fight.stat.log" level="FIGHT_STAT" />
+            <AntiCheatFile path="log/gameserver.anti.log" level="ANTI_CHEAT" />
+            <NoticeFile path="log/gameserver.notice.log" level="NOTICE" />
+            <SecFile path="log/gameserver.sec.stat.log" level="SEC_STAT" />
+            <StatFightFile path="log/fight.stat.log" level="STAT_FIGHT" />
+        </LogList>
+    </LogConf>
+
+
+    <!-- 网络配置 -->
+    <NetConf>
+        {% if conf.cmdb is defined and str2bool(conf.query_config_from_cmdb) %}
+        <CMDBConf
+            host="{{conf.cmdb.host}}"
+            port="{{conf.cmdb.port}}"
+            is_ssl="{{conf.cmdb.is_ssl}}"
+            uri="{{conf.cmdb.uri}}"
+            token="{{conf.cmdb.token}}"
+        />
+        {% endif %}
+        <!-- 面向gateserver的server -->
+        <!--Buff长度单位为K -->
+        <GateserverServerConf>
+            <RecvBufLen value="300" />
+            <MaxSendPacketLen value="250" />
+            <ThreadNum value="{{conf.gameserver.gt_aserver_thread_num}}" />
+            <KeepAliveSec value="1" />
+            <TimeoutSec value="30" />
+            <MaxConnNum value="{{conf.gameserver.max_conn_num}}" />
+            <CutPacket value="1" />
+            <RefuseRepeatIp value="1" />
+            <NoDelay value="true" />
+            <AsyncSend value="{{conf.is_async_send}}" CachePacketMaxNum="30000" />
+            <Backlog value="{{conf.aserver_listen_backlog}}" />
+        </GateserverServerConf>
+
+        <NodeserverClientConf>
+            <RecvBufLen   value="1300" />
+            <MaxSendPacketLen value="1024" />
+            <ThreadNum value="{{conf.gameserver.node_aclient_thread_num}}" />
+            <KeepAliveSec value="10" />
+            <TimeoutSec   value="30" />
+            <CutPacket    value="1" />
+            <ConnectList>
+                {% for process in conf.nodeserver.processes %}
+                <Connect app_id="{{process.app_id}}" ip="{{process.server.inner_ip}}" port="{{process.port_service}}"/>
+                {% endfor %}
+            </ConnectList>
+            <NoDelay value="true" />
+            <AsyncSend value="{{conf.is_async_send}}" CachePacketMaxNum="30000"/>
+            <Reconnect min_interval="{{conf.aclient_reconnect_min_interval}}" max_interval="{{conf.aclient_reconnect_max_interval}}" />
+        </NodeserverClientConf>
+    </NetConf>
+
+    <!-- 数据库配置 -->
+    <MysqlConf>
+        {% for db in conf.mysql %}
+        <Db index="{{db.index}}" name="{{db.name}}" host="{{db.host}}" port="{{db.port}}" user="{{db.user}}" pwd="{{db.pwd}}" dbname="{{db.dbname}}" />
+        {% endfor %}
+    </MysqlConf>
+    <RedisConf>
+        {% for db in conf.redis %}
+        <Db index="{{db.index}}" name="{{db.name}}" host="{{db.host}}" port="{{db.port}}" pwd="{{db.pwd}}" db="{{db.db}}" is_cluster="{{db.is_cluster}}" />
+        {% endfor %}
+    </RedisConf>
+
+	<!-- 数据库额外配置 扩容操作相关 -->
+	<MysqlExtraConf player_db_count="{{conf.mysql_extra_conf.player_db_count}}" home_db_count="{{conf.mysql_extra_conf.home_db_count}}" is_judge_user_db_delete="{{conf.mysql_extra_conf.is_judge_user_db_delete}}"/>
+
+    <!-- 分区配置 分区名, 是否是提审服,是否是国服 -->
+    <RegionConf name="{{conf.region_name}}" is_audit="{{conf.is_audit}}" is_internal_server="{{conf.is_internal_server}}"/>
+
+    <!-- 服务配置 -->
+    <ServiceList>
+        <Gameserver name="gameserver" thread_num="{{conf.gameserver.thread_num}}" async_thread_num="{{conf.gameserver.async_thread_num}}" warn_online_player="{{conf.gameserver.warn_online_player}}" max_online_player="{{conf.gameserver.max_online_player}}" session_timeout="120" brief_data_upload_interval="{{conf.gameserver.brief_data_upload_interval}}" lua_gc_interval="{{conf.gameserver.lua_gc_interval}}">
+            <Save max_save_time_interval="{{conf.gameserver.save.max_save_time_interval}}"
+				timer_save_time_interval="{{conf.gameserver.save.timer_save_time_interval}}"
+                allow_send_save_proto_cost_time_ms="100"
+				hard_limit_send_save_proto_cost_time_ms="{{conf.gameserver.hard_limit_send_save_proto_cost_time_ms}}"
+                normal_save_check_interval="20"
+                shutdown_save_check_interval="3"
+                player_save_timeout_after_send_proto="5"
+                player_save_timeout_max_cooldown_expo ="5"
+                home_save_timeout_after_send_proto="5"
+                home_save_timeout_max_cooldown_expo ="5"                
+                home_no_player_destroy_time ="{{conf.gameserver.home.home_no_player_destroy_time}}"                
+                player_save_when_gacha="{{conf.gameserver.save.player_save_when_gacha}}"
+                player_save_when_recharge="{{conf.gameserver.save.player_save_when_recharge}}"
+				is_async_save="{{conf.gameserver.save.is_async_save}}"
+				is_gacha_player_save_check_item_type="{{conf.gameserver.save.is_gacha_player_save_check_item_type}}"
+                warn_bin_len ="{{conf.gameserver.save.warn_bin_len}}"
+                max_bin_len ="{{conf.gameserver.save.max_bin_len}}"
+                warn_block_bin_len ="{{conf.gameserver.save.warn_block_bin_len}}"
+				max_block_bin_len ="{{conf.gameserver.save.max_block_bin_len}}" 
+                warn_sum_bin_len ="{{conf.gameserver.save.warn_sum_bin_len}}"
+				max_sum_bin_len ="{{conf.gameserver.save.max_sum_bin_len}}" 
+                warn_home_bin_len ="{{conf.gameserver.save.warn_home_bin_len}}"
+				max_home_bin_len ="{{conf.gameserver.save.max_home_bin_len}}"/>
+            {% if conf.gameserver.word_filter is defined %}
+            <WordFilter is_use_remote="{{conf.gameserver.word_filter.is_use_remote}}"
+                        is_ssl="{{conf.gameserver.word_filter.is_ssl}}"            
+                        host="{{conf.gameserver.word_filter.host}}"            
+                        port="{{conf.gameserver.word_filter.port}}"            
+                        uri="{{conf.gameserver.word_filter.uri}}"            
+                />
+            {% endif %}
+            {% if conf.gameserver.push_tags is defined %}
+            <PushTags is_ssl="{{conf.gameserver.push_tags.is_ssl}}"            
+                        host="{{conf.gameserver.push_tags.host}}"            
+                        port="{{conf.gameserver.push_tags.port}}"            
+                        uri="{{conf.gameserver.push_tags.uri}}"           
+                />
+            {% endif %}
+            {% if conf.gameserver.stat_logs is defined %}
+            {% for stat_log in conf.gameserver.stat_logs %}
+            <StatLog stat_log_level="{{stat_log.stat_log_level}}" thread_name="{{stat_log.thread_name}}" stat_log_soft_limit="{{stat_log.stat_log_soft_limit}}" stat_log_limit="{{stat_log.stat_log_limit}}"  max_wait_time_us="{{stat_log.max_wait_time_us}}" max_busy_time_us="{{stat_log.max_busy_time_us}}"/>
+            {% endfor %}
+            {% endif %}
+        </Gameserver>
+    </ServiceList>
+
+    <!-- PS4平台是否展示月卡 -->
+    <PS4RechargeCard open="{{conf.is_ps4_recharge_card}}" />
+
+    <!-- 是否开启Ability哈希码传输 -->
+    <AbilityHash open="true" />
+
+    <!-- 是否开启GmTalk -->
+    <GmTalk open="{{conf.is_gm_talk_open}}" />
+
+    <!-- 是否禁止进入璃月, 默认关闭 -->
+    <CheckUnexpectedPos open="{{conf.is_check_unexpected_pos}}" />
+
+    <!-- 是否开启快速模拟养成指令 -->
+    <SimulationOpen open="{{conf.is_simulation_open}}" />
+
+	<!-- 是否开启entity相关debug日志 EntityAppear和EntityDisappear -->
+	<EntityDebugLog open="{{conf.is_print_entity_debug_log}}" />
+
+	<!-- 是否在埋点中上报客户端port -->
+	<IpPortLogReport open="{{conf.is_ip_port_log_report}}" />
+
+    <!-- 是否开启高频日志 -->
+    <HighFreqPacketLog open="{{conf.packet_log.is_high_freq_open}}" packet_log_black_list="{{conf.packet_log.black_list}}" />
+
+    <!-- 产出监控告警HTTP POST请求地址-->
+    <OutputControlMonitor host="{{conf.output_control_monitor.host}}" port="{{conf.output_control_monitor.port}}" uri="{{conf.output_control_monitor.uri}}" is_ssl="{{conf.output_control_monitor.is_ssl}}" />
+
+    <!-- 视野配置 -->
+    <VisionList>
+        {% for vision in conf.VisionList %}
+        <Vision level="{{vision.name}}" vision_range="{{vision.vision_range}}" grid_width="{{vision.grid_width}}" />
+        {% endfor %}
+    </VisionList>
+    <!-- 场景实体数量限制 -->
+    <SceneEntityNumLimit warn_num="{{conf.scene_entity_num.warn_num}}" error_num="{{conf.scene_entity_num.error_num}}"/>
+    <!-- ModifierId限制 -->
+    <ModifierIdLimit error_num="{{conf.modifier_id_num.error_num}}"/>
+    <!-- Group限制 -->
+    <GroupLimit max_unload_time_us="{{conf.group_limit.max_unload_time_us}}"
+                forbid_find_unregister_group="{{conf.group_limit.forbid_find_unregister_group}}"
+                unload_invalid_groups_interval="{{conf.group_limit.unload_invalid_groups_interval}}"
+                unload_invalid_groups_threshold="{{conf.group_limit.unload_invalid_groups_threshold}}"
+                delete_reload_pos_when_disconnect="{{conf.group_limit.delete_reload_pos_when_disconnect}}"
+                home_group_load_forbid_async_load="{{conf.group_limit.home_group_load_forbid_async_load}}"
+                ignore_mutual_replace_check="{{conf.group_limit.ignore_mutual_replace_check}}"
+                forbid_special_region_trigger_group_load="{{conf.group_limit.forbid_special_region_trigger_group_load}}"
+                forbid_special_vision_type_control_group_load="{{conf.group_limit.forbid_special_vision_type_control_group_load}}" />
+    <!-- LuaScript缓存数量告警日志数量 -->
+    <LuaScriptCacheNumLimit warn_num="{{conf.lua_script_cache_num.warn_num}}"
+                            error_num="{{conf.lua_script_cache_num.error_num}}"
+                            clear_num="{{conf.lua_script_cache_num.clear_num}}"
+                            clear_time="{{conf.lua_script_cache_num.clear_time}}"
+                            clear_min_num="{{conf.lua_script_cache_num.start_clear_num}}" />
+
+    <ServerErrorNotify rate_limit="{{conf.server_error_notify.rate_limit}}" />
+    <AbilityConfig is_client_anticheat_report_open="{{conf.ability_config.is_client_anticheat_report_open}}" />
+    <VisionConf is_delete_in_sight_when_appear="{{conf.vision_conf.is_delete_in_sight_when_appear}}" />
+    <CustomDungeon cache_timeout="{{conf.gameserver.custom_dungeon.cache_timeout}}" enable_layout_check="{{conf.gameserver.custom_dungeon.enable_layout_check}}"
+        min_enter_interval="{{conf.gameserver.custom_dungeon.min_enter_interval}}" min_recommend_interval="{{conf.gameserver.custom_dungeon.min_recommend_interval}}"
+        min_social_interval="{{conf.gameserver.custom_dungeon.min_social_interval}}" store_cache_timeout="{{conf.gameserver.custom_dungeon.store_cache_timeout}}" />
+    <FightConf is_abyss_kill_limbo_monster="{{conf.fight_conf.is_abyss_kill_limbo_monster}}" />
+
+    <!-- 伤害限制 -->
+    <AntiCheatDamage max_damage="{{conf.anti_cheat_damage.max_damage}}" max_damage_percentage="{{conf.anti_cheat_damage.max_damage_percentage}}" 
+        max_damage_percentage_ratio="{{conf.anti_cheat_damage.max_damage_percentage_ratio}}" max_damage_extra="{{conf.anti_cheat_damage.max_damage_extra}}" is_open="{{conf.anti_cheat_damage.is_open}}" />
+    <!-- 数值配置或邮件发放的各种资源单次产出数量上限 -->
+    <ItemOutputLimit>
+        {% if conf.item_output_limit is defined %}
+        {% for item in conf.item_output_limit %}
+        <Item item_id="{{item.item_id}}" reward_limit="{{item.reward_limit}}" drop_limit="{{item.drop_limit}}" mail_limit="{{item.mail_limit}}" />
+        {% endfor %}
+        {% endif %}
+    </ItemOutputLimit>
+
+    <!-- 产出监控和产出控制相关开关 -->
+    <ItemOutputConfig is_output_limit_can_alarm="{{conf.item_output_config.is_output_limit_can_alarm}}"
+                      is_output_control_can_alarm="{{conf.item_output_config.is_output_control_can_alarm}}"
+                      is_enable_extra_white_list="{{conf.item_output_config.is_enable_extra_white_list}}" />
+
+    <!--热云广告监测平台-->
+    <TrackingIOConfig host="{{conf.trackingio_config.host}}" 
+                      port="{{conf.trackingio_config.port}}" 
+                      uri="{{conf.trackingio_config.uri}}" 
+                      is_ssl="{{conf.trackingio_config.is_ssl}}" 
+                      is_enable="{{conf.trackingio_config.is_enable}}"
+                      ANDROID="e84aee04f6bbbf665eec0a3921c1b2da" 
+                      IOS="fa8212ef87c98d1c52e1dad256641d9a" />
+
+    <!--adjust广告监测平台-->
+    <AdjustTrackingConfig host="{{conf.adjust_tracking_config.host}}" 
+                      port="{{conf.adjust_tracking_config.port}}" 
+                      uri="{{conf.adjust_tracking_config.uri}}" 
+                      is_ssl="{{conf.adjust_tracking_config.is_ssl}}" 
+                      is_enable="{{conf.adjust_tracking_config.is_enable}}"
+                      ANDROID="lng1hl9gf2tc" 
+                      IOS="dungupko1zpc" />
+
+    <!-- 客户端数值版本号不是最新是否禁止联机 -->
+    <ClientDataVersionNotLatestBanMp open="{{conf.is_client_data_version_not_latest_ban_mp_open}}" />
+
+	<UnionPacket max_freq="{{conf.union_packet.max_freq}}" union_notify_max_freq="{{conf.union_packet.union_notify_max_freq}}" combat_notify_max_freq="{{conf.union_packet.combat_notify_max_freq}}" union_packet_kick_cheat_count="{{conf.union_packet.union_packet_kick_cheat_count}}"/>
+
+    <!-- 安全相关配置 -->
+    <SecurityConfig>
+        {% for platform_config in conf.security_config.platform_config_list %}
+        <PlatformConfig platform_type="{{platform_config.platform_type}}" is_anti_offline_open="{{platform_config.is_anti_offline_open}}" forbid_login_level="{{platform_config.forbid_login_level}}" max_check_level="{{platform_config.max_check_level}}" >
+            {% if platform_config.forbid_login_result_type_list %}
+            {% for result_type in platform_config.forbid_login_result_type_list  %}
+            <ForbidLoginResultType value="{{result_type}}"/>
+            {% endfor %}
+            {% endif %}
+        </PlatformConfig>
+        {% endfor %}
+        {% for level_config in conf.security_config.level_config_list %}
+        <LevelConfig check_type="{{level_config.check_type}}" down_grade_num="{{level_config.down_grade_num}}" up_grade_num="{{level_config.up_grade_num}}" />
+        {% endfor %}
+        <is_other_platform_need_check_anti_offline value="{{conf.security_config.is_other_platform_need_check_anti_offline}}"/>
+        <IsSecChannelOpen value="{{conf.security_config.is_sec_channel_open}}"/>
+        <IsChecksumVersionNotFoundForbidLogin value="{{conf.security_config.is_checksum_version_not_found_forbid_login}}"/>
+        <IsSegmentCrcOpen value="{{conf.security_config.is_segment_crc_open}}"/>
+        <IsChecksumVersionNotFoundSegmentCrcDefaultOpen value="{{conf.security_config.is_checksum_version_not_found_segment_crc_default_open}}"/>
+        <SegmentCrcMaxInteractCount value="{{conf.security_config.segment_crc_max_interact_count}}"/>
+        <SegmentCrcConfig>
+            {% if conf.security_config.segment_crc_config_list %}
+            {% for segment_crc_config in conf.security_config.segment_crc_config_list %}
+            <SegmentCrcPlatformConfig platform_type="{{segment_crc_config.platform_type}}" platform_directory="{{segment_crc_config.platform_directory}}">
+                {% for segment_crc_module_config in segment_crc_config.segment_crc_module_config_list %}
+                <SegmentCrcModuleConfig crc_module_index="{{segment_crc_module_config.crc_module_index}}" crc_module_type="{{segment_crc_module_config.crc_module_type}}" crc_module_file="{{segment_crc_module_config.crc_module_file}}"/>
+                {% endfor %}
+            </SegmentCrcPlatformConfig>
+            {% endfor %}
+            {% endif %}
+        </SegmentCrcConfig>
+        <IsMoveSpeedCheckOpen value="{{conf.security_config.is_move_speed_check_open}}"/>
+        <IsMoveSpeedCheckKickPlayer value="{{conf.security_config.is_move_speed_check_kick_player}}"/>
+        <IsMoveSpeedCheckDragPlayer value="{{conf.security_config.is_move_speed_check_drag_player}}"/>
+        <IsSceneTimeMoveSpeedCheckOpen value="{{conf.security_config.is_scene_time_move_speed_check_open}}"/>
+        <IsSceneTimeMoveSpeedCheckKickPlayer value="{{conf.security_config.is_scene_time_move_speed_check_kick_player}}"/>
+        <IsSceneTimeMoveSpeedCheckDragPlayer value="{{conf.security_config.is_scene_time_move_speed_check_drag_player}}"/>
+        <AbilityConfigHashWhitelist is_open="{{conf.security_config.is_ability_config_hash_open}}" value="{{conf.security_config.ability_config_hash_whitelist}}"/>
+        <IsEnableClientHashDebug value="{{conf.security_config.is_enable_client_hash_debug}}"/>
+        <UnityEngineTimescaleLimit value="{{conf.security_config.unity_engine_timescale_limit}}"/>
+        <is_forbid_monster_disallowed_death value="{{conf.security_config.is_forbid_monster_disallowed_death}}"/>
+        <is_move_back_monster_on_forbid_death value="{{conf.security_config.is_move_back_monster_on_forbid_death}}"/>
+        <is_revive_monster_on_forbid_death value="{{conf.security_config.is_revive_monster_on_forbid_death}}"/>
+        <is_use_server_override_map value="{{conf.security_config.is_use_server_override_map}}"/>
+        <is_use_server_dynamic_value value="{{conf.security_config.is_use_server_dynamic_value}}"/>
+        <is_mouse_macro_check_open value="{{conf.security_config.is_mouse_macro_check_open}}"/>
+        <EnvironmentErrorConfig>
+            {% if conf.security_config.environment_error_config %}
+            {% for platform_config in conf.security_config.environment_error_config %}
+            <EnvironmentPlatformConfig platform_type="{{platform_config.platform_type}}" is_open="{{platform_config.is_open}}" is_check_black_regex="{{platform_config.is_check_black_regex}}" white_regex="{{platform_config.white_regex}}" black_regex="{{platform_config.black_regex}}"/>
+            {% endfor %}
+            {% endif %}
+        </EnvironmentErrorConfig>
+        <SafeServerConfig>
+            {% with config = conf.security_config.safe_server_config.connection_status_notify_config %}
+            <ConnectionStatusNotifyConfig enable="{{config.enable}}" host="{{config.host}}" port="{{config.port}}"
+                                          login_uri="{{config.login_uri}}" logout_uri="{{config.logout_uri}}" heartbeat_uri="{{config.heartbeat_uri}}"
+                                          is_ssl="{{config.is_ssl}}" method="{{config.method}}" timeout="{{config.timeout}}" heartbeat_interval="{{config.heartbeat_interval}}">
+                {% for head in config.head_map %}
+                <Head name="{{head.name}}" value="{{head.value}}"/>
+                {% endfor %}
+            </ConnectionStatusNotifyConfig>
+            {% endwith %}
+            <SecurityPlatformMap>
+                <entry platform_type="EDITOR" security_platform_type="Unkown"/>
+                <entry platform_type="IOS" security_platform_type="IOS"/>
+                <entry platform_type="ANDROID" security_platform_type="Android"/>
+                <entry platform_type="PC" security_platform_type="PC"/>
+                <entry platform_type="PS4" security_platform_type="PS"/>
+                <entry platform_type="SERVER" security_platform_type="Unkown"/>
+                <entry platform_type="CLOUD_ANDROID" security_platform_type="CloudAndroid"/>
+                <entry platform_type="CLOUD_IOS" security_platform_type="CloudIOS"/>
+                <entry platform_type="PS5" security_platform_type="PS5"/>
+                <entry platform_type="CLOUD_WEB" security_platform_type="Unkown"/>
+                <entry platform_type="CLOUD_TV" security_platform_type="Unkown"/>
+                <entry platform_type="CLOUD_MAC" security_platform_type="Unkown"/>
+                <entry platform_type="CLOUD_PC" security_platform_type="Unkown"/>
+                <entry platform_type="CLOUD_THIRD_PARTY_MOBILE" security_platform_type="Unkown"/>
+                <entry platform_type="CLOUD_THIRD_PARTY_PC" security_platform_type="Unkown"/>
+            </SecurityPlatformMap>
+        </SafeServerConfig>
+        {% with config = conf.security_config.check_qiandaogua_config %}
+        <CheckQiandaoguaConfig is_enable="{{config.is_enable}}" attack_count_limit="{{config.attack_count_limit}}" record_entry_limit="{{config.record_entry_limit}}" anticheat_log_limit="{{config.anticheat_log_limit}}"/>
+        {% endwith %}
+        {% with config = conf.security_config.client_total_tick_time_config %}
+        <ClientTotalTickTimeConfig max_delay_time="{{config.max_delay_time}}" anticheat_log_limit="{{config.anticheat_log_limit}}"/>
+        {% endwith %}
+        {% with config = conf.security_config.client_server_global_value_config %}
+        <ClientServerGlobalValueConfig is_open="{{config.is_open}}" sgv_name="{{config.sgv_name}}" timeout_seconds="{{config.timeout_seconds}}" anticheat_log_limit="{{config.anticheat_log_limit}}"/>
+        {% endwith %}
+        {% with config = conf.security_config.stamina_check_config %}
+        <StaminaCheckConfig is_enable="{{config.is_enable}}" record_limit="{{config.record_limit}}" low_limit="{{config.low_limit}}" anticheat_log_limit="{{config.anticheat_log_limit}}"/>
+        {% endwith %}
+        {% with config = conf.security_config.packet_cost_time_exceed_limit_config %}
+        <PacketCostTimeExceedLimitConfig is_enable="{{config.is_enable}}" log_interval="{{config.log_interval}}" log_limit="{{config.log_limit}}" check_interval_ms="{{config.check_interval_ms}}" cost_time_percent="{{config.cost_time_percent}}" is_enable_kick="{{config.is_enable_kick}}" kick_time_percent="{{config.kick_time_percent}}" check_kick_interval="{{config.check_kick_interval}}" trigger_kick_count="{{config.trigger_kick_count}}" thread_kick_interval="{{config.thread_kick_interval}}"/>
+        {% endwith %}
+        {% with config = conf.security_config.gadget_interact_beyond_check_distance_config %}
+        <GadgetInteractBeyondCheckDistanceConfig is_enable="{{config.is_enable}}" log_interval="{{config.log_interval}}" log_limit="{{config.log_limit}}" min_record_count="{{config.min_record_count}}"/>
+        {% endwith %}
+        {% with config = conf.security_config.lua_shell_security_config %}
+        <LuaShellSecurityConfig is_check_timeout_open="{{config.is_check_timeout_open}}" lua_shell_timeout_seconds="{{config.lua_shell_timeout_seconds}}"/>
+        {% endwith %}
+        {% with config = conf.security_config.attack_damage_report_config %}
+        <AttackDamageReportConfig is_enable="{{config.is_enable}}" log_interval="{{config.log_interval}}" log_limit="{{config.log_limit}}" min_report_damage="{{config.min_report_damage}}" />
+        {% endwith %}
+    </SecurityConfig>
+
+	{% if conf.gameserver.home_verify is defined %}
+    <HomeVerify host="{{conf.gameserver.home_verify.host}}" 
+                      port="{{conf.gameserver.home_verify.port}}" 
+                      uri="{{conf.gameserver.home_verify.uri}}" 
+                      is_ssl="{{conf.gameserver.home_verify.is_ssl}}" 
+                      is_enable="{{conf.gameserver.home_verify.is_enable}}"
+                      is_detail_log="{{conf.gameserver.home_verify.is_detail_log}}"
+                      token="{{conf.gameserver.home_verify.token}}" />
+	{% endif %}
+
+	{% if conf.gameserver.nickname_sign_audit is defined %}
+    <NicknameSignAudit host="{{conf.gameserver.nickname_sign_audit.host}}" 
+                      port="{{conf.gameserver.nickname_sign_audit.port}}" 
+                      uri="{{conf.gameserver.nickname_sign_audit.uri}}" 
+                      is_ssl="{{conf.gameserver.nickname_sign_audit.is_ssl}}"
+                      timeout="{{conf.gameserver.nickname_sign_audit.timeout}}"
+                      language="{{conf.gameserver.nickname_sign_audit.language}}"
+                      queue_key="{{conf.gameserver.nickname_sign_audit.queue_key}}" />
+	{% endif %}
+
+    <!-- 活动定时器注册的interval随机时间配置 -->
+    <ActivityTimerIntervalRandTime value="{{conf.activity_timer_interval_rand_time}}" />
+					  
+    <!-- 异步Http请求配置 -->
+    <AsyncHttpClient thread="{{conf.async_http_client.thread}}" 
+                     capacity="{{conf.async_http_client.capacity}}"
+                     first_login_nickname_capacity="{{conf.async_http_client.first_login_nickname_capacity}}"
+                     home_verify_post_capacity="{{conf.async_http_client.home_verify_post_capacity}}"
+                     safe_server_capacity="{{conf.async_http_client.safe_server_capacity}}"
+                     output_control_monitor_capacity="{{conf.async_http_client.output_control_monitor_capacity}}" />
+
+    <!--
+     进程列表配置
+     1. 查询本进程要开放的端口
+     2. 与目标进程建立连接时，通过app_id查询
+    -->
+    <AppList>
+        {% for server in ['gateserver', 'gameserver', 'nodeserver', 'dbgate', 'dispatch', 'muipserver', 'multiserver', 'pathfindingserver', 'oaserver'] %}
+        {% for process in conf[server].processes %}
+        <App app_id="{{process.app_id}}" >
+            {% for port_key, port_value in process.items() %}
+            {% if port_key.startswith('port') %}
+            <Port name="{{port_key}}" port="{{port_value}}"/>
+            {% endif %}
+            {% endfor %}
+        </App>
+        {% endfor %}
+        {% endfor %}
+    </AppList>
+
+    <!--
+     机器列表配置, 两个功能
+     1 进程通过inner_ip查询自己的server_id，即每台机器的唯一标识
+     2 对于内部服务，只有这些机器可以连接
+    -->
+    <ServerList>
+        {% for server in conf.server_list %}
+        <Server id="{{server.id}}" host="{{server.host}}" inner_ip="{{server.inner_ip}}" outer_ip="{{server.outer_ip}}" />
+        {% endfor %}
+    </ServerList>
+
+    <AppHostCheck check_inner_ip="{{conf.app_host_check.is_check_inner_ip}}" />
+
+    <MysqlPoolMaxSize value ="{{conf.mysql_conn_pool_max_size}}" />
+    <RedisPoolMaxSize value ="{{conf.redis_conn_pool_max_size}}" />
+
+    <!-- 限频 -->
+    <RateLimit login="{{conf.gameserver.rate_limit.login}}" is_cal_login_load="{{conf.gameserver.rate_limit.is_cal_login_load}}" />
+
+    <Tracing service_name ="gameserver" enabled="{{conf.tracing.enabled}}" force_enable_perf_span="{{conf.tracing.force_enable_perf_span}}">
+      <PerfSpanAppList>
+        {% if conf.tracing.perf_span_app_list is defined %}
+        {% for item in conf.tracing.perf_span_app_list %}
+        <App app_id="{{item.app_id}}" />
+        {% endfor %}
+        {% endif %}
+      </PerfSpanAppList>
+    </Tracing>
+    <MemPerfConfig force_open="{{conf.mem_perf.force_open}}" output_interval="{{conf.mem_perf.output_interval}}" 
+       black_list="{{conf.mem_perf.black_list}}" white_list="{{conf.mem_perf.white_list}}">
+      <MemPerfAppList>
+        {% if conf.mem_perf.app_list is defined %}
+        {% for item in conf.mem_perf.app_list %}
+        <App app_id="{{item.app_id}}" is_to_monitor="{{item.is_to_monitor}}"/>
+        {% endfor %}
+        {% endif %}
+      </MemPerfAppList>
+    </MemPerfConfig>
+    <CmdReportConfig force_open="{{conf.cmd_report.force_open}}" output_interval="{{conf.cmd_report.output_interval}}">
+      <CmdReportAppList>
+        {% if conf.cmd_report.app_list is defined %}
+        {% for item in conf.cmd_report.app_list %}
+        <App app_id="{{item.app_id}}" />
+        {% endfor %}
+        {% endif %}
+      </CmdReportAppList>
+    </CmdReportConfig>
+
+  <!-- 协程 -->
+  <Coroutine timeout="10000" force_open="{{conf.coroutine.force_open}}" >
+    <CoroutineAppList>
+      {% if conf.coroutine.app_list is defined %}
+      {% for item in conf.coroutine.app_list %}
+      <App app_id="{{item.app_id}}" />
+      {% endfor %}
+      {% endif %}
+    </CoroutineAppList>
+  </Coroutine>
+  <MonitorReport port="{{conf.monitor_report.port}}" svn_report_interval="{{conf.monitor_report.svn_report_interval}}"/>
+  <DataReadConfig is_readlink="{{conf.is_readlink}}"/>
+  <Grid is_destory="{{conf.grid.is_destory}}" is_use_pool="{{conf.grid.is_use_pool}}" />
+  <TCMallocConfig output_tcmalloc_interval="{{conf.output_tcmalloc_interval}}" tcmalloc_free_interval="{{conf.tcmalloc_free_interval}}"/>
+  <LuaMemoryReport lua_memory_report_interval="{{conf.lua_memory_report_interval}}"/>
+  <NewLanguageConfig is_enable_setting_new_language="{{conf.new_language_config.is_enable_setting_new_language}}" new_language_type_list="{{conf.new_language_config.new_language_type_list}}"/>
+  <AutoReloadConfig interval="{{conf.auto_reload_config_interval}}" />
+
+  <!-- Service每帧处理协议数量配置：0表示不做限制每帧把队列中的所有协议都处理完 -->
+  <ServiceProcessPacketCountMax value="{{conf.gameserver.service_process_packet_count_max}}" />
+</Root>

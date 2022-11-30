@@ -1,0 +1,76 @@
+#!/bin/sh
+#by haiyun.gu
+
+export PATH=$PATH:/home/data/op_tools/bin/
+
+CUR_DIR=`dirname $0`
+SSH_BIN="ssh -o ConnectionAttempts=10 -o ConnectTimeout=5"
+
+MODULE_NAME=$1
+INPUT_SHELL=$2
+CD_WORK_PATH=$3
+
+function usage()
+{
+	echo "usage:"
+	echo "  ./mssh region_name.module_name shell_code"
+}
+
+
+#
+#	param check
+#
+if [ ! "$MODULE_NAME" ]
+then
+	usage
+	exit 1
+fi
+if [ ! "$INPUT_SHELL" ]
+then
+	usage
+	exit 1
+fi
+
+
+#
+#	get host info
+#
+HOST_INFO=`server_parse.py ${MODULE_NAME} host,port,work_path`
+if [ $? -ne 0 ]
+then
+	echo ${HOST_INFO}
+	echo "fail to get host info."
+	exit 1
+fi
+
+#
+#	load each host and exec shell
+#
+ID=1
+server_parse.py ${MODULE_NAME} host,port,work_path | while read LINE
+do
+	# load item
+	IP=`echo ${LINE}|awk  '{print $1}'`
+	PORT=`echo ${LINE}|awk  '{print $2}'`
+	WORK_PATH=`echo ${LINE}|awk  '{print $3}'`
+
+    # 判断是否进入工作目录
+    if [ "no" != "${CD_WORK_PATH}" ]
+    then
+        SHELL="cd ${WORK_PATH} && ${INPUT_SHELL}"
+    else
+        SHELL="${INPUT_SHELL}"
+    fi
+
+
+	echo -e "\033[32m ========== [${ID}] * ${IP} ========== \033[0m"
+	echo -e "\033[36m ${SHELL} \033[0m"
+	ID=$[ ${ID} + 1 ]
+
+	${SSH_BIN} -p ${PORT} ${IP} "${SHELL}" </dev/null
+	if [ $? != 0 ]
+	then
+		echo -e "excute \033[31m${SHELL}\033[0m failed"
+		#exit 1
+	fi
+done

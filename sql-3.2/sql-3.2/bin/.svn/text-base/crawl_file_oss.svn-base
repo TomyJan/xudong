@@ -1,0 +1,86 @@
+#!/bin/sh
+CUR_PATH=`dirname $0`
+source ${CUR_PATH}/common.sh
+
+#
+# 判断是否为mihoyo本地机房, 据此来动态配置FTP
+#
+export OSS_URL="oss://shmihoyo/"
+
+
+
+#
+# 读取自定义JOB_NAME
+#
+JOB_NAME="$1"
+
+
+#
+# step1: 获取JOB列表
+#
+echo -e "\033[32m正在获取 ${FTP_IP}:${FTP_PORT} 下的JOB列表 ...\033[0m"
+JOB_LIST="`ossutil ls ${OSS_URL}|grep ${OSS_URL}hk4e|awk '{print $NF}'|awk -F'/' '{print $4}'|sort -u`"
+if [ $? -ne 0 ]
+then
+    echo "get oss list failed."
+    exit 1
+fi
+
+# step2: 选择JOB
+#
+if [ "" = "${JOB_NAME}" ]
+then
+    # 从列表中选择JOB
+    JOB_ID=0
+    echo $JOB_LIST|awk '{for(i=1;i<=NF;i++)print $i}' | while read JOB_NAME
+    do
+        JOB_ID=$[ $JOB_ID + 1 ]
+        echo -e "\033[36m[${JOB_ID}]\033[0m ${JOB_NAME}"
+    done
+
+    read -p "请输入JOB ID: " JOB_ID
+    JOB_NAME="`echo $JOB_LIST|awk -v id=${JOB_ID} '{id=id*1; if(id>0) print $id; else print "";}'`"
+    if [ "$JOB_NAME" = "" ]
+    then
+        redEcho "ID输入错误"
+        exit 1
+    fi
+
+    read -p "确定拉取 [${JOB_NAME}] ？" YN
+    case $YN in 
+    Y | y)
+        echo "";;
+    *)
+        exit 0;;
+    esac
+fi
+
+
+#
+#
+# step3: 抓取文件
+#
+TAR_FILE="hk4e_output.tar.gz"
+TAR_FILE_BAK="hk4e_output.tar.gz.bak"
+TAR_FILE_MD5="${TAR_FILE}.md5"
+deepGreenEchoTimeFormat "download from oss start"
+[ -f $TAR_FILE ] && mv -f ${TAR_FILE} ${TAR_FILE_BAK}
+rm ${TAR_FILE} -rf && rm ${TAR_FILE_MD5} -f && time ossutil cp ${OSS_URL}${JOB_NAME}/${TAR_FILE} ./ && time ossutil cp ${OSS_URL}${JOB_NAME}/${TAR_FILE_MD5} ./ && tar -xzvf ${TAR_FILE}
+if [ $? -ne 0 ]
+then
+    redEcho "download from oss fail"
+    exit 1
+fi
+
+#
+# step4: 检查文件
+#
+SERVER_MD5="`cat ${TAR_FILE_MD5}`"
+LOCAL_MD5="`md5sum ${TAR_FILE}`"
+if [ "${SERVER_MD5}" != "${LOCAL_MD5}" ]
+then
+    redEcho "check md5 failed"
+    exit 1
+fi
+
+deepGreenEchoTimeFormat "download from oss succ"

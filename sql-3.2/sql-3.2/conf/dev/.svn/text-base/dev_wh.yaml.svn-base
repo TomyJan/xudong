@@ -1,0 +1,35 @@
+---
+region_name: dev_wh
+work_path: /home/han.wu/hk4e/1.6_dev
+port_begin: 21601
+is_high_freq_packet_log_open: 'false'
+auto_reload_config_interval: '3000'
+
+mem_perf:
+    force_open: 'false'
+    output_interval: '1800'
+    app_list:
+        - app_id: '906.2.1.1'
+          is_to_monitor: 'false'
+mysql:
+    user_db:
+        dbname: 'db_hk4e_user_wh'
+    config_db:
+        db_list:
+            - index: 1001
+              name: 'db_hk4e_local'
+              host: '192.168.10.148'
+              port: '3306'
+              dbname: 'db_hk4e_config_wh'
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'db_hk4e_order_wh'
+server_list:
+    - id: 1
+      host: '10.13.50.18'
+      inner_ip: '10.13.50.18'
+      outer_ip: '10.13.50.18'
+
+redis: 
+    host: '10.13.50.19'

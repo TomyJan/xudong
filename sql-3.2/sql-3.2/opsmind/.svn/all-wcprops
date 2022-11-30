@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind
+END
+发布程序[将程序软连接到程序目录].sh
+K 25
+svn:wc:ra_dav:version-url
+V 232
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/%E5%8F%91%E5%B8%83%E7%A8%8B%E5%BA%8F%5B%E5%B0%86%E7%A8%8B%E5%BA%8F%E8%BD%AF%E8%BF%9E%E6%8E%A5%E5%88%B0%E7%A8%8B%E5%BA%8F%E7%9B%AE%E5%BD%95%5D.sh
+END
+下载配置并软连接.sh
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/%E4%B8%8B%E8%BD%BD%E9%85%8D%E7%BD%AE%E5%B9%B6%E8%BD%AF%E8%BF%9E%E6%8E%A5.sh
+END
+生成配置.sh
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/%E7%94%9F%E6%88%90%E9%85%8D%E7%BD%AE.sh
+END
+[子]服务编排生成二级配置.js
+K 25
+svn:wc:ra_dav:version-url
+V 196
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/%5B%E5%AD%90%5D%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E7%94%9F%E6%88%90%E4%BA%8C%E7%BA%A7%E9%85%8D%E7%BD%AE.js
+END
+发布conf和program.conf
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/%E5%8F%91%E5%B8%83conf%E5%92%8Cprogram.conf
+END
+开始应用.sh
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/%E5%BC%80%E5%A7%8B%E5%BA%94%E7%94%A8.sh
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/README.md
+END
+停止应用.sh
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/%E5%81%9C%E6%AD%A2%E5%BA%94%E7%94%A8.sh
+END
+发布配置[将配置软连接到程序目录].sh
+K 25
+svn:wc:ra_dav:version-url
+V 232
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/%E5%8F%91%E5%B8%83%E9%85%8D%E7%BD%AE%5B%E5%B0%86%E9%85%8D%E7%BD%AE%E8%BD%AF%E8%BF%9E%E6%8E%A5%E5%88%B0%E7%A8%8B%E5%BA%8F%E7%9B%AE%E5%BD%95%5D.sh
+END
+[集成版]服务编排生成二级配置.conf
+K 25
+svn:wc:ra_dav:version-url
+V 216
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/%5B%E9%9B%86%E6%88%90%E7%89%88%5D%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E7%94%9F%E6%88%90%E4%BA%8C%E7%BA%A7%E9%85%8D%E7%BD%AE.conf
+END
+[cb2test]一锅发布conf和program.conf
+K 25
+svn:wc:ra_dav:version-url
+V 162
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/%5Bcb2test%5D%E4%B8%80%E9%94%85%E5%8F%91%E5%B8%83conf%E5%92%8Cprogram.conf
+END
+[cb2test]一锅发布conf和program.sh
+K 25
+svn:wc:ra_dav:version-url
+V 160
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/%5Bcb2test%5D%E4%B8%80%E9%94%85%E5%8F%91%E5%B8%83conf%E5%92%8Cprogram.sh
+END
+[endpoint][带二级配置]生产区服配置.conf
+K 25
+svn:wc:ra_dav:version-url
+V 212
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/%5Bendpoint%5D%5B%E5%B8%A6%E4%BA%8C%E7%BA%A7%E9%85%8D%E7%BD%AE%5D%E7%94%9F%E4%BA%A7%E5%8C%BA%E6%9C%8D%E9%85%8D%E7%BD%AE.conf
+END
+下载程序并软连接.sh
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/opsmind/%E4%B8%8B%E8%BD%BD%E7%A8%8B%E5%BA%8F%E5%B9%B6%E8%BD%AF%E8%BF%9E%E6%8E%A5.sh
+END

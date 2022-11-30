@@ -1,0 +1,22 @@
+---
+region_name: globaltest
+work_path: /home/data/hk4e
+
+# 进程部署配置
+gateserver:
+    port_player: '12101'
+
+gameserver:
+    port_gt: '12201'
+
+nodeserver:
+    port_service: '12302'
+
+dispatch:
+    port_http: '12401'
+    port_gt: '12402'
+
+muipserver:
+    port_http: '12411'
+    
+is_gm_talk_open: 'true'

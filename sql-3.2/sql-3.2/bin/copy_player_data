@@ -1,0 +1,110 @@
+#!/bin/sh
+
+#
+# 获取mysql的命令
+#
+function getMysqlCmd()
+{
+    REGION="$1"
+    SERVER_PARSE_BIN="`dirname $0`/../bin/server_parse.py"
+    SERVER_PARSE_CMD="${SERVER_PARSE_BIN} ${REGION}.mysql index,host,port,user,pwd,dbname"
+    TMP="`${SERVER_PARSE_CMD}`"
+    if [ $? -ne 0 ]
+    then
+	echo ${TMP}
+	return 1
+    fi
+
+    LINE="`${SERVER_PARSE_CMD}|awk '{if($1==2) print $0;}'`"
+
+    HOST="`echo ${LINE} | awk '{print $2}'`"
+    PORT="`echo ${LINE} | awk '{print $3}'`"
+    USER="`echo ${LINE} | awk '{print $4}'`"
+    PASSWD="`echo ${LINE} | awk '{print $5}'`"
+    DBNAME="`echo ${LINE} | awk '{print $6}'`"
+
+    echo "mysql -h${HOST} -P${PORT} -u${USER} -p${PASSWD} --default-character-set=utf8 ${DBNAME} "
+    return 0
+}
+
+#
+#	帮助
+#
+
+#
+#	读取输入
+#
+SOURCE_REGION="$1"
+SOURCE_UID="$2"
+TARGET_REGION="$3"
+TARGET_UID="$4"
+
+#
+#	获取分区的mysql
+#
+SOURCE_MYSQL_CMD="`getMysqlCmd ${SOURCE_REGION}`"
+if [ $? -ne 0 ]
+then
+    echo "${SOURCE_MYSQL_CMD}"
+    exit 1
+fi
+
+TARGET_MYSQL_CMD="`getMysqlCmd ${TARGET_REGION}`"
+if [ $? -ne 0 ]
+then
+    echo "${TARGET_MYSQL_CMD}"
+    exit 1
+fi
+
+
+#echo "${SOURCE_MYSQL_CMD}"
+#echo "${TARGET_MYSQL_CMD}"
+
+
+#
+#	抓取源玩家数据
+#
+SOURCE_TABLE="`echo "${SOURCE_UID}" | awk '{print "t_player_data_"($0 % 10);}'`"
+SELECT_SQL="select uid, hex(nickname), level, exp, vip_point, hex(bin_data) from ${SOURCE_TABLE} where uid=${SOURCE_UID} limit 1"
+
+PLAYER_DATA="`${SOURCE_MYSQL_CMD} -e "${SELECT_SQL}"|  sed "s/\t/|/g" | awk -vuid=${SOURCE_UID} -F "|" '{if($1==uid) print $0;}'`"
+if [ "" = "${PLAYER_DATA}" ]
+then
+    echo "源玩家 uid=${SOURCE_UID} 不存在"
+    exit 1
+fi
+
+
+NICKNAME="`echo ${PLAYER_DATA}|awk -F "|" '{print $2;}'`"
+LEVEL="`echo ${PLAYER_DATA}|awk -F "|" '{print $3;}'`"
+EXP="`echo ${PLAYER_DATA}|awk -F "|" '{print $4;}'`"
+VIP_POINT="`echo ${PLAYER_DATA}|awk -F "|" '{print $5;}'`"
+BIN_DATA="`echo ${PLAYER_DATA}|awk -F "|" '{print $6;}'`"
+
+#
+#	检查目标玩家数据是否存在
+#
+TARGET_TABLE="`echo "${TARGET_UID}" | awk '{print "t_player_data_"($0 % 10);}'`"
+COUNT_SQL="select count(*) as num from ${TARGET_TABLE} where uid=${TARGET_UID}"
+PLAYER_NUM="`${TARGET_MYSQL_CMD} -e "${COUNT_SQL}" |tail -1`"
+if [ "0" = "${PLAYER_NUM}" ] 
+then
+    echo "目标玩家 uid=${TARGET_UID} 不存在"
+    exit 1
+fi
+
+#
+#	更新目标玩家数据
+#
+UPDATE_SQL="update ${TARGET_TABLE} set nickname=unhex('${NICKNAME}'), level=${LEVEL}, exp=${EXP}, vip_point=${VIP_POINT}, BIN_DATA=unhex('${BIN_DATA}') where uid=${TARGET_UID}"
+${TARGET_MYSQL_CMD} -e "${UPDATE_SQL}"
+if [ $? -ne 0 ]
+then
+    echo "系统错误"
+    exit 1
+fi
+
+echo "拷贝成功"
+
+
+

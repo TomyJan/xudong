@@ -1,0 +1,12 @@
+#!/bin/sh
+ftp -n<<!
+prompt off Interactive mode off
+open $FTP_IP $FTP_PORT
+user $FTP_USER $FTP_PWD
+binary
+lcd $2
+cd $1
+mget $3 
+close
+bye
+!

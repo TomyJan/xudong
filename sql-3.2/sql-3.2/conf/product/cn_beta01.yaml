@@ -1,0 +1,80 @@
+﻿---
+region_name: cn_beta01
+is_internal_server: 'true'
+dev_sdk_account: 'false'
+work_path: /home/data/hk4e
+is_gm_talk_open: 'false'
+is_print_entity_debug_log: 'true'
+is_ip_port_log_report: 'true'
+
+mysql_extra_conf:
+    player_db_count: 80
+    home_db_count: 80
+    is_judge_user_db_delete: 'true'
+
+gateserver:
+    player_server_conf:
+        max_conn_num: 1000
+        wait_snd_check_interval: 30
+        wait_snd_max: 10000
+    gameserver_mgr:
+        threshold_load_0: 800
+        threshold_load_1: 1000
+        choose_add_load: 1    
+gameserver:
+    warn_online_player: '800'
+    max_online_player: '1000'
+    home_verify:
+        is_enable: false
+    save:
+        is_async_save: 'true'
+        is_gacha_player_save_check_item_type: 'false'
+nodeserver:
+    log_buf_size: 64
+dbgate:
+    log_buf_size: 64
+    is_login_rsp_split: 'true'
+    login_rsp_split_size: '20480'
+dispatch:
+    log_buf_size: 64
+    gateserver_mgr:
+        threshold_load_0: 800
+        threshold_load_1: 1000
+        choose_add_load: 1    
+muipserver:
+    log_buf_size: 64
+oaserver:
+    log_buf_size: 64
+pathfindingserver:
+    use_havok_cut: 'true'
+
+mem_perf:
+    force_open: 'true'
+tracing:
+    enabled: 'true'
+    force_enable_perf_span: 'true'
+
+lua_script_cache_num:
+    clear_num: 300
+    clear_time: 300
+    start_clear_num: 100
+
+item_output_config:
+    is_enable_extra_white_list: 'true'
+
+security_config:
+    is_use_server_override_map: "true" # 启用server端override_map
+    safe_server_config:   # 和安全server交互用到的配置
+        connection_status_notify_config:  # 向安全server上报玩家在线状态的http地址
+            enable: "true"
+            host: "api-beta.mihoyo.com"
+    packet_cost_time_exceed_limit_config: # 玩家单个协议耗时过高
+        cost_time_percent: 20             # 耗时百分比
+        is_enable_kick: "true"            # 是否开启踢下线
+        kick_time_percent: 80             # 踢下线耗时百分比
+
+server_error_notify:
+    rate_limit: 0 # 配0表示不允许打印此日志到客户端
+
+ability_config:
+    is_client_anticheat_report_open: 'true'

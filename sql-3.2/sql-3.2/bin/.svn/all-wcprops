@@ -1,0 +1,323 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin
+END
+local_auto_publish_4_data
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/local_auto_publish_4_data
+END
+list_ftp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/list_ftp
+END
+msh
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/msh
+END
+build_conf.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/build_conf.py
+END
+init_local_tools_v2
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/init_local_tools_v2
+END
+check_hot_patch.sh
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/check_hot_patch.sh
+END
+mshreadonly
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/mshreadonly
+END
+redis_conflict_judge.py
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/redis_conflict_judge.py
+END
+drop_mysql_db
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/drop_mysql_db
+END
+run
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/run
+END
+sql_info_merge.sh
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/sql_info_merge.sh
+END
+local_auto_check
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/local_auto_check
+END
+query_cur_region.py
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/query_cur_region.py
+END
+cal_sign_field.py
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/cal_sign_field.py
+END
+auto_scp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/auto_scp
+END
+auto_start
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/auto_start
+END
+curl_uid_bin.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/curl_uid_bin.py
+END
+auto_stop
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/auto_stop
+END
+local_auto_restart
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/local_auto_restart
+END
+local_auto_publish
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/local_auto_publish
+END
+mscp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/mscp
+END
+crawl_file
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/crawl_file
+END
+local_auto_publish_4_private_server
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/local_auto_publish_4_private_server
+END
+cmd_analysis.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/cmd_analysis.py
+END
+init_local_tools
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/init_local_tools
+END
+deploy_dev.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/deploy_dev.py
+END
+update_sql_online.py
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/update_sql_online.py
+END
+update_sql.py
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/update_sql.py
+END
+build_deploy.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/build_deploy.py
+END
+server_parse.py
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/server_parse.py
+END
+ready_deploy.sh
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/ready_deploy.sh
+END
+deploy_dev_copy_bin.sh
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/deploy_dev_copy_bin.sh
+END
+crawl_file_oss
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/crawl_file_oss
+END
+query_region_list.py
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/query_region_list.py
+END
+local_auto_start
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/local_auto_start
+END
+local_auto_restart_v2
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/local_auto_restart_v2
+END
+local_auto_publish_v2
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/local_auto_publish_v2
+END
+push_conf_oss.sh
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/push_conf_oss.sh
+END
+update_sql.sh
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/update_sql.sh
+END
+common.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/common.py
+END
+diff_sql.sh
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/diff_sql.sh
+END
+curl_muip.py
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/curl_muip.py
+END
+copy_player_redis_data.py
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/copy_player_redis_data.py
+END
+common.sh
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/common.sh
+END
+auto_check
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/auto_check
+END
+get_ftp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/get_ftp
+END
+mssh
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/mssh
+END
+deploy_dev
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/deploy_dev
+END
+build_sql
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/build_sql
+END
+check_hot_patch_meta.sh
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/check_hot_patch_meta.sh
+END
+local_auto_stop
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/local_auto_stop
+END
+ready_deploy_dev.py
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/ready_deploy_dev.py
+END
+copy_player_data
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/miHoYo/!svn/ver/1155542/rdTeam/serverCode/app/hk4e/3.2_live/tools/op_tools/bin/copy_player_data
+END

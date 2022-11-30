@@ -1,0 +1,16 @@
+---
+region_name: dev_lq
+work_path: /home/qiang.li/hk4e/mgpm/env
+port_begin: 14301
+
+mysql:
+    user_db:
+        dbname: 'db_hk4e_user_lq'
+    data_db:
+        dbname: 'db_hk4e_order_lq'
+
+
+
+redis:
+    host: '192.168.11.18'
+

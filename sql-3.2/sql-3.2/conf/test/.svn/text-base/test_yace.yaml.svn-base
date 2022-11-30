@@ -1,0 +1,41 @@
+﻿---
+region_name: yace
+work_path: /home/data/hk4e
+
+cmdb:
+    host: "test-opsmind.yuanshen.com"
+    is_ssl: true
+    uri: "/api/v1/ecu/endpoints/cmdb_endpoint-1tk2maq48f19s"
+    token: "e303e78dc685:eyJhbGciOiJSUzI1NiIsImtuYW1lIjoieXVhbnNoZW4iLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2MDQ5Nzc4MDF9.OREGh2sGTzVn3CKzo5PmCw8i-ziAE_ODxoYDM3Y6a9UIJ6skWWg4-2jies5wVzwp_uH3PxHMnXO4Y2yJ2e2iAg"
+
+grid:
+    is_destory: 'true'
+    is_use_pool: 'true'
+
+# 进程部署配置
+gateserver:
+    port_player: '18101'
+    packet_conf:
+        max_count: '1000'
+      player_server_conf:
+        max_conn_num: '1000'
+
+gameserver:
+    port_gt: '18201'
+    max_online_player: '1000'
+    warn_online_player: '800'
+
+nodeserver:
+    port_service: '18302'
+
+dispatch:
+    port_http: '18401'
+    port_gt: '18402'
+
+muipserver:
+    port_http: '18411'
+
+pathfindingserver:
+    port_gt: '18501'
+
+

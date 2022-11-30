@@ -1,0 +1,33 @@
+region_name: dev_hyz
+work_path: /home/yizhao.han/server/3.2_dev/env
+port_begin: 20001
+server_list:
+- host: 10.13.50.85
+  id: 1
+  inner_ip: 10.13.50.85
+  outer_ip: 10.13.50.85
+dbgate:
+  register_rate_conf:
+  - max_punish_value: 60
+    max_register_num: 2
+    period_length: 10
+  servers:
+  - host: '1'
+    num: 1
+  short_name: dg
+  stat_log_level: ''
+  thread_num: '2'
+mysql:
+  config_db:
+    db_list:
+    - dbname: db_hk4e_config_hyz
+      index: 1001
+  data_db:
+    db_list:
+    - dbname: db_hk4e_order_hyz
+      index: 2001
+  user_db:
+    dbname: db_hk4e_user_hyz
+redis:
+  db: '7'
+  host: 10.13.50.85

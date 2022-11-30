@@ -1,0 +1,149 @@
+#!/bin/sh
+CUR_PATH=`dirname $0`
+source $CUR_PATH/common.sh
+
+REGION_NAME=$1
+OUTPUT_DIR="./hk4e_output/"
+MODULE_LIST=""
+if [ "" != "$2" ]
+then
+	MODULE_LIST=$2
+fi
+
+# para check
+if [ "" = "${REGION_NAME}" ]
+then
+	echo "no region set."
+	exit 1
+fi
+
+# 二次确认
+echo -e "\033[36m${REGION_NAME}\033[0m"
+echo -e "\033[36m${MODULE_LIST}\033[0m"
+read -p "确定 SCP？" YN
+case $YN in 
+Y | y)
+	echo "";;
+*)
+	exit 0;;
+esac
+
+function scp_module_server()
+{
+	# 解析需要的参数
+	local MODULE_NAME=$1
+	local HOST=$2
+	local PORT=$3
+	local WORK_PATH=$4
+	local FULL_MODULE_NAME=$5
+	local NUM=$6
+
+	if [ "all" = "${FULL_MODULE_NAME}" ]
+	then
+		FULL_MODULE_NAME="lib"
+	fi
+
+	echo "deploy ${MODULE_NAME} to ${HOST} start"
+
+	# 检查需要发布的目录是否存在
+	local LOCAL_PATH="${OUTPUT_DIR}/${FULL_MODULE_NAME}"
+	if [ ! -d ${LOCAL_PATH} ]
+	then
+		echo "${LOCAL_PATH} is not exist"
+		return 1
+	fi
+
+	# 开始发布
+	local SCP_OUTPUT_FILE="1"
+	if [ "lib" = "${MODULE_NAME}" ]
+	then
+		SCP_OUTPUT_FILE="scp.log"
+	fi
+
+	for((idx = 1; idx <= NUM; idx++))
+	do
+		if [ $idx -gt 1 ]
+		then
+			local FINAL_LOCAL_PATH=$LOCAL_PATH$idx
+			cp -rf $LOCAL_PATH/$FULL_MODULE_NAME $FINAL_LOCAL_PATH
+			if [ "fightserver" = "${FULL_MODULE_NAME}" ]
+			then
+				cp -rf $LOCAL_PATH/lib $FINAL_LOCAL_PATH
+			fi
+		else
+			local FINAL_LOCAL_PATH=$LOCAL_PATH
+		fi
+		if [ $NUM -gt 1 ]
+		then
+			echo -e "\033[36m ++++++ copy [$MODULE_NAME][$idx] begin ++++++\033[0m" 
+		fi
+		mkdir -p ${FINAL_LOCAL_PATH}/log && ssh -f -p${PORT} ${HOST} "mkdir -p ${WORK_PATH}" && scp -P${PORT} -r ${FINAL_LOCAL_PATH} ${HOST}:${WORK_PATH}/ >&${SCP_OUTPUT_FILE} 
+		if [ $? -ne 0 ]
+		then
+			echo "scp -P${PORT} -r ${FINAL_LOCAL_PATH} ${HOST}:${WORK_PATH} failed."
+			return 1
+		fi
+	done
+
+	return 0
+}
+
+function scp_module()
+{
+	local MODULE_NAME=$1
+
+	# 转换server_parse需要的module_name
+	local SERVER_PARSE_MODULE_NAME="${MODULE_NAME}"
+	if [ "lib" = "${SERVER_PARSE_MODULE_NAME}" ]
+	then
+		SERVER_PARSE_MODULE_NAME="all"
+	fi
+
+	# step1: 尝试server_parse
+	echo $SERVER_PARSE_MODULE_NAME
+	MODULE_INFO=`${CUR_PATH}/server_parse ${REGION_NAME}.${SERVER_PARSE_MODULE_NAME} host,port,work_path`
+	local parse_ret=$?
+	if [ $parse_ret -eq 20 ]
+	then
+		yello_echo "====== `date +%H:%M:%S`: deploy [${MODULE_NAME}] start ======"
+		echo ${MODULE_INFO}
+		echo "skip {$MODULE_NAME}"
+		yello_echo "====== `date +%H:%M:%S`: deploy [${MODULE_NAME}] end ======\n"
+		return 0
+	fi
+	
+	echo -e "\033[36m ====== `date +%H:%M:%S`: deploy [${MODULE_NAME}] start ======\033[0m"
+	if [ $parse_ret -ne 0 ]
+	then
+		echo ${MODULE_INFO}
+		echo "get info of ${REGION_NAME}.${SERVER_PARSE_MODULE_NAME} failed."
+		return 1
+	fi
+
+	# step2: 逐个模块操作
+	server_parse ${REGION_NAME}.${SERVER_PARSE_MODULE_NAME} host,port,work_path,name,num | while read LINE
+	do
+		scp_module_server $MODULE_NAME $LINE
+		if [ $? -ne 0 ]
+		then
+			return 1
+		fi
+	done
+
+	echo -e "\033[36m ====== `date +%H:%M:%S`: deploy [${MODULE_NAME}] succ ======\033[0m"
+}
+
+function auto_scp()
+{
+	for MODULE_NAME in ${MODULE_LIST}
+	do
+		scp_module $MODULE_NAME
+		if [ $? -ne 0 ]
+		then
+			return 1
+		fi
+	done
+	return 0
+}
+
+auto_scp

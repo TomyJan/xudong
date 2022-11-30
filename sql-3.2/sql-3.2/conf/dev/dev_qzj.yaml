@@ -1,0 +1,36 @@
+---
+region_name: dev_qzj
+work_path: /home/zijing.qin/test
+port_begin: 21901
+
+mysql:
+    user_db:
+        dbname: 'hk4e_db_user_qzj'
+    config_db:
+        db_list:
+            - index: 1001
+              dbname: 'hk4e_db_config_qzj'
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'hk4e_db_order_qzj'
+
+redis:
+    db: '3'
+
+server_list:
+    - id: 1
+      host: '10.10.98.85'
+      inner_ip: '10.10.98.85'
+      outer_ip: '10.10.98.85'
+
+httpproxy:
+    name: 'httpproxy'
+    short_name: 'qzj'
+    http_aserver_thread_num: 2
+    port_http: "13222"
+    stat_log_level: ''
+    thread_num: '1' 
+    servers:
+        - host: '1'
+          num: 1

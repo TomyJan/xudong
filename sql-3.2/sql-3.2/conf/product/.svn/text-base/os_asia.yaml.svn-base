@@ -1,0 +1,149 @@
+region_name: 'os_asia'
+is_internal_server: 'false'
+tracing:
+    enabled: 'false'
+    
+gateserver:
+    game_aclient_thread_num: '4'
+    pf_aclient_thread_num: '2'
+    player_server_conf:
+        max_conn_num: 1000
+    packet_conf:
+        check_interval: 10000
+        max_count: 4000
+        max_size: 0
+    gameserver_mgr:
+        threshold_load_0: 600
+        threshold_load_1: 710
+        choose_add_load: 710
+
+gameserver:
+    gt_aserver_thread_num: 5
+    thread_num: '4'
+    async_thread_num: '16'
+    warn_online_player: '600'
+    max_online_player: '660'
+    max_conn_num: '8192'
+    word_filter:
+        is_use_remote: true
+        is_ssl: false
+        host: 'jp-inner-api.hoyoverse.com'
+        port: 'http'
+        uri: '/game/sensitive_word/sw/check'
+    push_tags:
+          is_ssl: false
+          host: 'hk4e-sdk-minor-os.hoyoverse.com'
+          port: 80
+          uri: '/hk4e_cn/combo/postman/device/setUserTags'
+    save:
+        player_save_when_gacha: 'true'
+        player_save_when_recharge: 'true'
+        is_async_save: 'true'
+    rate_limit:
+        login: 50
+    home_verify:
+        is_enable: true
+        host: 'jp-inner-api.hoyoverse.com'
+        port: '80'
+        uri: '/game/hk4e/outer_api/Game/Hk4eHomeAudit'
+        is_ssl: false
+        is_detail_log: false
+        token: '3b0f517ab4044fb06339361f0b18c7f5'
+    nickname_sign_audit:
+        is_ssl: false
+        host: 'jp-inner-api.hoyoverse.com'
+        port: 'http'
+        language: 'en-us'
+
+nodeserver:
+    aserver_thread_num: 8
+    thread_num: '6'
+    max_conn_num: '16384'
+
+dbgate:
+    thread_num: '96'
+    packet_queue_max_size: 1000
+    token_thread_num: '3'
+    token_packet_queue_max_size: 100
+
+dispatch:
+    http_aserver_thread_num: 4
+    thread_num: '4'
+    max_conn_num: '8192'
+    gateserver_mgr:
+        threshold_load_0: 800
+        threshold_load_1: 1000
+        choose_add_load: 20
+
+muipserver:
+    http_aserver_thread_num: 16
+
+oaserver:
+    http_aserver_thread_num: 16
+    thread_num: '16'
+
+multiserver:
+    node_aclient_thread_num: '2'
+    services:
+        - name: 'mailservice'
+          type: 'Mailservice'
+          thread_num: '96'
+          stat_log_level: 'MAIL_STAT'
+        - name: 'mpservice'
+          type: 'Mpservice'
+          thread_num: '1'
+          stat_log_level: ''
+        - name: 'offlinemsgservice'
+          type: 'OfflineMsgservice'
+          thread_num: '96'
+          stat_log_level: ''
+        - name: 'activityservice'
+          type: 'Activityservice'
+          thread_num: '96'
+          stat_log_level: ''
+        - name: 'socialservice'
+          type: 'Socialservice'
+          thread_num: '96'
+          stat_log_level: ''
+        - name: 'matchservice'
+          type: 'Matchservice'
+          thread_num: '1'
+          stat_log_level: ''
+        - name: 'offlineopservice'
+          type: 'OfflineOpservice'
+          thread_num: '32'
+          stat_log_level: ''
+    custom_dungeon:
+        is_enable_verify: 'true'
+        is_verify_ssl: 'false'
+        verify_host: 'jp-inner-api.hoyoverse.com'
+        verify_port: '80'
+        verify_uri: '/game/hk4e_homeland/OuterApi/DungeonRecord'
+        verify_timeout: 5
+
+pathfindingserver:
+    thread_num: '8'
+    max_conn_num: '8192'
+
+log_cut_time: 60
+log_keep_time: 10080
+is_skip_sdk_verify_when_http_failed: 'true'
+
+output_control_monitor:
+    host: 'intra-log-upload-os.hoyoverse.com'
+    port: '443'
+    uri: '/hk4e/monitor'
+    is_ssl: 1
+
+security_config:
+    safe_server_config:   # 和安全server交互用到的配置
+        connection_status_notify_config:  # 向安全server上报玩家在线状态的http地址
+            enable: "true"
+            host: "gate-hk4e-global-os-asia.hoyoverse.com"
+
+server_error_notify:
+    rate_limit: 0 # 配0表示不允许打印此日志到客户端
+
+sdk_verify_host_darkrelease:
+    host: 'hk4e-sdk-gaslb-os.hoyoverse.com' # gateserver sdk鉴权使用的AGA加速的域名
+    weight: 90 # 90%的比例灰度使用上面host配置的域名

@@ -1,0 +1,190 @@
+#!/bin/sh
+
+#
+#	常量定义
+#
+SQL_TEMP_PATH="`dirname $0`/../sql_temp/"
+SERVER_PARSE_BIN="`dirname $0`/../bin/server_parse.py"
+
+#
+#	参数读取
+#
+REGION="$1"
+ENV="$2"
+if [[ "${ENV}" == "test" || "${ENV}" == "prod" || "${ENV}" == "dev" ]];then
+    ENV="$2"
+    VERSION="$3"
+    OUTPUT_FILE_NAME="$4"
+else
+	ENV="test"
+    VERSION="$2"
+    OUTPUT_FILE_NAME="$3"
+fi
+if [ "" = "${OUTPUT_FILE_NAME}" ]
+then
+	OUTPUT_FILE_NAME="${REGION}_sql.sh"
+fi
+
+#是否数据版本升级
+IS_UPDATE=`echo ${VERSION} | grep to | wc -l`
+
+#
+#	检查参数
+#
+SERVER_PARSE_CMD="${SERVER_PARSE_BIN} ${REGION}.mysql index,host,port,user,pwd,dbname ${ENV}"
+TMP="`${SERVER_PARSE_CMD}`"
+if [ $? -ne 0 ]
+then
+	echo ${TMP}
+	exit 1
+fi
+
+#
+#	初始化目录
+#
+rm ${OUTPUT_FILE_NAME} -f && mkdir -p "`dirname ${OUTPUT_FILE_NAME}`"
+if [ $? -ne 0 ]
+then
+	echo "init dir for ${OUTPUT_FILE_NAME} failed"
+	exit 1
+fi
+
+#
+# $1: table name, $2: db_index in region.xml
+#
+formatCreateTableSql() {
+    FILE_NAME=$1
+    DB_INDEX=$2
+    SQL_TEMP_FILE="${SQL_TEMP_PATH}/${VERSION}/${FILE_NAME}.sql"
+    if [ -f ${SQL_TEMP_FILE} ]
+    then
+        ${SERVER_PARSE_CMD} | awk '{if(DB_INDEX == $1) print $0}' DB_INDEX="$DB_INDEX" | while read LINE
+        do
+            echo $LINE
+            HOST="`echo ${LINE} | awk '{print $2}'`"
+            PORT="`echo ${LINE} | awk '{print $3}'`"
+            USER="`echo ${LINE} | awk '{print $4}'`"
+            PWD="`echo ${LINE} | awk '{print $5}'`"
+            DBNAME="`echo ${LINE} | awk '{print $6}'`"
+
+            MYSQL_CMD="mysql -h${HOST} -P${PORT} -u${USER} -p${PWD} --default-character-set=utf8mb4 "
+            SQL="create database if not exists ${DBNAME};
+        use ${DBNAME};
+        `cat ${SQL_TEMP_FILE}|sed "s#\\\`#\\\\\\\\\\\`#g"`"
+
+            echo "SQL=\"${SQL}\"" >> ${OUTPUT_FILE_NAME};
+            echo "echo \${SQL} | ${MYSQL_CMD}
+
+        " >> ${OUTPUT_FILE_NAME};
+
+        done
+    else
+        echo ${SQL_TEMP_FILE} " not exist!!!"
+    fi
+}
+
+# t_player_uid
+formatCreateTableSql t_player_uid 1
+
+
+#
+#	t_player_data
+#
+SQL_TEMP_FILE="${SQL_TEMP_PATH}/${VERSION}/t_player_data.sql"
+# 新的版本db文件必须存在
+if [ "0" == "${IS_UPDATE}" ] && [ ! -f ${SQL_TEMP_FILE} ]
+then
+	echo "can not find ${SQL_TEMP_FILE}"
+	exit 1
+fi
+
+if [ -f ${SQL_TEMP_FILE} ]
+then
+	${SERVER_PARSE_CMD} | awk '{if($1>=2 && $1<=11) print $0}' | sort -k6 -u | while read LINE
+	do
+		echo $LINE
+		HOST="`echo ${LINE} | awk '{print $2}'`"
+		PORT="`echo ${LINE} | awk '{print $3}'`"
+		USER="`echo ${LINE} | awk '{print $4}'`"
+		PWD="`echo ${LINE} | awk '{print $5}'`"
+		DBNAME="`echo ${LINE} | awk '{print $6}'`"
+
+		MYSQL_CMD="mysql -h${HOST} -P${PORT} -u${USER} -p${PWD} --default-character-set=utf8mb4 "
+
+		SQL="create database if not exists ${DBNAME};"
+		echo "SQL=\"${SQL}\"" >> ${OUTPUT_FILE_NAME};
+		echo "echo \${SQL} | ${MYSQL_CMD}
+
+	" >> ${OUTPUT_FILE_NAME};
+
+		for((IDX=0; IDX<10; IDX++))
+		do
+			SQL="use ${DBNAME};
+	`cat ${SQL_TEMP_FILE}|sed "s#\\\`#\\\\\\\\\\\`#g"|sed "s#{idx}#${IDX}#g"`"
+			echo "SQL=\"${SQL}\"" >> ${OUTPUT_FILE_NAME};
+			echo "echo \${SQL} | ${MYSQL_CMD}
+
+	" >> ${OUTPUT_FILE_NAME};
+		done
+
+	done
+fi
+
+
+#
+#	t_block_data
+#
+SQL_TEMP_FILE="${SQL_TEMP_PATH}/${VERSION}/t_block_data.sql"
+# 新的版本db文件必须存在
+if [ "0" == "${IS_UPDATE}" ] && [ ! -f ${SQL_TEMP_FILE} ]
+then
+	echo "can not find ${SQL_TEMP_FILE}"
+	exit 1
+fi
+
+if [ -f ${SQL_TEMP_FILE} ]
+then
+	${SERVER_PARSE_CMD} | awk '{if($1>=2 && $1<=11) print $0}' | sort -k6 -u | while read LINE
+	do
+		echo $LINE
+		HOST="`echo ${LINE} | awk '{print $2}'`"
+		PORT="`echo ${LINE} | awk '{print $3}'`"
+		USER="`echo ${LINE} | awk '{print $4}'`"
+		PWD="`echo ${LINE} | awk '{print $5}'`"
+		DBNAME="`echo ${LINE} | awk '{print $6}'`"
+
+		MYSQL_CMD="mysql -h${HOST} -P${PORT} -u${USER} -p${PWD} --default-character-set=utf8mb4 "
+
+		SQL="create database if not exists ${DBNAME};"
+		echo "SQL=\"${SQL}\"" >> ${OUTPUT_FILE_NAME};
+		echo "echo \${SQL} | ${MYSQL_CMD}
+
+	" >> ${OUTPUT_FILE_NAME};
+
+		for((IDX=0; IDX<10; IDX++))
+		do
+			SQL="use ${DBNAME};
+	`cat ${SQL_TEMP_FILE}|sed "s#\\\`#\\\\\\\\\\\`#g"|sed "s#{idx}#${IDX}#g"`"
+			echo "SQL=\"${SQL}\"" >> ${OUTPUT_FILE_NAME};
+			echo "echo \${SQL} | ${MYSQL_CMD}
+
+	" >> ${OUTPUT_FILE_NAME};
+		done
+
+	done
+fi
+
+
+
+
+#
+# 分区配置 hk4e_db_config
+#
+formatCreateTableSql hk4e_db_config 1001
+
+#
+# 全局数据库
+#
+formatCreateTableSql hk4e_db_deploy_config 1002
+
+

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+CUR_PATH=`dirname $0`
+source $CUR_PATH/common.sh
+
+for MODULE in ${FULL_MODULE_LIST}
+do
+	svc -t ../${MODULE}
+done
+
+sleep 3 && sh local_auto_check
+

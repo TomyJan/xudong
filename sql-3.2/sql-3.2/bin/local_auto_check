@@ -1,0 +1,10 @@
+#!/bin/sh
+CUR_PATH=`dirname $0`
+source $CUR_PATH/common.sh
+
+for MODULE in ${FULL_MODULE_LIST}
+do
+	/usr/local/bin/svstat ${LOCAL_WORK_DIR}/${MODULE}/
+	chmod 777 -R ${LOCAL_WORK_DIR}/${MODULE}/supervise
+done
+

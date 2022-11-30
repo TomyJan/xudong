@@ -1,0 +1,18 @@
+#!/bin/bash
+
+VERSION=$1
+DATA_BR=$2
+
+if [ -z $DATA_BR ]; then
+   DATA_BR=main
+fi
+
+if [ -z $VERSION ]; then
+   ossutil cp -f oss://hk4e-trans/design_data/${DATA_BR}/cur_version.txt cur_version.txt
+   VERSION=`cat cur_version.txt`
+fi
+
+cd ../data || exit 1
+echo "开始抓取数值, $VERSION"
+ossutil cp -f oss://hk4e-trans/design_data/${DATA_BR}/output_${VERSION}/server/data.tgz .
+tar xf data.tgz

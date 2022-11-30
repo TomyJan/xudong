@@ -1,0 +1,53 @@
+---
+region_name: dev_wzd
+work_path: /home/zhengdong.wang/serverCode/app/hk4e/trunk
+port_begin: 15201
+
+cmdb:
+    host: '127.0.0.1'
+    port: '5000'
+    is_ssl: false
+    uri: '/'
+    token: ''
+
+mysql:
+    user_db:
+        host: '192.168.11.18'
+        dbname: 'db_hk4e_user_wzd'
+    data_db:
+        db_list:
+            - index: 2001
+              dbname: 'db_hk4e_order_wzd'
+gameserver:
+    servers:
+        - host: '1'
+          num : 1
+    word_filter:
+        is_use_remote: true
+        is_ssl: true
+        host: 'devapi-takumi.mihoyo.com'
+        port: 'https'
+        uri: '/sensitive_word/sw/check'
+nodeserver:
+    servers:
+        - host: '1'
+          num : 1
+gateserver:
+    servers:
+        - host: '1'
+          num : 1
+pathfindingserver:
+    servers:
+        - host: '1'
+          num: 1
+redis:
+    host: '192.168.11.18'
+
+is_high_freq_packet_log_open: "true"
+
+# 主机列表
+server_list:
+    - id: 1
+      host: '192.168.11.18'
+      inner_ip: '192.168.11.18'
+      outer_ip: '192.168.11.18'

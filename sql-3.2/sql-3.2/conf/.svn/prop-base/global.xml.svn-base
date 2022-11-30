@@ -1,0 +1,41 @@
+K 26
+svnkit:entry:sha1-checksum
+V 40
+5149da05796ef2f37d99cac9bf97dc1d769982f6
+K 13
+svn:mergeinfo
+V 2966
+/rdTeam/serverCode/app/hk4e/1.0_dev/tools/op_tools/conf/global.xml:662848-737185
+/rdTeam/serverCode/app/hk4e/1.0_rel/tools/op_tools/conf/global.xml:765729,795058
+/rdTeam/serverCode/app/hk4e/1.1_dev/tools/op_tools/conf/global.xml:662902-712032,727199-795260
+/rdTeam/serverCode/app/hk4e/1.2_dev/tools/op_tools/conf/global.xml:662889-801806,810273
+/rdTeam/serverCode/app/hk4e/1.3_dev/tools/op_tools/conf/global.xml:769451-823213
+/rdTeam/serverCode/app/hk4e/1.4_dev/tools/op_tools/conf/global.xml:804592-852296
+/rdTeam/serverCode/app/hk4e/1.5_dev/tools/op_tools/conf/global.xml:822684-900152
+/rdTeam/serverCode/app/hk4e/1.6_dev/tools/op_tools/conf/global.xml:822688-918250
+/rdTeam/serverCode/app/hk4e/2.0_dev/tools/op_tools/conf/global.xml:811893-940891
+/rdTeam/serverCode/app/hk4e/2.1_dev/tools/op_tools/conf/global.xml:855473-954815
+/rdTeam/serverCode/app/hk4e/2.2_dev/tools/op_tools/conf/global.xml:855475-967605
+/rdTeam/serverCode/app/hk4e/2.3_dev/tools/op_tools/conf/global.xml:855476-977940
+/rdTeam/serverCode/app/hk4e/2.4_dev/tools/op_tools/conf/global.xml:855482-1000700
+/rdTeam/serverCode/app/hk4e/2.5_dev/tools/op_tools/conf/global.xml:904431-1000711
+/rdTeam/serverCode/app/hk4e/2.6_dev/tools/op_tools/conf/global.xml:904433-1020135
+/rdTeam/serverCode/app/hk4e/2.7_dev/tools/op_tools/conf/global.xml:973822-1035176
+/rdTeam/serverCode/app/hk4e/2.8_dev/tools/op_tools/conf/global.xml:973823-1059418
+/rdTeam/serverCode/app/hk4e/3.0_dev/tools/op_tools/conf/global.xml:973824-1098108
+/rdTeam/serverCode/app/hk4e/3.1_dev/tools/op_tools/conf/global.xml:1003585-1123430
+/rdTeam/serverCode/app/hk4e/3.2_dev/tools/op_tools/conf/global.xml:1003586-1142553
+/rdTeam/serverCode/app/hk4e/cb01_live/tools/op_tools/conf/global.xml:493906,515927
+/rdTeam/serverCode/app/hk4e/cb01_release/tools/op_tools/conf/global.xml:477133-477202,477871,478040,479315,480571-480589,480601-480602,481571,482459,482580,482657,482792,482797,483049,483256,483468,483589,483704,483753,483899,483992,484081,484479-484484
+/rdTeam/serverCode/app/hk4e/cb2plus_rel/tools/op_tools/conf/global.xml:641250
+/rdTeam/serverCode/app/hk4e/cb3_dev/tools/op_tools/conf/global.xml:660526-663167,665142-684418,688903-697627
+/rdTeam/serverCode/app/hk4e/cb3_update_dev/tools/op_tools/conf/global.xml:689334-702344
+/rdTeam/serverCode/app/hk4e/ce0.6/tools/op_tools/conf/global.xml:369224-369251
+/rdTeam/serverCode/app/hk4e/gameplayRnD/tools/op_tools/conf/global.xml:457278-457284
+/rdTeam/serverCode/app/hk4e/load_group_dev/tools/op_tools/conf/global.xml:484750-486908
+/rdTeam/serverCode/app/hk4e/mgpm/tools/op_tools/conf/global.xml:502034-513535
+/rdTeam/serverCode/app/hk4e/pathfinding/tools/op_tools/conf/global.xml:541083-583805
+/rdTeam/serverCode/app/hk4e/pathfinding_merge/tools/op_tools/conf/global.xml:583804-588009
+/rdTeam/serverCode/app/hk4e/trunk_tmp/tools/op_tools/conf/global.xml:203676-203683
+/rdTeam/serverCode/app/hk4e/weekly/tools/op_tools/conf/global.xml:456206,458371,467535,471167,471475,499052-499171
+END

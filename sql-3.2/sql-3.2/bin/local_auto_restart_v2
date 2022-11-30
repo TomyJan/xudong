@@ -1,0 +1,50 @@
+#!/bin/sh
+source ./common.sh
+export PATH=$PATH:/usr/local/bin
+if [ "" != "$1" ]
+then
+        FULL_MODULE_LIST=$1
+fi
+
+WORK_PATH=`dirname $PWD`
+echo $WORK_PATH
+
+for MODULE_NAME in ${FULL_MODULE_LIST}
+do
+        svc -t ${WORK_PATH}/${MODULE_NAME}
+    echo -e "\033[36m ====== `date +%H:%M:%S`: restart [${MODULE_NAME}] succ ======\033[0m"
+done
+
+sleep 1
+
+#Æô¶¯µÈ´ýÃëÊý
+WAIT_SECONDS=15
+for((idx = 1; idx <= WAIT_SECONDS; ++idx))
+do
+        sleep 1
+        WAIT_UP_LIST=""
+        for MODULE_NAME in ${FULL_MODULE_LIST}
+        do
+                SVSTAT_INFO=`svstat ${WORK_PATH}/${MODULE_NAME}`
+                UP_TIME=`echo $SVSTAT_INFO | grep -o "[0-9]* seconds" | awk '{print $1}'`
+                if (( UP_TIME < 2 || UP_TIME > WAIT_SECONDS + 1 ))
+                then
+                        WAIT_UP_LIST="$WAIT_UP_LIST $MODULE_NAME";
+                fi
+        done
+        if [ "$WAIT_UP_LIST" = "" ]
+        then
+        for MODULE_NAME in ${FULL_MODULE_LIST}
+        do
+            svstat ${WORK_PATH}/${MODULE_NAME}
+        done
+                echo -e "\033[36m ****** all servers are up! ******\033[0m"
+                break
+        else
+                echo -e "\033[36m[$WAIT_UP_LIST ] wait to get up\033[0m"
+        fi
+        if [ $idx -eq $WAIT_SECONDS ]
+        then
+                echo -e "\033[36m[$WAIT_UP_LIST ] fail to get up\033[0m"
+        fi
+done
