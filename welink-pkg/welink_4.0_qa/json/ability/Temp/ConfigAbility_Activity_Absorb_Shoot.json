@@ -1,0 +1,1196 @@
+[
+
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "ActivityAbility_Absorb_Shoot",
+            "isDynamicAbility": true,
+            "abilityMixins":
+            [
+                {
+                    "$type": "CheckDivingAbsorbMixin",
+                    "checkParams":
+                    {
+                        "hookAreaRadius":20.0,
+                        "minDistToAvatar":0.5,
+                        "screenEllipseRatioX":0.7,
+                        "screenEllipseRatioY":0.8,
+                        "ui":
+                        {
+                            "SelectableIcon": "UI_MarkQuest_GrapplingHook_01",
+                            "SelectedIcon": "UI_MarkQuest_GrapplingHook_02",
+                            "UnselectableIcon": "UI_MarkQuest_GrapplingHook_03",
+                        },
+                    },
+                },                
+            ],
+            "onAdded":
+            [
+                {
+                    "$type": "AttachModifier",
+                    "modifierName": "ActivityAbility_Absorb_AddSkillInfo",
+                    "doOffStage": true,
+                },
+                {
+                    "$type": "AttachModifier",
+                    "modifierName": "ActivityAbility_Absorb_Aim_Handler",
+                    "doOffStage": true,
+                },
+                {
+                    "$type": "AttachModifier",
+                    "modifierName": "ActivityAbility_Absorb_SwitchSkills",
+                    "doOffStage": true,
+                },
+                {
+                    "$type": "SetGlobalValue",
+                    "key": "_ABILITY_WhiteBox_Dive",
+                    "value": 0,
+                    "target": "Self",
+                },
+              
+            ],
+            "modifiers":
+            {
+                "ActivityAbility_Absorb_CreateAvatar":
+                {                    "onAdded":
+                    [
+                        {
+                            "$type": "TriggerBullet",
+                            "bulletID": 420004001,
+                            "born":
+                            {
+                                "$type": "ConfigBornByAttachPoint",
+                                "attachPointName" : "RootNode",
+                                "offset":
+                                {
+                                    "x": 0.7,
+                                    "y": 1.5,
+                                    "z": -0.4,
+                                },
+                            },
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "KillGadget",  //先干掉再创建，数量最大1个
+                            "gadgetInfo":
+                            {
+                                "$type": "SelectTargetsByChildren",
+                                "configID": 420004001,
+                                "sortType": "Default",
+                            }
+                        },
+                    ]                    
+                },     
+                "ActivityAbility_Absorb_CreateAvatar_2":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "TriggerBullet",
+                            "bulletID": 420004002,
+                            "born":
+                            {
+                                "$type": "ConfigBornByAttachPoint",
+                                "attachPointName" : "RootNode",
+                                "offset":
+                                {
+                                    "x": 0.7,
+                                    "y": 1.5,
+                                    "z": -0.4,
+                                },
+                            },
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "KillGadget",  //先干掉再创建，数量最大1个
+                            "gadgetInfo":
+                            {
+                                "$type": "SelectTargetsByChildren",
+                                "configID": 420004002,
+                                "sortType": "Default",
+                            }
+                        },
+                    ]                    
+                },   
+                "ActivityAbility_Absorb_CreateAvatar_3":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "TriggerBullet",
+                            "bulletID": 420004003,
+                            "born":
+                            {
+                                "$type": "ConfigBornByAttachPoint",
+                                "attachPointName" : "RootNode",
+                                "offset":
+                                {
+                                    "x": 0.7,
+                                    "y": 1.5,
+                                    "z": -0.4,
+                                },
+                            },
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "KillGadget",  //先干掉再创建，数量最大1个
+                            "gadgetInfo":
+                            {
+                                "$type": "SelectTargetsByChildren",
+                                "configID": 420004003,
+                                "sortType": "Default",
+                            }
+                        },
+                    ]                    
+                },   
+                "ActivityAbility_Absorb_CreateAvatar_4":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "TriggerBullet",
+                            "bulletID": 420004004,
+                            "born":
+                            {
+                                "$type": "ConfigBornByAttachPoint",
+                                "attachPointName" : "RootNode",
+                                "offset":
+                                {
+                                    "x": 0.7,
+                                    "y": 1.5,
+                                    "z": -0.4,
+                                },
+                            },
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "KillGadget",  //先干掉再创建，数量最大1个
+                            "gadgetInfo":
+                            {
+                                "$type": "SelectTargetsByChildren",
+                                "configID": 420004004,
+                                "sortType": "Default",
+                            }
+                        },
+                    ]                    
+                },                                                              
+                "ActivityAbility_Absorb_AddSkillInfo":  //增添抓捕专用技能
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AvatarSkillStart",  //这是用来让它装备瞬间闪一下
+                            "skillID": 20046,
+                            "cdRatio": 0.1,
+                        },
+
+                        {
+                            "$type": "AddAvatarSkillInfo",
+                            "skillID": 20046,
+                            "doOffStage": true,
+                        },
+                        {
+                            "$type": "AddAvatarSkillInfo",
+                            "skillID": 20047,
+                            "doOffStage": true,
+                        },
+                        {
+                            "$type": "AddAvatarSkillInfo",
+                            "skillID": 20050,
+                            "doOffStage": true,
+                        },            
+                        {
+                            "$type": "AddAvatarSkillInfo",
+                            "skillID": 20052,
+                            "doOffStage": true,
+                        },
+                        {
+                            "$type": "AddAvatarSkillInfo",
+                            "skillID": 20053,
+                            "doOffStage": true,
+                        },                                                              
+
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "RemoveAvatarSkillInfo",
+                            "skillID": 20046,
+                            "refreshAfterRemove": true,
+                            "doOffStage": true,
+                        },
+                        {
+                            "$type": "RemoveAvatarSkillInfo",
+                            "skillID": 20047,
+                            "refreshAfterRemove": true,
+                            "doOffStage": true,
+                        },
+                        {
+                            "$type": "RemoveAvatarSkillInfo",
+                            "skillID": 20050,
+                            "refreshAfterRemove": true,
+                            "doOffStage": true,
+                        },     
+                        {
+                            "$type": "RemoveAvatarSkillInfo",
+                            "skillID": 20052,
+                            "refreshAfterRemove": true,
+                            "doOffStage": true,
+                        },
+                        {
+                            "$type": "RemoveAvatarSkillInfo",
+                            "skillID": 20053,
+                            "refreshAfterRemove": true,
+                            "doOffStage": true,
+                        },                                            
+                    ],
+                },
+                "ActivityAbility_Absorb_SwitchSkill_Absorb":  //替换小技能按钮
+                {
+                    "onAdded":
+                    [
+                        // {
+                        //     "$type": "AttachModifier",
+                        //     "modifierName": "ActivityAbility_Absorb_CreateAvatar",
+                        // },  
+                    ],
+                    "modifierMixins":
+                    [
+                        {
+                            "$type": "SwitchSkillIDMixin",
+                            "priority": "Playmode",
+                            "skillIndex": 1,
+                            "skillID": 20046,
+                        },
+                        // {
+                        //     "$type":"WidgetCDSyncMixin",
+                        //     "itemId": 220043,
+                        //     "skillId": 20040,
+                        //     "syncOnCDChange": true,
+                        //     "syncOnChangeAvatar": true,
+                        //     "skillCDOffset": 0.5,
+                        // },
+                    ],
+                },
+                "ActivityAbility_Absorb_SwitchSkill_Dash":  //替换小技能按钮
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AttachModifier",
+                            "modifierName": "ActivityAbility_Absorb_CreateAvatar_2",
+                        },  
+                    ],                    
+                    "modifierMixins":
+                    [
+                        {
+                            "$type": "SwitchSkillIDMixin",
+                            "priority": "Playmode",
+                            "skillIndex": 1,
+                            "skillID": 20047,
+                        },
+                        {
+                            "$type": "SwitchSkillIDMixin",
+                            "priority": "Playmode",
+                            "skillIndex": 4,
+                            "skillID": 20053,
+                        },                        
+                    ],
+                },
+                "ActivityAbility_Absorb_SwitchSkill_Slash":  //替换小技能按钮
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AttachModifier",
+                            "modifierName": "ActivityAbility_Absorb_CreateAvatar_3",
+                        },  
+                    ],                    
+                    "modifierMixins":
+                    [
+                        {
+                            "$type": "SwitchSkillIDMixin",
+                            "priority": "Playmode",
+                            "skillIndex": 1,
+                            "skillID": 20050,
+                        },
+                        {
+                            "$type": "SwitchSkillIDMixin",
+                            "priority": "Playmode",
+                            "skillIndex": 4,
+                            "skillID": 20053,
+                        },  
+                    ],
+                },
+                "ActivityAbility_Absorb_SwitchSkill_TrackingMissile":  //替换小技能按钮
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AttachModifier",
+                            "modifierName": "ActivityAbility_Absorb_CreateAvatar_4",
+                        },  
+                    ],                    
+                    "modifierMixins":
+                    [
+                        {
+                            "$type": "SwitchSkillIDMixin",
+                            "priority": "Playmode",
+                            "skillIndex": 1,
+                            "skillID": 20052,
+                        },
+                        {
+                            "$type": "SwitchSkillIDMixin",
+                            "priority": "Playmode",
+                            "skillIndex": 4,
+                            "skillID": 20053,
+                        },                          
+                    ],
+                },                                
+                "ActivityAbility_Absorb_SwitchSkills":  //替换小技能按钮
+                {
+                    "modifierMixins":
+                    [
+                        {
+                            "$type": "AttachModifierToSelfGlobalValueMixin",
+                            "globalValueKey": "_ABILITY_WhiteBox_Dive",
+                            "valueSteps": [-0.5, 0.5, 1.5, 2.5, 3.5],
+                            "removeAppliedModifier": true,
+                            "modifierNameSteps": 
+                            [
+                                "ActivityAbility_Absorb_SwitchSkill_Absorb", 
+                                "ActivityAbility_Absorb_SwitchSkill_Dash",
+                                "ActivityAbility_Absorb_SwitchSkill_Slash",
+                                "ActivityAbility_Absorb_SwitchSkill_TrackingMissile",
+                            ],
+                        },
+
+                    ],
+                },
+                "ActivityAbility_Absorb_Aim_Handler":  //处理瞄准的主要按键逻辑
+                {
+                    "modifierMixins":
+                    [
+                        {
+                            "$type": "AttachToStateIDMixin",
+                            "stateIDs": 
+                            [
+                                "DiveChannel_BS",
+                                "DiveChannel_Loop",
+                                "DiveChannel_AS",
+                            ],
+                            "modifierName": "Trigger_OnExit",
+                        },
+                        {
+                            "$type": "ButtonHoldChargeMixin",
+                            "skillID": 20046,
+                            "chargeTime": 0.0,
+                            "secondChargeTime": 0.12,
+                            "OnBeginCharged":
+                            [
+                                {
+                                    "$type": "SetGlobalValue",
+                                    "key": "_ABILITY_Common_Channel_IsTrigger",  //每次点按重置Trigger
+                                    "value": 0,
+                                    "doOffStage": true,
+                                },
+                            ],
+                            "OnReleaseCharged": //点按释放
+                            [
+                                {
+                                    "$type": "ApplyModifier",
+                                    "modifierName": "Shoot_Short",
+                                    "doOffStage": true,
+                                },
+                            ],
+                            "OnBeginSecondCharged":
+                            [
+                                {
+                                    "$type": "SetAnimatorTrigger",
+                                    "triggerID": "StartDiveChannelTrigger",
+                                },
+                            ],
+                            "OnReleaseSecondCharged":  //长按释放
+                            [
+                                {
+                                    "$type": "ApplyModifier",
+                                    "modifierName": "Shoot_Long",
+                                    "doOffStage": true,
+                                    "predicates": 
+                                    [
+                                        {
+                                            "$type": "ByTargetGlobalValue",
+                                            "key": "_ABILITY_Common_Channel_IsTrigger",
+                                            "value": 0,
+                                            "compareType": "Equal",
+                                        },
+                                    ],
+                                },
+                                {
+                                    "$type": "SetGlobalValue",
+                                    "key": "_ABILITY_Common_Channel_IsTrigger",
+                                    "value": 1,
+                                    "doOffStage": true,
+                                },
+                            ],
+                            "chargeStateIDs": ["DiveChannel_Loop"], 
+                            "OnCancelCharged":
+                            [
+                                {
+                                    "$type": "SetAnimatorTrigger",
+                                    "triggerID": "EndDiveChannelTrigger",
+                                }
+                            ],
+                        },
+                        
+                        {
+                            "$type": "AttachToStateIDMixin",
+                            "stateIDs":
+                            [
+                                "DiveChannel_BS",
+                                "DiveChannel_Loop",
+                            ],
+                            "modifierName": "Focus",
+                        },
+                    ]
+                },
+                "ActivityAbility_Absorb_ChangePlayMode":  //替换操控面板
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "ChangePlayMode",
+                            "muteRemoteAction": true,
+                            "toPlayMode": "ActivityAimState",
+                            "doOffStage": true,
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "ChangePlayMode",
+                            "muteRemoteAction": true,
+                            "toPlayMode": "Normal",
+                            "doOffStage": true,
+                        },
+                    ],
+                },
+                "Trigger_OnExit":  //强制退出时需要TriggerCD
+                {
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "ApplyModifier",       //没松手被打断时强制发射子弹
+                            "modifierName": "Shoot_Short",
+                            "doOffStage": true,
+                            "predicates": 
+                            [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ABILITY_Common_Channel_IsTrigger",
+                                    "value": 0,
+                                    "compareType": "Equal",
+                                },
+                            ],
+                        },
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_ABILITY_Common_Channel_IsTrigger",
+                            "value": 1,
+                            "doOffStage": true,
+                        },
+                    ],
+                },
+                "Focus":  //瞄准镜头
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AvatarEnterFocus",
+                            "cameraFollowLower":
+                            {
+                                "x": 0.6,
+                                "y": 0.2,
+                                "z": -1.8,
+                            },
+                            "cameraFollowUpper":
+                            {
+                                "x": 0.6,
+                                "y": -0.1,
+                                "z": -1.8,
+                            },
+                            "canMove": false,
+                            "dragButtonName": "Skill2",
+                            "showCrosshair": true,
+                            "disableAnim": true,
+                            "assistance":
+                            {
+                                "ps4": { "useGyro": true, },
+                                "ps5": { "useGyro": true, },
+                                "other": { "useGyro": true, },
+                            },
+                            "vcam_fov": 30,
+                            "cameraFollowMaxDegree": 40,
+                            "cameraFollowMinDegree": -40,
+                        },
+                        {
+                            "$type": "SetAnimatorBool",
+                            "boolID": "LockMotionFlagExitChannel",  //需要保证Focus阶段不能移动
+                            "value": true,
+                        },
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_SceneObj_CatchAnimal_Charge",
+                        },
+                        {
+                            "$type": "AttachModifier",
+                            "modifierName": "ActivityAbility_Absorb_ChangePlayMode",
+                        },
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_ABILITY_Common_IsChannelState",
+                            "value": 1,
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "AvatarExitFocus",
+                            "keepRotation": true,
+                            "doOffStage": true,
+                        },
+                        {
+                            "$type": "SetAnimatorBool",
+                            "boolID": "LockMotionFlagExitChannel",
+                            "value": false,
+                            "doOffStage": true,
+                        },
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_ABILITY_Common_IsChannelState",
+                            "value": 0,
+                            "doOffStage": true,
+                        },
+                    ],
+                },
+                "Shoot_Short":  //点按发射捕捉器
+                {
+                    "duration": 0.2,
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AvatarSkillStart",
+                            "skillID": 20046,
+                            "cdRatio": 1,
+                        },
+                        // {
+                        //     "$type": "WidgetSkillStart",
+                        //     "itemId": 220043,
+                        // },
+
+                        {
+                            "$type": "Predicated",
+                            "otherTargets":
+                            {
+                                "$type": "SelectTargetsByDivingAbsorb",
+                                "topLimit" : 1,
+                            },
+                            "targetPredicates":
+                            [
+                                {   //这部分配置也不一定需要了
+                                    "$type": "ByAny",
+                                    "predicates":
+                                    [
+                                        {
+                                            "$type": "ByEntityTypes",
+                                            "entityTypes": ["EnvAnimal"],
+                                        },
+                                        {
+                                            "$type": "ByNot",   //配置太蠢了，但是也没办法
+                                            "predicates":
+                                            [
+                                                {
+                                                    "$type": "ByNot",
+                                                    "predicates":
+                                                    [
+                                                        {
+                                                            "$type": "ByEntityTypes",
+                                                            "entityTypes": ["Monster"],
+                                                        },
+                                                        {
+                                                            "$type": "ByTargetGlobalValue",  //判定为动物
+                                                            "key": "_ANIMAL_ENTITY_TYPE",
+                                                            "value": 1,
+                                                            "compareType": "Equal",
+                                                        },
+                                                    ],
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+                            ],
+                            "successActions":
+                            [
+                                {//存储目标点位置
+                                    "$type": "SetGlobalPos",
+                                    "target":"Target",
+                                    "key": "_DivingAbsorb_TargetPos",
+                                    "born":
+                                    {
+                                        "$type": "ConfigBornByTarget",
+                                    },
+                                    "setTarget": false,
+                                },
+                                {
+                                    "$type": "ApplyModifier",
+                                    "modifierName": "CaptureBeam",
+                                    "target": "Target"
+                                },                                
+                                {
+                                    "$type": "SetGlobalValueByTargetConfigID",
+                                    "globalValueName": "_ABILITY_WhiteBox_Dive",
+                                    "setGVTarget": "Self",
+                                    "target": "Target",
+                                    "cfgID2gvMap":
+                                    {
+                                        "28070201": 1, //赤团雀
+                                        "28070101": 2,  //珊瑚蝶
+                                        "28070301": 3  //松鼠
+                                    },
+                                },
+                                // {
+                                //     "$type": "CaptureAnimal",
+                                //     "materialId": 220043,
+                                //     "target": "Other",
+                                //     "predicates":
+                                //     [
+                                //         {
+                                //             "$type": "ByTargetGlobalValue",
+                                //             "key": "_ABILITY_CatchAnimal_IsCaptured",
+                                //             "value": 0,
+                                //             "compareType": "Equal",
+                                //             "target": "Self",
+                                //         },
+                                //     ],
+                                // },
+                                // {
+                                //     "$type": "SetGlobalValue",
+                                //     "key": "_ABILITY_WhiteBox_Dive",
+                                //     "value": 2,
+                                //     "target": "Owner",
+                                // },
+                                {
+                                    "$type": "SetGlobalValue",
+                                    "key": "_ABILITY_CatchAnimal_IsCaptured",
+                                    "value": 1,
+                                    "target": "Self",
+                                },
+                            ],
+                        },     
+
+                        {
+                            "$type": "FireEffect",
+                            "effectPattern": "Eff_SceneObj_CatchAnimal_Shoot",
+                            "born":
+                            {
+                                "$type": "ConfigBornByAttachPoint",
+                                "attachPointName": "FocusAnchor",
+                                "attachPointTargetType": "Self",
+                                "offset":
+                                {
+                                    "x": 0.0,
+                                    "y": 0.5,
+                                    "z": 1.2,
+                                },
+                            },
+                        },
+                        // {
+                        //     "$type": "TriggerBullet",
+                        //     "bulletID": 420004000,
+                        //     "born":
+                        //     {
+                        //         "$type": "ConfigBornByAttachPoint",
+                        //         "attachPointName": "FocusAnchor",
+                        //         "attachPointTargetType": "Self",
+                        //         "offset":
+                        //         {
+                        //             "x": 0.0,
+                        //             "y": 0.5,
+                        //             "z": 1.2,
+                        //         },
+                        //         "direction":
+                        //         {
+                        //             "$type": "ConfigDirectionByAttachPoint",
+                        //             "attachPointName": "FocusAnchor",
+                        //             "attachPointTargetType": "Self",
+                        //             "angleOffset":
+                        //             {
+                        //                 "x": 0,
+                        //                 "y": 0,
+                        //                 "z": 0,
+                        //             },
+                        //         },
+                        //     },
+                        // },
+                    ],
+                },
+                "Shoot_Long":   //长按发射捕捉器
+                {
+                    "duration": 0.3,
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AvatarSkillStart",
+                            "skillID": 20046,
+                            "cdRatio": 1,
+                        },
+
+                        // {
+                        //     "$type": "WidgetSkillStart",
+                        //     "itemId": 220043,
+                        // },
+                        {
+                            "$type": "FireEffect",
+                            "effectPattern": "Eff_SceneObj_CatchAnimal_Shoot",
+                            "born":
+                            {
+                                "$type": "ConfigBornByAttachPoint",
+                                "attachPointName": "WeaponR",
+                                "attachPointTargetType": "Self",
+                                "offset":
+                                {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0,
+                                },
+                            },
+                        },
+
+                        {
+                            "$type": "Predicated",
+                            "otherTargets":
+                            {
+                                "$type": "SelectTargetsByDivingAbsorb",
+                                "topLimit" : 1,
+                            },
+                            "targetPredicates":
+                            [
+                                {   //这部分配置也不一定需要了
+                                    "$type": "ByAny",
+                                    "predicates":
+                                    [
+                                        {
+                                            "$type": "ByEntityTypes",
+                                            "entityTypes": ["EnvAnimal"],
+                                        },
+                                        {
+                                            "$type": "ByNot",   //配置太蠢了，但是也没办法
+                                            "predicates":
+                                            [
+                                                {
+                                                    "$type": "ByNot",
+                                                    "predicates":
+                                                    [
+                                                        {
+                                                            "$type": "ByEntityTypes",
+                                                            "entityTypes": ["Monster"],
+                                                        },
+                                                        {
+                                                            "$type": "ByTargetGlobalValue",  //判定为动物
+                                                            "key": "_ANIMAL_ENTITY_TYPE",
+                                                            "value": 1,
+                                                            "compareType": "Equal",
+                                                        },
+                                                    ],
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+                            ],
+                            "successActions":
+                            [
+                                {//存储目标点位置
+                                    "$type": "SetGlobalPos",
+                                    "target":"Target",
+                                    "key": "_DivingAbsorb_TargetPos",
+                                    "born":
+                                    {
+                                        "$type": "ConfigBornByTarget",
+                                    },
+                                    "setTarget": false,
+                                },
+                                {
+                                    "$type": "ApplyModifier",
+                                    "modifierName": "CaptureBeam",
+                                    "target": "Target"
+                                },
+                                {
+                                    "$type": "SetGlobalValueByTargetConfigID",
+                                    "globalValueName": "_ABILITY_WhiteBox_Dive",
+                                    "setGVTarget": "Self",
+                                    "target": "Target",
+                                    "cfgID2gvMap":
+                                    {
+                                        "28070201": 1, //赤团雀
+                                        "28070101": 2,  //珊瑚蝶
+                                        "28070301": 3  //松鼠
+                                    },
+                                },
+                                // {
+                                //     "$type": "CaptureAnimal",
+                                //     "materialId": 220043,
+                                //     "target": "Other",
+                                //     "predicates":
+                                //     [
+                                //         {
+                                //             "$type": "ByTargetGlobalValue",
+                                //             "key": "_ABILITY_CatchAnimal_IsCaptured",
+                                //             "value": 0,
+                                //             "compareType": "Equal",
+                                //             "target": "Self",
+                                //         },
+                                //     ],
+                                // },
+                                // {
+                                //     "$type": "SetGlobalValue",
+                                //     "key": "_ABILITY_WhiteBox_Dive",
+                                //     "value": 2,
+                                //     "target": "Owner",
+                                // },
+                                {
+                                    "$type": "SetGlobalValue",
+                                    "key": "_ABILITY_CatchAnimal_IsCaptured",
+                                    "value": 1,
+                                    "target": "Self",
+                                },
+                            ],
+                        },  
+
+                        // {
+                        //     "$type": "TriggerBullet",
+                        //     "bulletID": 420004000,
+                        //     "born":
+                        //     {
+                        //         "$type": "ConfigBornByAttachPoint",
+                        //         "attachPointName": "WeaponR",
+                        //         "attachPointTargetType": "Self",
+                        //         "direction":
+                        //         {
+                        //             "$type": "ConfigDirectionByAttachPoint",
+                        //             "attachPointName": "FocusAnchor",
+                        //             "attachPointTargetType": "Self",
+                        //             "angleOffset":
+                        //             {
+                        //                 "x": 0,
+                        //                 "y": 0,
+                        //                 "z": 0,
+                        //             },
+                        //         },
+                        //     },
+                        // },
+
+                    ],
+                    "onRemoved":  //延迟一点退出动作
+                    [
+                        {
+                            "$type": "SetAnimatorTrigger",
+                            "triggerID": "EndDiveChannelTrigger",
+                            "doOffStage": true,
+                        },
+                    ],
+                },
+                "CaptureBeam":
+                {
+                    "duration": 0.2,
+                    "onAdded":
+                    [
+                        {
+                            "$type":"FireEffect",
+                            "effectPattern":"Eff_Ani_Lisa_AttackLightning_01",
+                            "born":
+                            {
+                                "$type":"ConfigBornByAttachPoint",
+                                "attachPointName":"WeaponR",
+                                "attachPointTargetType":"Caster",
+                                "offset":
+                                {
+                                    "x":0,
+                                    "y":0,
+                                    "z":0,
+                                },
+                            },
+                        },                        
+                    ]
+                },
+            },
+            "onKill":  //加个死亡恢复保护
+            [
+                {
+                    "$type": "ChangePlayMode",
+                    "muteRemoteAction": true,
+                    "toPlayMode": "Normal",
+                    "doOffStage": true,
+                },
+            ],
+        },
+    },
+
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "ActivityAbility_Absorb_Bullet",
+            "onAdded":
+            [
+                {
+                    "$type": "AttachEffect",
+                    "effectPattern": "Eff_SceneObj_CatchAnimal_Bullet",
+                },
+                {
+                    "$type": "AttachModifier",
+                    "modifierName": "Life_Timer",
+                },
+                {
+                    "$type": "SetGlobalValue",
+                    "key": "_ABILITY_CatchAnimal_IsCaptured",
+                    "value": 0,
+                },
+            ],
+            "onKill":
+            [
+                {
+                    "$type": "RemoveModifier",
+                    "modifierName": "Life_Timer",
+                },
+            ],
+            "onAbilityStart":  //碰撞时Trigger
+            [
+                {
+                    "$type": "FireEffect",
+                    "effectPattern": "Eff_SceneObj_CatchAnimal_Hit",
+                    // "born":
+                    // {
+                    //     "$type": "ConfigBornByCollisionPoint",
+                    //     "offset":
+                    //     {
+                    //         "x": 0.0,
+                    //         "y": 0.0,
+                    //         "z": 0.0,
+                    //     }
+                    // },
+                },
+                {
+                    "$type": "FireAISoundEvent",
+                },
+                {
+                    "$type": "Predicated",
+                    "otherTargets":
+                    {
+                        "$type": "SelectTargetsByShape",
+                        "shapeName": "CircleR3H5",
+                        "centerBasedOn": "Self",
+                        "campTargetType": "Enemy",
+                        "campBasedOn": "Self",
+                        "topLimit": 1,
+                        "entityTypePriority": ["Monster"],
+                        "sortType": "Nearest",
+                    },
+                    "targetPredicates":
+                    [
+                        {
+                            "$type": "ByAny",
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByEntityTypes",
+                                    "entityTypes": ["EnvAnimal"],
+                                },
+                                {
+                                    "$type": "ByNot",   //配置太蠢了，但是也没办法
+                                    "predicates":
+                                    [
+                                        {
+                                            "$type": "ByNot",
+                                            "predicates":
+                                            [
+                                                {
+                                                    "$type": "ByEntityTypes",
+                                                    "entityTypes": ["Monster"],
+                                                },
+                                                {
+                                                    "$type": "ByTargetGlobalValue",  //判定为动物
+                                                    "key": "_ANIMAL_ENTITY_TYPE",
+                                                    "value": 1,
+                                                    "compareType": "Equal",
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                    "successActions":
+                    [
+                        {
+                            "$type": "SetGlobalValueByTargetConfigID",
+                            "globalValueName": "_ABILITY_WhiteBox_Dive",
+                            "target": "Target",
+                            "cfgID2gvMap":
+                            {
+                                "28070201": 1, //赤团雀
+                                "28070101": 2,  //珊瑚蝶
+                                "28070301": 3  //松鼠
+                            },
+                        },
+                        // {
+                        //     "$type": "CaptureAnimal",
+                        //     "materialId": 220043,
+                        //     "target": "Other",
+                        //     "predicates":
+                        //     [
+                        //         {
+                        //             "$type": "ByTargetGlobalValue",
+                        //             "key": "_ABILITY_CatchAnimal_IsCaptured",
+                        //             "value": 0,
+                        //             "compareType": "Equal",
+                        //             "target": "Self",
+                        //         },
+                        //     ],
+                        // },
+                        // {
+                        //     "$type": "SetGlobalValue",
+                        //     "key": "_ABILITY_WhiteBox_Dive",
+                        //     "value": 2,
+                        //     "target": "Owner",
+                        // },
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_ABILITY_CatchAnimal_IsCaptured",
+                            "value": 1,
+                            "target": "Self",
+                        },
+                    ],
+                },
+                {
+                    "$type": "KillSelf",
+                },
+            ],
+            "modifiers":
+            {
+                "Life_Timer":  //子弹生命计时器
+                {
+                    "thinkInterval": 0.85,
+                    "onThinkInterval":
+                    [
+                        {
+                            "$type": "TriggerAbility",
+                            "abilityName": "ActivityAbility_Absorb_Bullet",
+                        },
+                    ],
+                },
+            },
+        },
+    },
+
+
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "ActivityAbility_Absorb_Avatar_Gadget",
+            "onAdded":
+            [   
+            ],
+            "modifiers":
+            {
+            },
+            "onKill":
+            [
+            ],
+        },
+    },
+
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "ActivityAbility_Absorb_Avatar_Gadget_2",
+            "onAdded":
+            [   
+            ],
+            "modifiers":
+            {
+            },
+            "onKill":
+            [
+            ],
+        },
+    },
+
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "ActivityAbility_Absorb_Avatar_Gadget_3",
+            "onAdded":
+            [   
+            ],
+            "modifiers":
+            {
+            },
+            "onKill":
+            [
+            ],
+        },
+    },
+
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "ActivityAbility_Absorb_Avatar_Gadget_4",
+            "onAdded":
+            [   
+            ],
+            "modifiers":
+            {
+            },
+            "onKill":
+            [
+            ],
+        },
+    },        
+
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "ActivityAbility_Absorb_Abandon",
+            "onAbilityStart":  //碰撞时Trigger
+            [
+                {
+                    "$type": "SetGlobalValue",
+                    "key": "_ABILITY_WhiteBox_Dive",
+                    "value": 0,
+                    "target": "Self",
+                },                
+            ],
+            "modifiers":
+            {
+            },
+        },
+    },
+
+]

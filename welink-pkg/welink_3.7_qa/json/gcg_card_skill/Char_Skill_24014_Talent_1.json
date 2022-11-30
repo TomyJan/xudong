@@ -1,0 +1,43 @@
+{
+  "$type": "ConfigGCGSkill",
+  "name": "Char_Skill_24014_Talent_1",
+  "declaredValueMap": {
+    "__KEY__HEAL": {
+      "$type": "GCGDeclaredValueHealAmount",
+      "type": "Heal",
+      "value": 4
+    }
+  },
+  "triggerList": [
+    {
+      "$type": "ConfigGCGTrigger",
+      "type": "GCG_TRIGGER_ON_USE",
+      "condition": {
+        "$type": "ConfigGCGLogicCondition"
+      }
+    }
+  ],
+  "effectList": [
+    {
+      "$type": "ConfigGCGExecEffectHeal",
+      "condition": {
+        "$type": "ConfigGCGLogicCondition"
+      },
+      "targetCamp": "CAMP_FRIENDLY",
+      "targetCharacter": "CHARACTER_ONSTAGE",
+      "declaredHealAmountKey": {
+        "$type": "GCGDeclare",
+        "key": "__KEY__HEAL"
+      }
+    },
+    {
+      "$type": "ConfigGCGExecEffectCreateModifyCard",
+      "condition": {
+        "$type": "ConfigGCGLogicCondition"
+      },
+      "cardID": 124014,
+      "campType": "CAMP_FRIENDLY",
+      "chooseCharaterType": "CHARACTER_ONSTAGE"
+    }
+  ]
+}

@@ -1,0 +1,384 @@
+{
+	"SceneObj_Area_Common_Property_Ani_Prop_WhiteBox_Coin_01":
+	{
+		"$type": "ConfigGadget",
+		"hasModel": true,
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty": false,
+				"HP" : 10000,
+				"attack" : 30,
+				"isLockHP":true,
+				"endure":99,
+				"isGhostToAllied" : false,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignorePurgeRate": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit" :
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : true,
+				"muteAllHitText" : true,
+			},
+			"die" :
+			{
+				"dieForceDisappearTime" : 0.3,
+			},
+		},
+		"move":{
+			"$type": "ConfigPlatformMove",
+		},
+		"field" :
+		{
+			"concernType" : "AllExcludeGWGO",
+			"shape" : "CircleR3H3",		//形状，不填为collider
+			"checkInterval" : 0.5,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"lifeInfinite" : true,		//如果未触发是否一致存在
+			"overwriteCampType" : true,
+			"campType": "All",
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_Area_Common_Property_Ani_Prop_WhiteBox_Coin_01",
+				"abilityName": "SceneObj_Area_Common_Property_Ani_Prop_WhiteBox_Coin_01",
+			},
+		],
+
+	},
+    "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Light_00":{//70800600	3.8灯光玩法白盒_灯
+        "$type": "ConfigGadget",
+        "hasModel": true,
+		"field" :
+		{
+			"concernType" : "AllExcludeGWGO",
+			// "shape" : "CircleR0_8_H1",		//形状，不填为collider
+			"checkInterval" : 0.1,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"lifeInfinite" : true,		//如果未触发是否一致存在
+			"overwriteCampType" : true,
+			"campType" : "All",
+		},
+		"gadgetTurn":
+		{
+			"$type": "ConfigGadgetTurn",
+			"movePartAroundY":"Rotate_Point",
+			"anchorPartAroundY":"Rotate_Point",
+            "turnStateMap": {
+				"0":{
+					"$type":"ConfigGadgetTurnState",
+					"angleAroundX":0,
+					"angleAroundY":0,
+					"angleAroundZ":0,
+					"lerpTime":2,
+				},
+				"201":{
+					"$type":"ConfigGadgetTurnState",
+					"angleAroundX":0,
+					"angleAroundY":30,
+					"angleAroundZ":0,
+					"lerpTime":2,
+				},
+				"202":{
+					"$type":"ConfigGadgetTurnState",
+					"angleAroundX":0,
+					"angleAroundY":-30,
+					"angleAroundZ":0,
+					"lerpTime":2,
+				},
+            }
+        },
+        "uiInteract": 
+		{
+			"uiName": "UI_ACTIVITY_VINTAGE_HUNTING_Smoke_Activate",
+			"canInteractInCombat": true,
+			"canOnlyInteractInStandStill": false,
+            "onTouch" : "WidgetMPSupport",
+            "icon": "UI_Icon_Intee_Mechanism",
+            "touchParams" : 
+            [
+                "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Light_00"
+            ],
+			"gadgetUIExtraItems": [
+				{//顺时针旋转
+					"extraId": 1,
+					"uiName": "UI_ACTIVITY_WindFildDungeon_Blower_Clockwise",
+					"icon": "UI_Icon_Intee_WindField_ClockwiseRotation",
+					"onTouch" : "WidgetMPSupport",
+					"touchParams" : 
+					[
+						"SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Light_00_Clockwise"
+					],
+				},
+				{//逆时针旋转
+					"extraId": 2,
+					"uiName": "UI_ACTIVITY_WindFildDungeon_Blower_Anticlockwise",
+					"icon": "UI_Icon_Intee_WindField_CounterclockwiseRotation",
+					"onTouch" : "WidgetMPSupport",
+					"touchParams" : 
+					[
+						"SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Light_00_AntiClockwise"
+					],
+				},
+			]
+		},
+		"abilities": [
+			{
+				"abilityID": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Light_00",
+				"abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Light_00"
+			},
+			{
+				"abilityID": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Light_00_Clockwise",
+				"abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Light_00_Clockwise"
+			},
+			{
+				"abilityID": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Light_00_AntiClockwise",
+				"abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Light_00_AntiClockwise"
+			}
+		]
+    },
+    "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Gem_00":{//70800601	3.8灯光玩法白盒_普通宝石
+        "$type": "ConfigGadget",
+        "hasModel": true,
+		"combat" ://该注释用于探索元素视野的最小集合设置
+		{
+			"property":
+			{
+				"HP" : 99999,
+				"isInvincible":true,
+				"isLockHP":true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+			},		
+		},
+		"field" :
+		{
+			"concernType" : "AllExcludeGWGO",
+			//"shape" : "CircleR50",		//形状，不填为collider
+			"checkInterval" : 0.2,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"lifeInfinite" : true,		//如果未触发是否一致存在
+			"overwriteCampType" : false,			
+			"campType": "AllExceptSelf",
+            "useCollider": true,
+            "colliderName": "Receiver_Collider",
+		},
+        "abilities": [
+            {
+                "abilityID": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Gem_00",
+                "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Gem_00"
+            }
+        ],
+		"globalValue": {
+			"serverGlobalValues": ["SGV_COLOR"],
+			"initServerGlobalValues":{"SGV_COLOR":1}
+		}
+    },
+    "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Gem_01":{//70800602	3.8灯光玩法白盒_红宝石
+        "$type": "ConfigGadget",
+        "hasModel": true,
+		"combat" ://该注释用于探索元素视野的最小集合设置
+		{
+			"property":
+			{
+				"HP" : 99999,
+				"isInvincible":true,
+				"isLockHP":true,
+				"isGhostToAllied" : false,
+				"isGhostToEnemy" : true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+			},		
+		},
+		"field" :
+		{
+			"concernType" : "AllExcludeGWGO",
+			//"shape" : "CircleR50",		//形状，不填为collider
+			"checkInterval" : 0.2,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"lifeInfinite" : true,		//如果未触发是否一致存在
+			"overwriteCampType" : false,			
+			"campType": "AllExceptSelf",
+            "useCollider": true,
+            "colliderName": "Receiver_Collider",
+		},
+        "abilities": [
+            {
+                "abilityID": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Gem_00",
+                "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Gem_00"
+            }
+        ],
+		"globalValue": {
+			"serverGlobalValues": ["SGV_COLOR"],
+			"initServerGlobalValues":{"SGV_COLOR":2}
+		}
+    },
+    "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Gem_02":{//70800603	3.8灯光玩法白盒_蓝宝石
+        "$type": "ConfigGadget",
+        "hasModel": true,
+		"combat" ://该注释用于探索元素视野的最小集合设置
+		{
+			"property":
+			{
+				"HP" : 99999,
+				"isInvincible":true,
+				"isLockHP":true,
+				"isGhostToAllied" : false,
+				"isGhostToEnemy" : true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+			},		
+		},
+		"field" :
+		{
+			"concernType" : "AllExcludeGWGO",
+			//"shape" : "CircleR50",		//形状，不填为collider
+			"checkInterval" : 0.2,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"lifeInfinite" : true,		//如果未触发是否一致存在
+			"overwriteCampType" : false,			
+			"campType": "AllExceptSelf",
+            "useCollider": true,
+            "colliderName": "Receiver_Collider",
+		},
+        "abilities": [
+            {
+                "abilityID": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Gem_00",
+                "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Gem_00"
+            }
+        ],
+		"globalValue": {
+			"serverGlobalValues": ["SGV_COLOR"],
+			"initServerGlobalValues":{"SGV_COLOR":3}
+		}
+    },
+	"SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Card_01":{
+		"$type": "ConfigGadget",
+		"combat" ://该注释用于探索元素视野的最小集合设置
+		{
+			"property":
+			{
+				"HP" : 99999,
+				"isInvincible":true,
+				"isLockHP":true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+			},		
+		},
+		"field" :
+		{
+			"concernType" : "AllAvatars",
+			"shape" : "CircleR0_8",		//形状，不填为collider
+			"startCheckTime":0.2,
+			"checkInterval" : 0.1,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"lifeInfinite" : false,		//如果未触发是否一致存在
+			"lifeTime":999999,
+			"overwriteCampType" : true,
+			"campType": "All",
+			"useCollider":true,
+		},
+		"abilities": [
+			{
+				"abilityID": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Card_01",
+				"abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Card_01"
+			}
+		],
+		"globalValue": {
+			"serverGlobalValues": ["SGV_COLOR"],
+			"initServerGlobalValues":{"SGV_COLOR":3}
+		}
+	},
+	"SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Card_02":{
+		"$type": "ConfigGadget",
+		"combat" ://该注释用于探索元素视野的最小集合设置
+		{
+			"property":
+			{
+				"HP" : 99999,
+				"isInvincible":true,
+				"isLockHP":true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+			},		
+		},
+		"field" :
+		{
+			"concernType" : "AllAvatars",
+			"shape" : "CircleR0_8",		//形状，不填为collider
+			"startCheckTime":0.2,
+			"checkInterval" : 0.1,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"lifeInfinite" : false,		//如果未触发是否一致存在
+			"lifeTime":999999,
+			"overwriteCampType" : true,
+			"campType": "All",
+			"useCollider":true,
+		},
+		"abilities": [
+			{
+				"abilityID": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Card_01",
+				"abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Card_01"
+			}
+		],
+		"globalValue": {
+			"serverGlobalValues": ["SGV_COLOR"],
+			"initServerGlobalValues":{"SGV_COLOR":2}
+		}
+	},
+	"SceneObj_Area_Common_Property_Ani_Prop_WhiteBox_Specter_01":{
+		"$type": "ConfigGadget",
+		"hasModel": true,
+		"move":{
+			"$type": "ConfigPlatformMove",
+		},
+		"combat" ://该注释用于探索元素视野的最小集合设置
+		{
+			"property":
+			{
+				"HP" : 99999,
+				"isInvincible":true,
+				"isLockHP":true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+			},		
+		},
+		"abilities": [
+			{
+				"abilityID": "SceneObj_Area_Common_Property_Ani_Prop_WhiteBox_Specter_01",
+				"abilityName": "SceneObj_Area_Common_Property_Ani_Prop_WhiteBox_Specter_01"
+			}
+		]
+	}
+}

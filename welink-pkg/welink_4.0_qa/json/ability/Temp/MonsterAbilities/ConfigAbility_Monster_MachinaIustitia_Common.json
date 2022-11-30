@@ -1,0 +1,123 @@
+[
+////////////////////////////////////////////////////////////////
+//
+//  Pneuma 40601
+//
+////////////////////////////////////////////////////////////////
+{
+	"Default": 
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "Monster_MachinaIustitia_Pneuma",
+		"onAdded": 
+		[
+			{
+				"$type": "SetGlobalValue",
+				"key": "_MACHINAIUSTITIA_STATIC_STATE_",
+				"value": 0,
+			},
+		],
+	},
+},
+////////////////////////////////////////////////////////////////
+//
+//  Ousia 40602
+//
+////////////////////////////////////////////////////////////////
+{
+	"Default": 
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "Monster_MachinaIustitia_Ousia",
+		"onAdded": 
+		[
+			{
+				"$type": "SetGlobalValue",
+				"key": "_MACHINAIUSTITIA_STATIC_STATE_",
+				"value": 1,
+			},
+		],
+	},
+},
+////////////////////////////////////////////////////////////////
+//
+//  Coil 40603 40604
+//
+////////////////////////////////////////////////////////////////
+{
+	"Default": 
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "Monster_MachinaIustitia_Coil_01",
+		"onAdded": 
+		[
+			{
+				"$type": "SetGlobalValue",
+				"key": "_MACHINAIUSTITIA_COIL_STATE_",
+				"value": 0,
+			},
+		],
+	},
+},
+{
+	"Default": 
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "Monster_MachinaIustitia_Coil_02",
+		"onAdded": 
+		[
+			{
+				"$type": "SetGlobalValue",
+				"key": "_MACHINAIUSTITIA_COIL_STATE_",
+				"value": 1,
+			},
+		],
+	},
+},
+{
+	"Default": 
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "Monster_MachinaIustitia_CoilHanler",
+		"abilityMixins": 
+		[
+			{
+				"$type": "AttachModifierToSelfGlobalValueMixin",
+				"globalValueKey": "_MACHINAIUSTITIA_COIL_STATE_",
+				"valueSteps": [ -0.5, 0.5, 1.5],
+				"removeAppliedModifier": true,
+				"modifierNameSteps":
+				[
+					"MachinaIustitia_Coil_01",
+					"MachinaIustitia_Coil_02"
+				],
+			},
+		],
+		"modifiers": 
+		{
+			"MachinaIustitia_Coil_01":
+			{
+				"onAdded": 
+				[
+					{
+						"$type": "SetAnimatorInt",
+						"intID": "CoilState",
+						"value": 1,
+					},
+				],
+			},
+			"MachinaIustitia_Coil_02":
+			{
+				"onAdded": 
+				[
+					{
+						"$type": "SetAnimatorInt",
+						"intID": "CoilState",
+						"value": 2,
+					},
+				],
+			},
+		},
+	},
+},
+]

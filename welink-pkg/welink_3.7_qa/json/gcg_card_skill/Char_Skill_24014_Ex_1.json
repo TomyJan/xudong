@@ -1,0 +1,54 @@
+{
+  "$type": "ConfigGCGSkill",
+  "name": "Char_Skill_24014_Ex_1",
+  "declaredValueMap": {
+    "__KEY__HEAL": {
+      "$type": "GCGDeclaredValueHealAmount",
+      "type": "Heal",
+      "value": 1
+    }
+  },
+  "triggerList": [
+    {
+      "$type": "ConfigGCGTrigger",
+      "type": "GCG_TRIGGER_DURATION",
+      "condition": {
+        "$type": "ConfigGCGLogicCondition",
+        "conditions": [
+          {
+            "$type": "ConfigGCGLogicCondition",
+            "type": "EQUAL",
+            "conditions": [
+              {
+                "$type": "ConfigGCGConditionGlobalFetchSourceCharacter"
+              },
+              {
+                "$type": "ConfigGCGConditionGlobalFetchThisCardObject",
+                "condition": {
+                  "$type": "ConfigGCGLogicCondition",
+                  "conditions": [
+                    {
+                      "$type": "ConfigGCGConditionCurCardAttachToCardID"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "effectList": [
+    {
+      "$type": "ConfigGCGEffectReviveWhenDeath",
+      "condition": {
+        "$type": "ConfigGCGLogicCondition"
+      },
+      "declaredHealAmountKey": {
+        "$type": "GCGDeclare",
+        "key": "__KEY__HEAL"
+      }
+    }
+  ]
+}

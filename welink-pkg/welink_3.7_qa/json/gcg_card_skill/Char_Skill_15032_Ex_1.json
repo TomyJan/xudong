@@ -1,0 +1,54 @@
+{
+  "$type": "ConfigGCGSkill",
+  "name": "Char_Skill_15032_Ex_1",
+  "triggerList": [
+    {
+      "$type": "ConfigGCGTrigger",
+      "type": "GCG_TRIGGER_ACTION_POST",
+      "condition": {
+        "$type": "ConfigGCGLogicCondition",
+        "conditions": [
+          {
+            "$type": "ConfigGCGLogicCondition",
+            "conditions": [
+              {
+                "$type": "ConfigGCGConditionGlobalFetchSourceCharacterObject",
+                "condition": {
+                  "$type": "ConfigGCGLogicCondition",
+                  "conditions": [
+                    {
+                      "$type": "ConfigGCGConditionCheckCurCharacterCamp",
+                      "campType": "CAMP_FRIENDLY"
+                    }
+                  ]
+                }
+              },
+              {
+                "$type": "ConfigGCGConditionGlobalFetchCurSkillObject",
+                "condition": {
+                  "$type": "ConfigGCGLogicCondition",
+                  "conditions": [
+                    {
+                      "$type": "ConfigGCGConditionCheckCurSkillHasTag",
+                      "skillTagType": "GCG_SKILL_TAG_E"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "effectList": [
+    {
+      "$type": "ConfigGCGExecEffectChangeOnstageCharater",
+      "condition": {
+        "$type": "ConfigGCGLogicCondition"
+      },
+      "targetCamp": "CAMP_FRIENDLY",
+      "selectType": "SELECT_ONSTAGE_NEXT"
+    }
+  ]
+}

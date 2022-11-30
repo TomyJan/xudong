@@ -1,0 +1,1079 @@
+{
+	"$type" : "ConfigMonster",
+	"common":
+	{
+		"scale": 1.3,
+		"viewSize":2,
+		"effectAttachShape":
+		{
+			"$type": "ConfigEffectAttachSkinnedMesh",
+			"mesh": "EffectMesh",
+		},
+		"mass" : 10000.0,
+		"useGrassDisplacement" : true,
+		"affectedByWorld" : true,
+		"checkInSurface" : true,
+		"hasAfterImage":false,
+		"height": 7,
+		"modelHeight": 1.35,
+		"clearAnimatorOnSetLightDeactive":true,
+		"clearAIOnSetLightDeactive":true,
+		"shouldPauseAnimatorBeforeReady":true,
+		"recoverByInitPose": true,
+		"muteElementStickUI": true
+	},
+	"cameraAdjustMap":
+	{
+		"default":
+		{
+			"$type" : "ConfigSpecialCamera",
+			"priority": 1.0,	//优先度
+			"enterRadius": 25,	//开启大怪相机的人怪距离
+			"exitRadius": 30,	//脱离大怪相机的人怪距离
+			"heightAdjust": 0.75,	//相机高度修正
+			"fov": 47.5,	//相机FOV修正
+			"zoom": 8,	//相机Z距离修正
+			"sphericalY": 10,	//初始俯角（游戏种默认是6）
+			"lockSphericalY": false,	//是否锁定俯仰角
+			"sphericalYUp": 50,	//始俯? 上修? （最大俯仰角为sphericalY + sphericalYUp）
+			"sphericalYDown": 50,	//始俯? 下修正（最大俯仰角为sphericalY - sphericalYDown）
+			"autoTurnStartMin": 50,	//人怪距?1米时，开启视角旋转修正的最小值
+			"autoTurnStartMax": 40,	//人怪距?15米时，开启视角旋转修正的最大值
+			"autoTurnEndMin": 100,	//人怪距?1米时，视角旋转修正后的角度
+			"autoTurnEndMax": 145,	//人怪距?15米时，视角旋转修正后的角度
+			"enterShape": "CircleR25",
+			"exitShape": "CircleR30",
+			"shapeCenterOffset":
+			{
+				"x": 0,
+				"y": 0,
+				"z": 0,
+			},
+		},
+	},
+	"model":
+	{
+		"bornEffect": "none",
+		"canBakeMesh": false
+	},
+	"dither":
+	{
+		"showDitherDuration": 2.0,
+	},
+	"equipController":
+	{
+		"attachPoints":
+		{
+			"equip01" : "WeaponR",
+			"equip02" : "WeaponL",
+		},
+		"sheathPoint" : "",
+	},
+	"move":
+	{
+		"$type": "ConfigAnimatorMove",
+		"facingMove": "FourDirection",
+		"monsterSizeType": "OtherType",
+		"destroyRockWhenInit": true,
+		"velocityForce":
+		{
+			"excludeForces": ["RetreatAirType", "RetreatType"],
+		},
+	},
+	"billboard":
+	{
+		"$type" : "ConfigCombatBillboard",
+		"offsetType": "Character",
+		"offset":
+		{
+			"x": 0,
+			"y": 0,
+			"z": 0,
+		},
+		"radiusOffset": 0,
+		"showHPBar": true,
+		"size": "Big",
+		"forceShowDistance":50
+	},
+	"combat" :
+	{
+		"property":
+		{
+			"endureType": "Monster_Demiboss_Other",
+			"weight" : 200,	
+		},
+		"combatLock":
+		{
+			"denyLockOn": false,
+			"lockType": "Avatar&Monster_Lv4",
+		},
+		"beHit" :
+		{
+			"hitBloodEffect":"",
+			"muteAllHit":false,
+			"muteAllHitEffect":false,
+			"muteAllHitText":false,
+		},
+		"die":
+		{
+			"hasAnimatorDie": true,
+			"dieDisappearEffect":"",
+			"dieDisappearEffectDelay": 0,
+			"dieEndTime" : 3.2,
+			"dieForceDisappearTime" : 3.2,
+			"dieShaderData": "None",
+			"useRagDoll": false,
+			"dieDenyLockOn": true,
+			"dieIsGhostToEnemy": true,
+			"muteHitBox": true,
+			"muteBillboard": true,
+			"mutePushCollider": true
+		},
+		"animEvents":
+		{
+			"LaserAtk":
+			{
+				"attackPattern":
+				{
+					"$type": "ConfigAttackBox",
+					"triggerType": "TriggerNoRepeat",
+					"size":
+					{
+						"x": 2,
+						"y": 3,
+						"z": 42,
+					},
+					"born":
+					{
+						"$type": "ConfigBornBySelf",
+						"offset" :
+						{
+							"x" : 0,
+							"y" : 1.5,
+							"z" : 3,
+						},
+					},
+					"ignoreMassive":true,
+				},
+				"attackInfo":
+				{
+					"attackProperty":
+					{
+						"damagePercentage": 0.7,
+						"strikeType": "Pierce",
+						"overrideByWeapon": false,
+						"attackType": "Melee",
+						"enBreak":50,
+						"elementDurability": 50,
+					},
+					"hitPattern":
+					{
+						"onHitEffectName" : "Eff_Monster_Monolith_Starchild_Lance_LinkAtk_Damage",
+						"hitImpulseType":"LV4",
+						"canBeDefenceHalt": true,
+						"muteHitText": false,
+						"retreatType": "ByAttacker",
+					},
+					"cameraShake":
+					{
+						"shakeType":"CustomVector",
+						"shakeDir":
+						{
+							"x":0,
+							"y":0,
+							"z":1
+						},
+						"shakeDistance":20,
+						"shakeRange":0.3,
+						"shakeTime":0.1
+					},
+					"forceCameraShake":true
+				}
+			}
+		}
+	},
+	"stateLayers":
+	{
+		"defaultLayer":
+		{
+			"$type" : "ConfigNormalStateLayer",
+			"stateIDs" :
+			{
+				"Born":
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Born": ["Audio_Samurai_Kairagi_Born"],
+					},
+					"canSyncMove" : true,
+					"resetAnimatorTriggerOnExit" : ["DoSkill"],
+				},
+				"StandbyFree" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"StandbyFree": [],
+					},
+					"canDoSkill" : true,
+					"canSyncMove" : true,
+					"resetAnimatorTriggerOnExit" : ["DoSkill"],
+				},
+				"NormalIdle" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Standby": [],
+					},
+					"canDoSkill" : true,
+					"canSyncMove" : true,
+					"resetAnimatorTriggerOnExit" : ["DoSkill"],
+				},
+				"NormalMove" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"WalkForward": ["Audio_Samurai_Kairagi_Walk"],
+					},
+					"canDoSkill" : true,
+					"canSteer" : true,
+					"canSyncMove" : true,
+					"resetAnimatorTriggerOnExit" : ["DoSkill"],
+				},
+				"RandomMove" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"RandomMove": ["Audio_Samurai_Kairagi_Walk"],
+					},
+					"canDoSkill" : true,
+					"canSteer" : true,
+					"canSyncMove" : true,
+					"resetAnimatorTriggerOnExit" : ["DoSkill"],
+				},
+				"Turn_Left" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Turn_Left": [""],
+					},
+					"canDoSkill" : true,
+					"canSyncMove" : true,
+					"resetAnimatorTriggerOnExit" : ["DoSkill"],
+				},
+				"Turn_Right" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Turn_Right": [""],
+					},
+					"canDoSkill" : true,
+					"canSyncMove" : true,
+					"resetAnimatorTriggerOnExit" : ["DoSkill"],
+				},
+				"BeHit":
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Hit_L": ["Audio_Samurai_Kairagi_Hit_L_VO"],
+						"Hit_H": ["Audio_Samurai_Kairagi_Hit_H_VO"],
+					},
+					"resetAnimatorTriggerOnEnter": [ "BeHit" ],
+					"resetAnimatorTriggerOnExit": [ "DoSkill" ],
+				},
+				"Run":
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Run": ["Audio_Samurai_Kairagi_Run"],
+					},
+					"canDoSkill" : true,
+					"canSyncMove" : true,
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["DoSkill"],
+				},
+				"RunFree":
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"RunFree": ["Audio_Samurai_Kairagi_Run"],
+					},
+					"canDoSkill" : true,
+					"canSyncMove" : true,
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["DoSkill"],
+				},
+				"BeHitThrow":
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"HitThrow": [],
+						"HitThrowDrop": [],
+						"HitThrowToGround": ["Audio_Samurai_Kairagi_HitThrowToGround"],
+					},
+					"resetAnimatorTriggerOnEnter": [ "BeHit", "HitAir2HitDrop" ],
+					"resetAnimatorTriggerOnExit": [ "DoSkill" ],
+				},
+				"Struggle":
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Struggle": [],
+					},
+					"resetAnimatorTriggerOnEnter": [ "BeHit", "HitAir2HitDrop" ],
+					"resetAnimatorTriggerOnExit": [ "DoSkill" ],
+				},
+				"Die":
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Die": ["Monster_Monolith_Starchild_Die","Audio_Samurai_Kairagi_Die"],
+					},
+				},
+				"Alert" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Alert": ["Audio_Samurai_Kairagi_Alert"],
+					},
+					"canSteer" : true,
+					"canDoSkill": false,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"Alert_AS" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Alert_AS": ["Audio_Samurai_Kairagi_Alert"],
+					},
+					"canSteer" : true,
+					"canDoSkill": false,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"Test1" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Test1": [""],
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"Test2" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Test2": [""],
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"SpearAttack" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"SpearAttack": ["Monster_Monolith_Starchild_LanceAttack"],
+					},
+					"canSteer" : true,
+					"canDoSkill": false,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"ShieldPush" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"ShieldPush": ["Monster_Monolith_Starchild_ShieldPush"],
+					},
+					"canSteer" : true,
+					"cullingModelAlwaysAnimate": true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"LaserAttack" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"LaserAttack": ["Monster_Monolith_Starchild_LaserAttack"],
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"FullPowerAttack" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"FullPowerAttack": ["Monster_Monolith_Starchild_FullPowerAttack_BS","Monster_Monolith_Starchild_FullPowerAttack"],
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"Charge_BS" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Charge_BS": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"Charge_Loop" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Charge_Loop": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"Charge_AS" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Charge_AS": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"OverCharge_BS" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"OverCharge_BS": ["Monster_Monolith_Starchild_OverCharge_BS"]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"OverCharge_Loop" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"OverCharge_Loop": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"OverCharge_AS" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"OverCharge_AS": ["Monster_Monolith_Starchild_OverCharge_Attack"]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"ShieldLaserAttack" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"ShieldLaserAttack": ["Monster_Monolith_Starchild_ShieldLaserAttack"]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"SpearLaserAttack" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"SpearLaserAttack": ["Monster_Monolith_Starchild_SpearLaserAttack"]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"SpearShieldAttack" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"SpearShieldAttack": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"SpearShieldAttack_BS" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"SpearShieldAttack_BS": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"SpearShieldAttack_AS" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"SpearShieldAttack_AS": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"ResetPart" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"ResetPart": ["Monster_Monolith_Starchild_ResetPart"]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"SpearSeperate" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"SpearSeperate": ["Monster_Monolith_Starchild_ReleaseLance"]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"ShieldSeperate_BS" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"ShieldSeperate_BS": ["Monster_Monolith_Starchild_ReleaseShield_BS"]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"ShieldSeperate_Loop" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"ShieldSeperate_Loop": [""]
+					},
+					"canSteer" : true,
+					"cullingModelAlwaysAnimate": true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"ShieldSeperate_AS" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"ShieldSeperate_AS": ["Monster_Monolith_Starchild_ReleaseShield"]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"DroneSeperate" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"DroneSeperate": ["Monster_Monolith_Starchild_ReleaseDrone"]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"Test_AllHide" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Test_AllHide": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"Test_LanceHide" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Test_LanceHide": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"Test_ShieldHide" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Test_ShieldHide": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"Test_DroneHide" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Test_DroneHide": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"Weak_BS" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Weak_BS": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"Weak_Loop" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Weak_Loop": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+				"Weak_AS" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Weak_AS": [""]
+					},
+					"canSteer" : true,
+					"resetAnimatorTriggerOnExit" : ["BeHit", "DoSkill" ],
+				},
+			},
+		},
+	},
+	"abilities":
+	[
+		
+	],
+	"initialPoses":
+	{
+		"Default":
+		{
+			"initialPoseID" : 1,
+		}
+	},
+	"aibeta":
+	{
+		"enable": true,
+		"skillGCD": 0.1,
+		"neurons":
+		{
+			"DefaultSetting": ["HIT"],
+			"NeverCombat": [],
+		},
+		"sensing":
+		{
+			"settings":
+			{
+				"DefaultSetting":
+				{
+					"viewRange": 25.0,
+					"feelRange": 10.0,
+				},
+				"NeverCombat":
+				{
+					"enableVision": false,
+					"feelRange": 0.0,
+					"hearAttractionRange": 0.0,
+				},
+				"LowAlert":
+				{
+					"viewRange": 10,
+					"feelRange": 5,
+				},
+			},
+			"templates":
+			{
+				"DefaultTemplate":
+				{
+					"DefaultPoses": "DefaultSetting",
+					"1001":"DefaultSetting",
+					"1002":"LowAlert",
+					"1003":"DefaultSetting"
+				},
+				"NeverCombatTemplate":
+				{
+					"DefaultPoses": "NeverCombat",
+				},
+			},
+		},
+		"defendArea":
+		{
+			"enable": true,
+			"defendRange": 50,
+		},
+		"threat":
+		{
+			"clearThreatByLostPath": true,
+			"clearThreatTimerByLostPath": 11,
+			"clearThreatByTargetOutOfZone": true,
+			"clearThreatTimerByTargetOutOfZone": 4,
+			"viewAttenuation":
+			[
+				{"x": 10.0, "y": 2.0},
+				{"x": 15.0, "y": 0.8},
+				{"x": 20.0, "y": 0.5},
+				{"x": 25.0, "y": 0.3},
+				{"x": 30.0, "y": 0.2},
+			],
+			"resistTauntLevel": "Monster_TauntLevel_2",
+		},
+		"returnToBornTactic":
+		{
+			"enable": true,
+			"defaultSetting":
+			{
+				"speedLevel": 2,
+				"fadeoutBeginTime":0,
+				"fadeoutEndTime": 3.5
+			},
+		},
+		"meleeChargeTactic":
+		{
+			"enable": true,
+			"condition":
+			{
+				"pose": [101,102,103,201],
+			},
+			"defaultSetting":
+			{
+				"speedLevel": 1,
+				"speedLevelInner": 1,
+				"innerDistance": 0,
+				"stopDistance": 15,
+				"startDistanceMin": 30,
+				"startDistanceMax": 99.0,
+			}
+		},
+		// "facingMoveTactic":
+		// {
+		// 	"enable": true,
+		// 	"condition":
+		// 	{
+		// 		"pose": [101,201,301],
+		// 	},
+		// 	"defaultSetting":
+		// 	{
+		// 		"speedLevel": 1,
+		// 		"rangeMin": 0,
+		// 		"rangeMax": 7,
+		// 		"restTimeMin": 2,
+		// 		"restTimeMax": 5,
+		// 		"facingMoveTurnInterval": 1,
+		// 		"obstacleDetectRange":1,
+		// 		"facingMoveWeight":
+		// 		{
+		// 			"stop": 0,
+		// 			"forward": 1,
+		// 			"back": 1,
+		// 			"left": 3,
+		// 			"right": 3,
+		// 		}
+		// 	}
+		// },
+
+		"network":
+		{
+			"syncSkill": true,
+		},
+		// "skillSetting":
+		// {
+		// 	"skillEliteSet":
+		// 	{
+		// 		"1": [10001],
+		// 		"2": [1001]
+		// 	}
+		// },
+		"skills":
+		{
+			"1":
+			{
+				"name": "OnAlert",
+				"stateIDs": ["Alert","Alert_AS"],
+				"skillType": "OnAlert",
+				"skillQueryingTime": 3,
+				"triggerGCD": false,
+				"ignoreGCD": true,
+			},	
+			////////////////////////////////////////////////////////////////////
+			///
+			/// Skill
+			///
+			////////////////////////////////////////////////////////////////////
+			"101":
+			{
+				"name": "SpearAttack",
+				"cd": 10,
+				"priority": 3,
+				"initialCD": 5,
+				"stateIDs": ["SpearAttack"],
+				"skillType": "Combat",
+				"skillQueryingTime": 3,
+				"triggerGCD": true,
+				"ignoreGCD": true,
+				"faceTarget": false,
+				"castCondition": {
+					"pickRangeMin": 0,
+					"pickRangeMax": 50,
+					"pose": [999]
+				}
+			},
+			
+			////////////////////////////////////////////////////////////
+			//Test
+			////////////////////////////////////////////////////////////////		
+			"10001":
+			{
+				"name": "ResetPart",
+				"cd": 10,
+				"initialCD": 5,
+				"stateIDs": ["ResetPart"],
+				"skillType": "Combat",
+				"skillQueryingTime": 3,
+				"triggerGCD": false,
+				"ignoreGCD": true,
+				"faceTarget": true,
+				"castCondition": {
+					"pickRangeMin": 0,
+					"pickRangeMax": 50,
+					"pose": [99999]
+				}
+			},		
+			"10002":
+			{
+				"name": "ResetPart",
+				"cd": 10,
+				"initialCD": 5,
+				"stateIDs": ["ResetPart"],
+				"skillType": "Combat",
+				"skillQueryingTime": 3,
+				"triggerGCD": false,
+				"ignoreGCD": true,
+				"faceTarget": true,
+				"castCondition": {
+					"pickRangeMin": 0,
+					"pickRangeMax": 50,
+					"pose": [99999]
+				},			
+			},		
+			"10003":
+			{
+				"name": "ResetPart",
+				"cd": 10,
+				"initialCD": 5,
+				"stateIDs": ["ResetPart"],
+				"skillType": "Combat",
+				"skillQueryingTime": 3,
+				"triggerGCD": false,
+				"ignoreGCD": true,
+				"faceTarget": true,
+				"castCondition": {
+					"pickRangeMin": 0,
+					"pickRangeMax": 50,
+					"pose": [99999]
+				}
+			},	
+			"10004":
+			{
+				"name": "ResetPart",
+				"cd": 10,
+				"initialCD": 5,
+				"stateIDs": ["ResetPart"],
+				"skillType": "Combat",
+				"skillQueryingTime": 3,
+				"triggerGCD": false,
+				"ignoreGCD": true,
+				"faceTarget": true,
+				"castCondition": {
+					"pickRangeMin": 0,
+					"pickRangeMax": 50,
+					"pose": [99999]
+				}
+			},
+			"10005":
+			{
+				"name": "ResetPart",
+				"cd": 10,
+				"initialCD": 5,
+				"stateIDs": ["ResetPart"],
+				"skillType": "Combat",
+				"skillQueryingTime": 3,
+				"triggerGCD": false,
+				"ignoreGCD": true,
+				"faceTarget": true,
+				"castCondition": {
+					"pickRangeMin": 0,
+					"pickRangeMax": 50,
+					"pose": [99999]
+				}
+			},
+		},
+	},
+	"inputKeys":
+	[
+		//1
+		{
+			"keyID": 101,
+			"inputKeyCode": 257,
+		},
+		//2
+		{
+			"keyID": 102,
+			"inputKeyCode": 258,
+		},
+		//3
+		{
+			"keyID": 103,
+			"inputKeyCode": 259,
+		},
+		//4
+		{
+			"keyID": 104,
+			"inputKeyCode": 260,
+		},
+		//5
+		{
+			"keyID": 105,
+			"inputKeyCode": 261,
+		},
+		//6
+		{
+			"keyID": 106,
+			"inputKeyCode": 262
+		},
+		//7
+		{
+			"keyID": 107,
+			"inputKeyCode": 263
+		},
+		//8
+		{
+			"keyID": 108,
+			"inputKeyCode": 264
+		},
+		//9
+		{
+			"keyID": 109,
+			"inputKeyCode": 265
+		},
+		// \+1
+		{
+			"keyID": 201,
+			"inputKeyCode": 266
+		},
+		// \+2
+		{
+			"keyID": 202,
+			"inputKeyCode": 267
+		},
+		// \+3
+		{
+			"keyID": 203,
+			"inputKeyCode": 268
+		},
+		// \+4
+		{
+			"keyID": 10001,
+			"inputKeyCode": 269
+		}, 
+		// \+5
+		{
+			"keyID": 10002,
+			"inputKeyCode": 270
+		},
+		// \+6
+		{
+			"keyID": 10003,
+			"inputKeyCode": 271
+		}, 
+		// \+7
+		{
+			"keyID": 10004,
+			"inputKeyCode": 272
+		},
+		// \+8
+		{
+			"keyID": 10005,
+			"inputKeyCode": 273
+		},
+		// \+9
+		{
+			"keyID": 9001,
+			"inputKeyCode": 274
+		},
+	],
+	"audio" :
+	{
+	    "$type": "ConfigMonsterAudio",
+		"animAudio" :
+		{
+			"onTransitionOut" :
+			[
+				{
+					"currentStateName" : "Weak_Loop",
+					"audioEvent" : { "text": "Stop_sfx_monster_gloves_wind_weak_Loop" },
+					"otherStateNames" : [""],
+					"usage" : "Any",
+				},
+				{
+					"currentStateName" : "Block_Loop",
+					"audioEvent" : { "text": "Stop_sfx_monster_gloves_wind_block_Loop" },
+					"otherStateNames" : [""],
+					"usage" : "Any",
+				},
+			],
+			"onTransitionIn" :
+			[
+				{
+					"currentStateName" : "Weak_Loop",
+					"audioEvent" : { "text": "Play_sfx_monster_gloves_wind_weak_Loop" },
+					"otherStateNames" : [""],
+					"usage" : "Any",
+				},
+				{
+					"currentStateName" : "Block_Loop",
+					"audioEvent" : { "text": "Play_sfx_monster_gloves_wind_block_Loop" },
+					"otherStateNames" : [""],
+					"usage" : "Any",
+				},
+			],
+		},
+		"disableEvent":
+        {
+            "text": ""
+        }, 
+        "destroyEvent":
+        {
+            "text": ""
+        }
+	},
+}

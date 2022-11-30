@@ -1,0 +1,18 @@
+ActivitySkillID	目标类型	AbilityName	技能能量键值	能量最小值	能量上限	技能冷却时间	技能引导时间	引导KEY	引导完成OPENSTATE
+20003	2	SceneObj_Aster_PlayEntity_Esay	AVATAR_ASTER_SCORE	100	200	5	5	GuideAsterios,GuideAsterPC,GuideAsterPS	63
+20004	2	SceneObj_Aster_PlayEntity_Normal	AVATAR_ASTER_SCORE	100	200	5	5	GuideAsterios,GuideAsterPC,GuideAsterPS	63
+20005	2	SceneObj_Aster_PlayEntity_Hard	AVATAR_ASTER_SCORE	150	300	5	5	GuideAsterios,GuideAsterPC,GuideAsterPS	63
+20006	2	SceneObj_Aster_PlayEntity_Single	AVATAR_ASTER_SCORE	200	400	5	5	GuideAsterios,GuideAsterPC,GuideAsterPS	63
+20007	1	SceneObj_Electric_Stake_Play	AVATAR_Electric_Stake_Play	1	100	1	0		
+20008	0	SceneObj_Electric_Core	AVATAR_Electric_Core	1	100	1	0		
+20009	0	SceneObj_Temari_Hide_Ball	AVATAR_Temari_Hide_Ball	0	100	5	0		
+20010	0	SceneObj_Electric_Core_Challenge	AVATAR_Electric_Core	1	100	1	0		
+20011	1	SceneObj_Firecracker_Play	AVATAR_Firecracker_Play	1	100	1	0		
+20012	1	SceneObj_LightStone_Lv1	Light_Stone_Energy	1	100	4	4		
+20013	1	SceneObj_LightStone_Lv2	Light_Stone_Energy	1	100	2	2		
+20014	0	GrapplingHookSkill_Ability	AVATAR_GrapplingHookSkill	1	100	1	0		
+20015	0	GrapplingHookSkill_Step2_Ability	AVATAR_GrapplingHookSkill	1	100	1	0		
+20016	1	ActivityAbility_SummerTimeV2_KazuhaAOE	AVATAR_SummerTimeV2_KazuhaAOE	1	100	15	0		
+20017	1	ActivityAbility_UnstableSpray	UNSTABLE_SPRAY_CD	1	100	15	0		
+20018	1	ActivityAbility_Maze_Skill	ActivityAbility_Maze_Skill	1	100	20	0	GuideWindFieldios,GuideWindFieldPC,GuideWindFieldPS	3100
+20019	1	ActivityAbility_MuqadasPotion_Key	MuqadasPotion_Camera_Times	1000	3000	5	0	GuideMuqadasIOS,GuideMuqadasPC,GuideMuqadasPS,	3007

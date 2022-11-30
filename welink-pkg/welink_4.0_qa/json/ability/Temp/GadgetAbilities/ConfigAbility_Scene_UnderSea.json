@@ -1,0 +1,1654 @@
+[
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 海绵门
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_UnderSea_SpongeGate",
+		"onAdded": 
+		[
+			{
+				"$type": "ApplyModifier",
+				"modifierName": "SpongeGate"
+			},
+		],
+		"modifiers":
+		{
+			"SpongeGate":
+			{
+				"onBeingHit":
+				[
+					{
+						"$type": "Predicated",
+						"target": "Target",
+						"targetPredicates":
+						[
+							{
+                                "$type": "ByHitStrikeType",
+                                "strikeType": "Slash",
+                            },
+						],
+						"successActions":
+						[
+							{
+								"$type": "KillSelf",
+							}
+						],
+						"failActions":
+						[],
+					},
+				]
+			},
+		}
+	}
+},
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 重生之我是海草
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_UnderSea_SeaWeed",
+		"onAdded": 
+		[
+			{
+				"$type": "ApplyModifier",
+				"modifierName": "SeaWeed"
+			},
+		],
+		"modifiers":
+		{
+			"SeaWeed":
+			{
+				"onBeingHit":
+				[
+					{
+						"$type": "Predicated",
+						"target": "Target",
+						"targetPredicates":
+						[
+							{
+                                "$type": "ByHitStrikeType",
+                                "strikeType": "Slash",
+                            },
+						],
+						"successActions":
+						[
+							{
+								"$type": "KillSelf",
+							}
+						],
+						"failActions":
+						[],
+					},
+				]
+			},
+		}
+	}
+},
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 笼子
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_UnderSea_Cage",
+		"onAdded": 
+		[
+			{
+				"$type": "ApplyModifier",
+				"modifierName": "Cage"
+			},
+		],
+		"modifiers":
+		{
+			"Cage":
+			{
+				"onBeingHit":
+				[
+					{
+						"$type": "Predicated",
+						"target": "Target",
+						"targetPredicates":
+						[
+							{
+                                "$type": "ByHitStrikeType",
+                                "strikeType": "Slash",
+                            },
+						],
+						"successActions":
+						[
+							{
+								"$type": "KillSelf",
+							}
+						],
+						"failActions":
+						[],
+					},
+				]
+			},
+		}
+	}
+},
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 元素门
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_UnderSea_ElementGate",
+		"onAdded": 
+		[
+			{
+				"$type": "ApplyModifier",
+				"modifierName": "ElementGate"
+			},
+		],
+		"modifiers":
+		{
+			"ElementGate":
+			{
+				"onBeingHit":
+				[
+					{
+						"$type": "Predicated",
+						"target": "Target",
+						"targetPredicates":
+						[
+							{
+                                "$type": "ByHitElement",
+                                "element": "Ice",
+                            },
+						],
+						"successActions":
+						[
+							{
+							  "$type": "ChangeGadgetState",
+							  "state": 201
+							},
+						],
+						"failActions":
+						[],
+					},
+				]
+			},
+		}
+	}
+},
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 斩击移动靶标
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_UnderSea_SlashTarget",
+		"onAdded": 
+		[
+			{
+				"$type": "ApplyModifier",
+				"modifierName": "SlashTarget"
+			},
+		],
+		"modifiers":
+		{
+			"SlashTarget":
+			{
+				"onBeingHit":
+				[
+					{
+						"$type": "Predicated",
+						"target": "Target",
+						"targetPredicates":
+						[
+							{
+                                "$type": "ByHitStrikeType",
+                                "strikeType": "Slash",
+                            },
+						],
+						"successActions":
+						[
+							{
+								"$type": "KillSelf",
+							},
+						],
+						"failActions":
+						[],
+					},
+				]
+			},
+		}
+	}
+},
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 元素移动靶标
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_UnderSea_ElementTarget",
+		"onAdded": 
+		[
+			{
+				"$type": "ApplyModifier",
+				"modifierName": "ElementTarget"
+			},
+		],
+		"modifiers":
+		{
+			"ElementTarget":
+			{
+				"onBeingHit":
+				[
+					{
+						"$type": "Predicated",
+						"target": "Target",
+						"targetPredicates":
+						[
+							{
+                                "$type": "ByHitElement",
+                                "element": "Ice",
+                            },
+						],
+						"successActions":
+						[
+							{
+							  "$type": "ChangeGadgetState",
+							  "state": 201
+							},
+						],
+						"failActions":
+						[],
+					},
+				]
+			},
+		}
+	}
+},
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 喷泉石头
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_UnderSea_HualaStone",
+		"onAdded": 
+		[
+			{
+	        	"$type": "ChangeTag",
+	          	"isAdd": true,
+	          	"tag": "HualaStone",
+	        },
+		],
+		"modifiers":
+		{
+			
+		}
+	}
+},
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 喷泉
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_UnderSea_Huala",
+		"abilityMixins":
+		[
+			{
+				"$type": "AttachToGadgetStateMixin",
+				"gadgetState": 201,
+				"modifierName": "Huala",
+			},
+		],
+		
+		"modifiers":
+		{
+			"Huala":
+			{
+				"onAdded":
+				[
+					{
+						"$type" : "AttachEffect",
+						"effectPattern" : "Eff_SceneObj_AsterLarge_Recevie",
+						"otherTargets":
+						{
+                            "$type": "SelectTargetsByTag",
+                            "tag": "HualaStone",
+                        },
+						"born" :
+						{
+							"$type":"ConfigBornByAttachPoint",
+							"attachPointName":"RootNode",
+							"attachPointTargetType":"Self",
+						},
+					},
+				]
+			},
+		}
+	}
+},
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 玩家法身
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_UnderSea_PlayerBoy",
+		"onAdded": 
+		[
+			{
+				"$type": "ApplyModifier",
+				"modifierName": "Player_Line_Eff",
+			},
+		],
+		"modifiers":
+		{
+			"Player_Line_Eff":
+			{
+				"onAdded":
+				[
+					{
+						"$type" : "AttachEffect",
+						"effectPattern" : "Eff_SceneObj_AsterLarge_Recevie",
+						"target": "Team",
+						"born" :
+						{
+							"$type":"ConfigBornByAttachPoint",
+							"attachPointName":"RootNode",
+							"attachPointTargetType":"Self",
+						},
+					},
+				]
+			},
+		}
+	}
+},
+
+///////////////////////////////
+//
+// 海底世界 指针 底座
+//
+////////////////////////////////////
+	{
+		"Default": 
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_UnderSea_Compass_Base",
+			"abilityMixins":
+			[
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 0,
+					"modifierName": "PHASE1",
+				},
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 201,
+					"modifierName": "PHASE2",
+				},	
+			],
+			"onAdded":
+			[
+				{
+	              "$type": "ChangeTag",
+	              "isAdd": true,
+	              "tag": "_IS_COMPASS_BASE"
+	            },
+			],
+			"modifiers": 
+			{
+				"PHASE1":
+				{
+				},
+				"PHASE2":
+				{
+					"onAdded":
+					[
+						{
+							"$type" : "AttachEffect",
+							"effectPattern" : "Eff_SceneObj_MagnetCompass_Success",						
+						},
+					],
+				},			
+			},
+		},
+	},
+
+///////////////////////////////
+//
+// 海底世界 指针
+//
+////////////////////////////////////
+	{
+		"Default": 
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_UnderSea_Compass",
+			"abilityMixins":
+			[
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 0,
+					"modifierName": "PHASE1",
+				},
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 0,
+					"modifierName": "Check",
+				},
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 201,
+					"modifierName": "PHASE2",
+				},	
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 202,
+					"modifierName": "Locked",
+				},	
+			],
+			"modifiers": 
+			{
+				"Targetting":
+				{
+					"stacking":"MultipleRefresh",
+                    "stackingOption":
+                    {
+                        "maxModifierNumForMultipleType": 1,
+                    },
+					"onAdded":
+					[
+						{
+							"$type": "EnablePartControl",
+							"doOffStage":true,
+							"partRootNames":["RootNode"],
+							"enable": true, 
+						},
+						{
+							"$type": "SetPartControlTarget",
+							"doOffStage":true,
+							"partRootNames": ["RootNode"], 
+							"target": "Applier",
+						},
+						{
+							"$type" : "AttachEffect",
+							"effectPattern" : "Eff_SceneObj_MagnetCompass_Rotating",						
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "EnablePartControl",
+							"doOffStage":true,
+							"partRootNames":["RootNode"],
+							"enable": false, 
+						},
+					]
+				},
+				"MagneticGearCallBack":
+				{
+					"onAdded":
+					[
+						{
+							"$type": "AttachModifier",
+							"doOffStage":true,
+							"target":"Applier",
+							"modifierName": "Targetting",
+						},
+					],
+					"modifierMixins":
+					[	
+						{
+							"$type": "ConnectLineMixin",
+							"RepeaterModifier":"MagneticGearCallBack",
+							"CollectorModifier":"MagneticGearCallBack",
+							"CollectorGlobalvalueKey":"isTerminal",
+						},
+					],
+				},
+				"Locked":
+				{
+					"onAdded":
+					[
+						{
+							"$type": "EnablePartControl",
+							"partRootNames":["RootNode"],
+							"enable": false, 
+						},
+						{
+							"$type" : "AttachEffect",
+							"effectPattern" : "Eff_Item_SpecialTreasureBox_LockIdle",						
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type" : "FireEffect",
+							"effectPattern" : "Eff_Item_SpecialTreasureBox_Unlock",						
+						},
+					]
+				},
+				"Check":
+				{
+					"thinkInterval": 1,
+					"onThinkInterval":
+					[
+						{
+							"$type": "Predicated",
+							"otherTargets":
+							{
+	                            "$type": "SelectTargetsByTag",
+	                            "tag": "_IS_COMPASS_BASE",
+	                        },
+							"targetPredicates":
+							[
+                                {
+	                        		"$type": "BySelfForwardAndTargetPosition",
+	                        		"value": 10,
+	                        		"isXZ": true,
+	                        		"logic": "Lesser",
+	                        	},
+							],
+							"successActions":
+							[
+								{
+	                                "$type": "FireEffect",
+	                                "effectPattern": "Eff_SceneObj_BombBarrel_01_ExplodeOnWater",
+	                            },
+								{
+								  "$type": "ChangeGadgetState",
+								  "target": "Self",
+								  "state": 201
+								},
+							],
+							"failActions":
+							[
+								{
+					              "$type": "DebugLog",
+					              "content": "角度判定失败！"
+					            },
+							],
+						},
+					],
+					"onAdded":
+					[
+						{
+							"$type": "Predicated",
+							"otherTargets":
+							{
+	                            "$type": "SelectTargetsByTag",
+	                            "tag": "_IS_COMPASS_BASE",
+	                        },
+							"targetPredicates":
+							[
+                                {
+	                        		"$type": "BySelfForwardAndTargetPosition",
+	                        		"value": 10,
+	                        		"isXZ": true,
+	                        		"logic": "Lesser",
+	                        	},
+							],
+							"successActions":
+							[
+								{
+	                                "$type": "FireEffect",
+	                                "effectPattern": "Eff_SceneObj_BombBarrel_01_ExplodeOnWater",
+	                            },
+								{
+								  "$type": "ChangeGadgetState",
+								  "target": "Self",
+								  "state": 201
+								},
+							],
+							"failActions":
+							[
+								{
+					              "$type": "DebugLog",
+					              "content": "角度判定失败！"
+					            },
+							],
+						},
+					],
+				},
+
+				"PHASE1":
+				{
+					"onAdded":
+					[
+						{
+							"$type": "EnablePartControl",
+							"partRootNames":["RootNode"],
+							"enable": false, 
+						},
+						{
+       						"$type": "EnablePositionSynchronization",
+       						"canBeHandledOnRecover": true,
+      						"enable": true, 
+						},
+						/*
+						{
+							"$type" : "AttachEffect",
+							"effectPattern" : "Eff_SceneObj_MagnetCompass_Active",						
+						},
+						*/
+					],
+					"modifierMixins":
+					[	
+						{
+							"$type": "ConnectLineMixin",
+							"RepeaterModifier":"MagneticGearCallBack",
+							"CollectorModifier":"MagneticGearCallBack",
+							"CollectorGlobalvalueKey":"isTerminal",
+							"otherTargets":
+							{
+								"$type": "SelectTargetsByShape",
+								"shapeName": "CircleR10H10",
+								"centerBasedOn": "Self",
+								"campTargetType": "AllExceptSelf",
+								"campBasedOn": "Self",
+								"sortType": "Nearest", //从近开始选
+							},
+							"predicates":
+							[
+								{
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "HAS_UNDERSEA_COMPASS_ENERGY",
+                                    "value": 1,
+                                    "compareType": "Equal",
+                                },
+							],
+							"predicatesForeach"  : 
+							[
+								
+							],
+						},
+					],
+				},
+				"PHASE2":
+				{
+					"onAdded":
+					[
+						{
+							"$type": "EnablePartControl",
+							"partRootNames":["RootNode"],
+							"enable": false, 
+						},
+						{
+       						"$type": "EnablePositionSynchronization",
+       						"canBeHandledOnRecover": true,
+      						"enable": false, 
+						},
+					],
+				},				
+			},
+		},
+	},
+
+
+///////////////////////////////
+//
+// 海底世界 指针 能量
+//
+////////////////////////////////////
+	{
+		"Default": 
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_UnderSea_Compass_Energy",
+			"abilityMixins":
+			[
+				{
+		            "$type": "WidgetMpSupportMixin",
+		            "succActions":
+	                [
+						{
+							"$type": "ApplyModifier",
+							"modifierName": "Team_Compass_Energy",
+							"target": "Other",
+						},
+	                ]
+		        }
+			],
+			"modifiers": 
+			{
+				"Team_Compass_Energy":
+				{
+					"modifierMixins":
+					[
+						 {
+		                    "$type": "LocalAvatarsMixin",
+		                    "modifierName": "Avatar_Compass_Energy",
+		                },
+					],
+				},	
+				"Avatar_Compass_Energy":
+				{
+					"onAdded":
+					[
+						{
+			            	"$type": "SetGlobalValue",
+			            	"doOffStage": true,
+			            	"key": "HAS_UNDERSEA_COMPASS_ENERGY",
+			            	"value": 1,
+			            },
+					],
+				},		
+			},
+		},
+	},
+
+///////////////////////////////
+//
+// 海底世界 泪水炮台
+//
+////////////////////////////////////
+{
+	"Default": 
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_Undersea_HeadControlShooter",
+		"abilityMixins":
+		[
+			{
+				"$type": "AttachToGadgetStateMixin",
+				"gadgetState": 0,
+				"modifierName": "PartControlOff"
+			},
+			{
+				"$type": "AttachToGadgetStateMixin",
+				"gadgetState": 201,
+				"modifierName": "PartControlOn"
+			},
+			{
+				"$type": "AttachToGadgetStateMixin",
+				"gadgetState": 202,
+				"modifierName": "Locked"
+			}
+		],
+		"modifiers":
+		{
+			"Locked":
+			{
+				
+			},
+
+			"PartControlOff":
+			{
+				"onAdded":
+				[
+					{
+						"$type": "EnablePartControl",
+						"partRootNames":["ShootControl"],
+						"enable": false
+					}
+				]
+			},
+			
+
+			"PartControlOn":
+			{
+				"thinkInterval": 3,
+				"modifierMixins": 
+				[
+					{
+						"$type": "LaserMixin",
+						"effectPattern": "Eff_Property_Ani_Prop_LaserGenerator_01_Laser_01",
+						"onLaserHit":
+						[
+						  	{
+								"$type" : "Predicated",
+								"target" : "Target",
+								"targetPredicates" :
+								[
+									{
+										"$type": "ByEntityTypes",
+										"target": "Target",
+										"entityTypes": ["Avatar"]
+									},
+								],
+								"successActions" :
+								[
+									{
+										"$type": "ApplyModifier",
+										"target": "Target",
+										"modifierName": "Aim_Eff"
+									},
+									{
+										"$type": "ApplyModifier",
+										"target": "Self",
+										"modifierName": "BulletDelay"
+									},
+								]
+							 }
+						],
+						"onLaserLeave":
+						[
+							{
+								"$type" : "Predicated",
+								"target" : "Target",
+								"targetPredicates" :
+								[
+									{
+										"$type": "ByEntityTypes",
+										"target": "Target",
+										"entityTypes": ["Avatar"]
+									},
+								],
+								"successActions" :
+								[
+									{
+										"$type": "RemoveModifier",
+										"target": "Target",
+										"modifierName": "Aim_Eff"
+									},
+									{
+										"$type": "RemoveModifier",
+										"target": "Self",
+										"modifierName": "BulletDelay"
+									},
+								]
+							}
+						],
+				    }
+				],
+				"onThinkInterval": 
+				[
+					{
+						"$type": "SetPartControlTarget",
+						"partRootNames": ["ShootControl"],
+						"otherTargets":
+                        {
+                            "$type": "SelectTargetsByShape",
+                            "shapeName": "CircleR450",
+                            "centerBasedOn": "Self",
+                            "campTargetType": "Enemy",
+                            "entityTypePriority": 
+                            [
+                                "Avatar"
+                            ],
+                            "campBasedOn": "Self",
+                            "topLimit": 1,
+                            "sortType": "Nearest",
+                        },
+                        "predicates":
+                        [
+                        	{
+								"$type": "ByHasElement",
+								"target": "Target",
+								"element": "Water",
+							},
+                        	{
+                        		"$type": "BySelfForwardAndTargetPosition",
+                        		"value": 90,
+                        		"isXZ": true,
+                        		"logic": "Lesser",
+                        	},
+                        ],
+					},
+				],
+				"onAdded":
+				[
+					{
+						"$type": "AttachEffect",
+						"effectPattern": "Eff_Property_Ani_Prop_LaserGenerator_01_Laser_01",
+					},
+					{
+						"$type": "SetPartControlTarget",
+						"partRootNames": ["ShootControl"],
+						"otherTargets":
+                        {
+                            "$type": "SelectTargetsByShape",
+                            "shapeName": "CircleR450",
+                            "centerBasedOn": "Self",
+                            "campTargetType": "Enemy",
+                            "entityTypePriority": 
+                            [
+                                "Avatar"
+                            ],
+                            "campBasedOn": "Self",
+                            "topLimit": 1,
+                            "sortType": "Nearest",
+                        },
+                        "predicates":
+                        [
+                        	{
+								"$type": "ByHasElement",
+								"target": "Target",
+								"element": "Water",
+							},
+                        	{
+                        		"$type": "BySelfForwardAndTargetPosition",
+                        		"value": 90,
+                        		"isXZ": true,
+                        		"logic": "Lesser",
+                        	},
+                        ],
+					},
+					{
+						"$type": "EnablePartControl",
+						"partRootNames":["ShootControl"],
+						"enable": true
+					}
+					
+				]
+			},
+
+
+			"BulletDelay":
+			{
+				"thinkInterval": 1.5,
+				"onAdded":
+				[	
+					{
+						"$type": "FireEffect",
+						"effectPattern": "Eff_SceneObj_RobotsLaserCannon_02",
+					},
+				],
+				"onThinkInterval":
+				[
+
+					{
+						"$type": "TriggerBullet",
+						"bulletID": 70330476,
+						"born":{
+							"$type": "ConfigBornByAttachPoint",
+							"attachPointName": "ShootPoint",
+						}
+					},
+				]
+			},
+
+
+			"Aim_Eff":
+			{
+				"onAdded":
+				[
+					{
+						"$type": "AttachEffect",
+						"effectPattern": "Eff_SceneObj_RobotsLaserCannon_01",
+						"doOffStage": true,
+						"target": "Team"
+					},
+				],
+			},
+			
+		}
+
+	}
+},
+
+
+///////////////////////////////
+//
+// 海底世界 固定泪水
+//
+////////////////////////////////////
+	{
+		"Default": 
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_Undersea_Bubble",
+			"onAbilityStart":
+			[
+				{
+					"$type" : "DamageByAttackValue",
+					"target": "Target",
+					"attackInfo":
+					{
+						"attackProperty":   
+						{
+							"damagePercentage": 0,
+							"elementType" : "None",
+							"elementDurability" : 0,
+							"strikeType": "Default",
+							"enBreak": 800,
+							"ignoreLevelDiff": true,
+						},
+						"hitPattern": 
+						{
+							"onHitEffectName": "",
+			          		"hitImpulseType":"LV3",
+			          		"reboundRatio": 0,
+			          		"canBeDefenceHalt": false,
+			          		"hitHaltTime": 0.0,
+			          		"hitHaltTimeScale": 0.01,
+			          		"muteHitText": true,
+						},	
+					},
+					"predicates":
+					[
+						{
+							"$type": "ByTargetGadgetState",
+							"target": "Self",
+							"gadgetState": 0
+						}
+					],
+				},
+				{
+					"$type": "KillSelf",
+					"predicates":
+					[
+						{
+							"$type": "ByTargetGadgetState",
+							"target": "Self",
+							"gadgetState": 201
+						}
+					],
+				},
+			],
+			"modifiers": 
+			{
+						
+			},
+		},
+	},
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 泪水大炮 子弹
+//
+//////////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_Undersea_HeadControlShooter_Bullet",
+			"onAdded":
+			[
+				{
+					"$type": "AttachEffect",
+					"effectPattern": "Eff_Monster_Oceanid_DelayWaterBall"
+				}
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type" : "Predicated",
+					"target" : "Target",
+					"targetPredicates" :
+					[
+						{
+							"$type": "ByEntityTypes",
+							"target": "Target",
+							"entityTypes": ["Avatar"]
+						},
+					],
+					"successActions" :
+					[
+						{
+							"$type": "ServerLuaCall",
+							"luaCallType": "OwnerFromGroup",
+							"target": "TargetTeam",
+							"funcName": "SLC_BackToStartPoint",
+						},
+					]
+				},
+				{
+					"$type": "FireEffect",
+					"effectPattern": "Eff_SceneObj_BubbleShoot_01_Bubble_Die",
+				},	
+			],
+			"modifiers":
+			{
+
+			}
+		}
+	},
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 水下泪水板
+//
+//////////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_UnderSea_TearsPlat_UnderWater",
+			"abilityMixins": 
+			[
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 0,
+					"modifierName": "State0",
+				},
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 201,
+					"modifierName": "HasIneract",
+				},
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 202,
+					"modifierName": "NoIneract",
+				},
+			],
+			"modifiers":
+			{
+				"State0":
+				{
+					"state": "DenyLockOn",
+					"onAdded":
+					[
+						{
+							"$type":"SetMaterialParamFloatByTransform",
+							"matName":"InvisibleMat",
+							"patternName":"_DissoveThreshold",
+							"useCurve": true,
+                            "lerpTime":1,
+                            "lerpCurveIndex": 1,
+							"value":0,
+							"canBeHandledOnRecover": true,
+						},
+						{
+							"$type": "SetGlobalValue",
+							"key": "ShowState",
+							"value": 0,
+						},
+					],
+					"onBeingHit":
+					[
+						{
+						    "$type": "ChangeGadgetState",
+						    "target": "Self",
+						    "state": 201
+						},
+					],
+				},
+
+				"HasIneract":
+				{
+					"onAdded":
+					[
+						{
+                            "$type": "SetMaterialParamFloatByTransform",
+							"matName":"InvisibleMat",
+                            "patternName": "_DissoveThreshold",
+                            "useCurve": true,
+                            "lerpTime":1,
+                            "lerpCurveIndex": 1,
+                            "value": 1,
+                        },	
+                        {
+                        	"$type": "AttachModifier",
+                        	"modifierName": "DelayTimer",
+                        },
+					],
+				},
+
+				"NoIneract":
+				{
+					"onAdded":
+					[
+						{
+                            "$type": "SetMaterialParamFloatByTransform",
+							"matName":"InvisibleMat",
+                            "patternName": "_DissoveThreshold",
+                            "useCurve": true,
+                            "lerpTime":1,
+                            "lerpCurveIndex": 1,
+                            "value": 1,
+                        },	
+                        {
+                        	"$type": "AttachModifier",
+                        	"modifierName": "DelayTimer",
+                        },
+					],
+				},
+
+				"DelayTimer":
+				{
+					"duration": 15,
+					"onRemoved":
+					[
+						{
+						    "$type": "ChangeGadgetState",
+						    "target": "Self",
+						    "state": 0
+						},
+					],
+				},
+			}
+		}
+	},
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界 冥想盆
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	{
+		"Default": 
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_Undersea_Pensieve",
+			"abilityMixins": 
+			[
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 0,
+					"modifierName": "State0",
+				},
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 101,
+					"modifierName": "State101",
+				},
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 102,
+					"modifierName": "State102",
+				},
+			],
+			"modifiers": 
+			{
+				"State0":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"ChangeGadgetUIInteractHint",
+							"hintTextMapId":"UI_Dreamconch_Give_01",
+							"canBeHandledOnRecover": true,
+						},
+						{
+							"$type": "AttachEffect",
+							"effectPattern": "Eff_Item_Hint_SearchPoint_UnDisable",
+						},
+					],
+				},
+
+				"State101":
+				{
+					"onAdded":
+					[
+						{
+							"$type": "AttachEffect",
+							"effectPattern": "Eff_ScenObj_Dreamconch_01",
+						},
+						{
+							"$type":"ChangeGadgetUIInteractHint",
+							"hintTextMapId":"UI_Dreamconch_Get_01",
+							"canBeHandledOnRecover": true,
+						},
+					],
+				},
+
+				"State102":
+				{
+					"onAdded":
+					[
+						{
+							"$type": "AttachEffect",
+							"effectPattern": "Eff_ScenObj_Dreamconch_01",
+						},
+						{
+							"$type": "AttachEffect",
+							"effectPattern": "Eff_Item_Hint_SearchPoint_UnDisable",
+						},
+						{
+							"$type":"ChangeGadgetUIInteractHint",
+							"hintTextMapId":"UI_Dreamconch_Get_01",
+							"canBeHandledOnRecover": true,
+						},
+					],
+				},
+			},
+		},
+	},
+
+	//////////////////////////////////////////////////////
+	//
+	// 水下玩法-体力球
+	//
+	//////////////////////////////////////////////////////
+	{
+	    "Default" : 
+	    {
+	        "$type" : "ConfigAbility",
+	        "abilityName" : "SceneObj_Undersea_StaminaBall",
+	        "onAdded": 
+	        [
+				{
+					"$type": "SetGlobalValue",
+					"target": "Self",
+					"key": "GV_CanRecoverEnergy",
+					"value": 1,
+				}
+	        ],
+			"abilityMixins": 
+			[
+				{
+					"$type": "AttachModifierToGlobalValueMixin",
+					"globalValueKey": "GV_CanRecoverEnergy",
+					"valueSteps": [-0.5,0.5,1.5],
+					"modifierNameSteps": ["CoolDown","Actived"]
+				}
+			],
+			"onFieldEnter":
+			[
+            	{
+	                "$type": "Predicated",
+	                "target": "Target",
+	                "targetPredicates": 
+	                [
+	                    {
+	                        "$type": "ByTargetGlobalValue",
+	                        "target": "Self",
+	                        "key": "GV_CanRecoverEnergy",
+	                        "value": 1,
+	                        "compareType": "Equal",
+	                    }
+	                ],
+	                "successActions":
+	                [
+    					{
+							"$type": "ApplyModifier",
+							"modifierName": "RecoverEnergy",
+							"target": "Target"
+						},
+						{
+							"$type": "SetGlobalValue",
+							"target": "Self",
+							"key": "GV_CanRecoverEnergy",
+							"value": 0,
+						}
+	                ]
+                }
+
+			],
+	        "modifiers":
+	        {
+				"CoolDown":{
+
+				},
+				"Actived":
+				{
+					
+					"onAdded":
+					[
+						{
+	                        "$type": "AttachEffect",
+	                        "effectPattern": "Eff_SceneObj_BoatRaceCrate_02_Float",
+	                    },
+					],
+					"onRemoved": 
+					[
+						{
+	                        "$type": "FireEffect",
+	                        "effectPattern": "Eff_SceneObj_BoatRaceCrate_02_Smash",
+	                    },
+	                    {
+	                        "$type":"ApplyModifier",
+	                        "modifierName": "RecoverManager",
+	                        "target": "Self",
+	                    },
+					]
+				},
+
+	            "RecoverManager":
+	            {
+	                "duration": 10,
+	                "onRemoved": 
+	                [
+						{
+							"$type": "SetGlobalValue",
+							"target": "Self",
+							"key": "GV_CanRecoverEnergy",
+							"value": 1,
+						}
+	                ]
+	            },
+
+	            "RecoverEnergy":
+	            {
+	                "duration": 1.0,
+	                "onAdded":
+	                [
+	                    {
+	                        "$type":"ReviveStamina",
+	                        "value":50,
+	                    },
+	                ],
+	            },
+	        },
+
+	    },	
+	},
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 泪水大炮显示屏
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_Undersea_Display",
+		"onAdded":
+		[
+			{//机器人模式是模式1：Shoot
+				"$type": "SetGlobalValue",
+				"key": "RobotMode",
+				"value": 1
+			}
+		],
+		"abilityMixins":
+		[
+			{
+				"$type": "ShootFromCameraMixin",
+				"ui_message_id":"v3_1_RobotControl_FireBullet",
+				"offsetFromCamera":{
+					"x": 0,
+					"y": -0.5,
+					"z": 0
+				},
+				"gvBulletInitPos": "GV_ShootPos",
+				"gvBulletForward": "GV_ShootDir",
+				"actionList":
+				[
+					{
+						"$type":"DoWatcherSystemAction",
+						"target":"Target",
+						"watcherId":81275,
+					},
+					{
+						"$type": "TriggerBullet",
+						"bulletID": 70330286,
+						"born":{
+							"$type": "ConfigBornByGlobalValue",
+							"positionKey": "GV_ShootPos",
+							"directionKey": "GV_ShootDir"
+						},
+						"isPeerIdFromPlayer": true
+					}
+				]
+			}
+		],
+		"modifiers":
+		{
+
+		}
+	}
+},
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 泪水移动泡泡
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_UnderSea_MoveableBubble",
+		"onFieldEnter":
+		[
+			{
+				"$type": "KillSelf",
+			},
+		],
+		"onKill":
+		[
+			{
+				"$type": "FireEffect",
+				"effectPattern": "Eff_SceneObj_BubbleShoot_01_Bubble_Die",
+			},
+		],
+		"onAdded":
+		[
+			{
+				"$type": "ApplyModifier",
+				"modifierName": "Bubble_Eff",
+			},
+		],
+		"modifiers":
+		{
+			"Bubble_Eff":
+			{
+				"onAdded":
+				[
+					{
+						"$type": "AttachEffect",
+						"effectPattern": "Eff_SceneObj_BubbleShoot_01_Bubble",
+					},
+				],
+			},
+		}
+	}
+},
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 洋流入口
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_UnderSea_OceanCurrent_Entrance",
+		"onFieldEnter":
+		[
+			{
+				"$type": "ServerLuaCall",
+				"luaCallType": "FromGroup",
+				"target": "TargetTeam",
+				"funcName": "SLC_EnterOceanCurrent",
+			},
+		],
+		"onAdded":
+		[
+			{
+				"$type": "ApplyModifier",
+				"modifierName": "Eff",
+			},
+		],
+		"modifiers":
+		{
+			"Eff":
+			{
+				"onAdded":
+				[
+					{
+						"$type": "AttachEffect",
+						"effectPattern": "Eff_SceneObj_BubbleShoot_01_Bubble",
+					},
+				],
+			},
+		}
+	}
+},
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 水上幻影板 主板
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_UnderSea_TearsPlat_AboveWater",
+		"onFieldEnter":
+		[
+			{
+				"$type": "ServerLuaCall",
+				"luaCallType": "FromGroup",
+				"funcName": "SLC_TriggerPlate",
+			},
+		],
+		"modifiers":
+		{
+
+		}
+	}
+},
+
+//////////////////////////////////////////////////////////////////////
+//
+//	海底世界 加速鱼群
+//
+//////////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "SceneObj_UnderSea_Fish_SpeedUp",
+		"onFieldEnter":
+		[
+			
+		],
+		"modifiers":
+		{
+
+		}
+	}
+},
+
+]

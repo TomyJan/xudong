@@ -1,0 +1,99 @@
+{
+  "sceneId": 3,
+  "routes": [
+    {
+      "localId": 340200001,
+      "name": "Route_340200001",
+      "type": "OneWay",
+      "rotType": "ROT_NONE",
+      "rotAngleType": "ROT_ANGLE_Y",
+      "arriveRange": 2.0,
+      "points": [
+        {
+          "pos": {
+            "x": 3761.64,
+            "y": 509.292816,
+            "z": 3523.81738
+          },
+          "waitTime": 0.0,
+          "targetVelocity": 2.0
+        },
+        {
+          "pos": {
+            "x": 3761.64,
+            "y": 512.102539,
+            "z": 3523.81738
+          },
+          "waitTime": 0.0,
+          "targetVelocity": 3.0
+        },
+        {
+          "pos": {
+            "x": 3761.64,
+            "y": 512.7257,
+            "z": 3523.81738
+          },
+          "waitTime": 0.0,
+          "targetVelocity": 1.0
+        },
+        {
+          "pos": {
+            "x": 3761.64,
+            "y": 513.0326,
+            "z": 3523.81738
+          },
+          "waitTime": 0.0,
+          "targetVelocity": 0.5,
+          "reachStop": true
+        }
+      ]
+    },
+    {
+      "localId": 340200002,
+      "name": "Route_340200001",
+      "type": "OneWay",
+      "rotType": "ROT_NONE",
+      "rotAngleType": "ROT_ANGLE_Y",
+      "arriveRange": 2.0,
+      "points": [
+        {
+          "pos": {
+            "x": 3761.64,
+            "y": 512.5485,
+            "z": 3523.81738
+          },
+          "waitTime": 0.0,
+          "targetVelocity": 2.0
+        },
+        {
+          "pos": {
+            "x": 3761.64,
+            "y": 509.783173,
+            "z": 3523.81738
+          },
+          "waitTime": 0.0,
+          "targetVelocity": 3.0
+        },
+        {
+          "pos": {
+            "x": 3761.64,
+            "y": 509.208,
+            "z": 3523.81738
+          },
+          "waitTime": 0.0,
+          "targetVelocity": 1.0
+        },
+        {
+          "pos": {
+            "x": 3761.64,
+            "y": 508.766663,
+            "z": 3523.81738
+          },
+          "waitTime": 0.0,
+          "targetVelocity": 0.5,
+          "reachStop": true
+        }
+      ]
+    }
+  ]
+}

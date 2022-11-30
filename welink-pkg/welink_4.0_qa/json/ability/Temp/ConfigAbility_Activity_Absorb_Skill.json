@@ -1,0 +1,1243 @@
+[
+
+//////////////////////////////////////////////////////////////
+///
+///   章鱼冲刺
+///
+//////////////////////////////////////////////////////////////
+// 小技能点击生成子弹的配置
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Absorb_OctopusDash_Click",
+			"onAbilityStart":
+			[
+				{
+					"$type": "AvatarSkillStart",
+					"skillID": 20047,
+					"cdRatio": 1,
+				},
+				{//先重置这个pos作为保险，防止玩家点击太快传送到上个pos位置
+					"$type":"SetGlobalPos",
+					"key": "_ABILITY_OctopusDash_AttackPos",
+					"born":
+					{
+						"$type": "ConfigBornBySelf",
+						"offset":
+						{
+							"x":0,
+							"y":0,
+							"z":5,
+						},
+					},
+					"doOffStage": true,
+				},
+
+				{
+					"$type": "TriggerBullet",
+					"bulletID": 420004100,
+					"born":
+					{
+						"$type": "ConfigBornByAttachPoint",
+						"attachPointName": "FocusAnchor",
+						"attachPointTargetType": "Self",
+						"offset":
+						{
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.7,
+						},
+						"direction":
+						{
+							"$type": "ConfigDirectionByAttachPoint",
+							"attachPointName": "FocusAnchor",
+							"attachPointTargetType": "Self",
+							"angleOffset": //注意这个只对部分direction有效。例如这个attach的
+							{
+								"x": 0,
+								"y": 0,
+								"z": 0,
+							},
+							"maxAngle": 75,
+							"maxAngleType":"Vertical",//
+						},
+					},
+				},
+
+				{
+					"$type":"SetAnimatorBool",
+					"boolID":"CombatAir",
+					"value":true,
+					"persistent":true, 
+				},
+
+			],
+			"modifiers":
+			{
+			},
+		},
+	},
+
+// 小技能蓄力生成子弹的配置
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Absorb_OctopusDash_Charge",
+			"abilityMixins":
+			[
+                {
+					"$type": "SkillButtonHoldChargeMixin",
+					"skillID": 20047,
+					"beforeStateIDs" : ["OctopusDash_BS"],
+					"beforeHoldDuration":0.1,
+					"chargeLoopStateIDs" : ["OctopusDash_Loop",],
+					"afterStateIDs": ["OctopusDash_Cast", "OctopusDash_AS"],
+					"chargeLoopDurations" : [ 10 ],
+					"nextLoopTriggerID" : "NextLoopTrigger",
+					"endHoldTrigger" : "EndHoldTrigger",
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["OctopusDash_Loop","OctopusDash_Cast"],//是为了让相机退出的时机跟动作错开一些
+					"modifierName": "Focus",
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["OctopusDash_Loop",],
+					"modifierName": "Charge",
+				},
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type": "AvatarSkillStart", //把这个放到最初。然后让技能可以onExit也是可以的
+					"skillID": 20047,
+					"cdRatio": 1,
+				},
+				{
+					"$type":"SetAnimatorBool",
+					"boolID":"CombatAir",
+					"value":true,
+					"persistent":true, 
+				},
+				{//先重置这个pos作为保险，防止玩家点击太快传送到上个pos位置
+					"$type":"SetGlobalPos",
+					"key": "_ABILITY_OctopusDash_AttackPos",
+					"born":
+					{
+						"$type": "ConfigBornBySelf",
+						"offset":
+						{
+							"x":0,
+							"y":0,
+							"z":5,
+						},
+					},
+					"doOffStage": true,
+				},
+				{
+					"$type": "TriggerBullet", //生成子弹
+					"bulletID": 420004100,//这个不追踪，要不同子弹
+					"born":
+					{
+						"$type": "ConfigBornByAttachPoint",
+						"attachPointName": "FocusAnchor",
+		                "offset":
+		                {
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.7,
+						},
+						"direction":
+						{
+							"$type": "ConfigDirectionByAttachPoint",
+							"attachPointName":"FocusAnchor",
+							"attachPointTargetType":"Self",
+							// "maxAngle":30,
+							// "maxAngleType":"Vertical",
+							"angleOffset":
+							{
+								"x": 0.0,
+								"y": 0.0,		//角度偏移
+								"z": 0.0,
+							},
+						},
+					},
+				},			
+			],
+			"modifiers":
+			{
+				"Focus":
+				{
+					"onAdded":
+					[
+						{
+							"$type": "AvatarEnterFocus",
+							"cameraFollowLower":
+							{
+								"x": 0.8,
+								"y": 0.2,
+								"z": -2.5,
+							},
+							"cameraFollowUpper":
+							{
+								"x": 0.5,
+								"y": -0.2,
+								"z": 0.0,
+							},
+							"cameraFollowMaxDegree": 35,  //上版本设定25和-45
+							"cameraFollowMinDegree":-55,//原本上下限60,60
+							"cameraFastFocusMode": true,
+							"dragButtonName": "Skill2",
+							"assistance":
+							{
+								"ps4":
+								{
+									"useGyro": false,
+								},
+								"ps5":
+								{
+									"useGyro": false,
+								},								
+								"other":
+								{
+									"useGyro": true,
+								},
+							},
+							"canMove": false,
+							"showCrosshair":false,
+							"vcam_fov":45,
+							"focusAnchorVerAngle":0, //不用特意改变度数
+							"focusAnchorHorAngle":0,
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "AvatarExitFocus",
+							"keepRotation": true,
+						},
+					],
+				},
+				"Charge":
+				{
+					"onAdded":
+					[
+						{
+			              "$type": "AddGlobalValue",
+			              "key": "_Keqing_Aim_Range",
+			              "value": 8,
+			              "useLimitRange": true,
+			              "maxValue": 8,
+			              "minValue": 8,
+			            },
+			            {
+			              "$type": "AttachEffect",
+			              "effectPattern": "Eff_Avatar_Keqing_ElementalArt_Charge_Aim",
+			            },
+					],
+				},
+
+			},
+		},
+	},
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Absorb_OctopusDash_Trigger",
+			"onAbilityStart":
+			[
+				{
+					"$type": "SetAnimatorTrigger",
+					"triggerID": "DoSkill",
+				},
+				{
+					"$type": "SetAnimatorInt",
+					"intID": "SkillID",
+					"value": 202,
+				},
+			],
+		},
+	},
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Absorb_OctopusDash_Part2",
+			"onAbilityStart":
+			[
+				{
+					"$type":"FixedAvatarRushMove",
+					"target":"Target",
+					"toPos":
+					{
+						"$type":"ConfigBornByGlobalValue",
+						"positionKey": "_ABILITY_OctopusDash_AttackPos",
+						"offset":
+						{
+							"x":0,
+							"y":0,
+							"z":0,
+						},
+					},
+					"maxRange":30,
+					"timeRange":0.3, //曾经0.16
+					"animatorStateIDs":["OctopusDash_Dash"], //这项是必须写的
+					"isInAir":true,
+				},
+			],
+			"abilityMixins":
+			[
+				{
+					"$type":"AttachToNormalizedTimeMixin",
+					"stateID":"OctopusDash_Dash",
+					"normalizeStart":0.0,
+					"normalizeEnd":0.26, //flyair动画较长，0.3没问题，而隐藏模型是表现性质，要比collider要长一些。
+					"modifierName":"CloseCollider",
+				},
+				{
+					"$type" : "AttachToStateIDMixin",
+					"stateIDs":["OctopusDash_Dash"],
+					"modifierName" : "LoseWeight",
+				},
+				{
+					"$type" : "AttachToStateIDMixin",
+					"stateIDs":["OctopusDash_Dash"],
+					"modifierName" : "VFX",
+				},
+			],
+			"modifiers":
+			{
+				"VFX":
+				{
+					"onAdded" :
+					[
+		                {
+		                    "$type": "AttachEffect",
+		                    "effectPattern": "Eff_Avatar_OctopusDash_Dash_WhiteBox",
+		                },    
+					],					
+				},
+				"CloseCollider":
+				{
+					"onAdded" :
+					[
+						{
+                            "$type": "TriggerSetPassThrough",
+                            "passThrough": true,
+                            "doOffStage": true,
+                        },
+					],
+					"onRemoved" :
+					[
+						{
+                            "$type": "TriggerSetPassThrough",
+                            "passThrough": false,
+                            "doOffStage": true,
+                            "canBeHandledOnRecover": true,
+                        },
+                        {
+                            "$type": "RemoveVelocityForce",
+                            "forces":
+                            [
+                                "RushMoveType",
+                                "InertiaType"
+                            ],
+                        },
+					],
+				},
+				"LoseWeight":
+				{
+					"onAdded":
+					[
+						{
+							"$type" : "SetVelocityIgnoreAirGY",
+							"ignoreAirGY" : true,
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"doOffStage" : true,
+							"$type" : "SetVelocityIgnoreAirGY",
+							"ignoreAirGY" : false,
+						},
+						{
+                            "$type": "RemoveVelocityForce",
+                            "forces":
+                            [
+                                "RushMoveType",
+                                "InertiaType"
+                            ],
+                        },
+					],
+					"properties"://增加防止撞死效果
+					{
+						"Actor_AddGravityScale" : -2,
+						"Actor_FallingDamageRatio": -1, //防止摔死。
+					},
+				},
+			},
+			"abilitySpecials":
+			{
+				"Dura":0.6//考虑到2段的施法时间，还有后摇。建议稍微加一点时间，不然时间太赶了。
+			},
+		},
+	},
+
+
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Bullet_Absorb_OctopusDash",
+			"onAdded":
+			[
+			],
+			"onAbilityStart":
+			[
+			],
+			"onKill":
+			[
+				{
+					"$type": "SetGlobalPos",
+					"target": "Owner",
+					"key": "_ABILITY_OctopusDash_AttackPos",	//以当前位置通知刻晴创建子弹
+					"born":
+					{
+						"$type": "ConfigBornBySelf",
+						"offset":
+						{
+							"x":0,
+							"y":0,
+							"z":0,
+						},
+					},
+					"setTarget": true,
+					"doOffStage": true,
+				},
+				{
+					"$type": "SetGlobalDir",
+					"target": "Owner",
+					"key": "_ABILITY_OctopusDash_AttackDir",
+					"born":
+					{
+						"$type": "ConfigBornBySelf",
+						"offset":
+						{
+							"x":0,
+							"y":0,
+							"z":0,
+						},
+					},
+					"setTarget": true,
+					"doOffStage": true,
+				},
+				{
+					"$type":"TriggerAbility",            //通知刻晴创建子弹,保证owner是刻晴才能查到children。（子弹的子弹不是刻晴的children）
+					"target":"Owner",
+					"abilityID":"Avatar_Absorb_OctopusDash_Trigger",
+					"abilityName":"Avatar_Absorb_OctopusDash_Trigger",
+					"doOffStage": true,
+				},				
+			],
+			"abilitySpecials":
+			{
+				"ExtraHeight":0,
+				"Damage":0,
+			},
+		},
+	},
+
+	//创建冲刺过程中用于攻击判定的子弹
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "Avatar_Absorb_OctopusDash_Dash_CreateBullet",
+            "onAbilityStart":
+            [
+                {
+                    "$type": "TriggerBullet",
+                    "bulletID": 420004101,
+                    "campID": 1001,
+                    "campTargetType": "Enemy",
+                },
+            ],
+        },
+    }, 
+
+	//冲刺过程中用于攻击判定的子弹
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "Avatar_Absorb_OctopusDash_Dash_Bullet",
+            "onAbilityStart":
+            [
+                {
+                    "$type": "TriggerAttackEvent", //命中敌人时，产生攻击盒
+                    "targetType": "Enemy",
+                    "attackEvent":
+                    {
+                        "attackPattern":
+                        {
+                            "$type": "ConfigAttackSphere",
+                            "triggerType": "TriggerNoRepeat",
+                            "radius": 0.8,
+                            "born":
+                            {
+                                "$type": "ConfigBornByCollisionPoint",
+                                "offset":
+                                {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0,
+                                },
+                            },
+                        },
+                        "attackInfo":
+                        {
+                            "canBeModifiedBy": "OriginOwner",
+                            "attackTag": "ExtraAttack",
+                            "attenuationTag":"ExtraAttack",
+                            "attenuationGroup":"Avatar_Pole_ExtraAttack",
+                            "attackProperty":
+                            {
+                                "damagePercentage": 1.0,
+                                "strikeType": "Blunt",
+                                "elementDurability": 25,
+                                "overrideByWeapon": true,
+                                "attackType": "Melee",
+                                "enBreak": 120,
+                            },
+                            "hitPattern":
+                            {
+                                "onHitEffectName": "default",
+                                "hitImpulseType":"LV5",
+                                "reboundRatio": 0,
+                                "canBeDefenceHalt": true,
+                                "hitHaltTime": 0.0,
+                                "hitHaltTimeScale": 0.01,
+                                "muteHitText": false
+                            },
+                            "forceCameraShake": false,
+                            "cameraShake":
+                            {
+                                "shakeType": "CustomVector",
+                                "shakeRange": 0.36,
+                                "shakeTime": 0.12,
+                                "shakeDistance": 30,
+                                "shakeDir":
+                                {
+                                    "x": 0,
+                                    "y": -1,
+                                    "z": 0,
+                                },
+                            },
+                        },
+                    },
+                },
+            ],
+            "abilitySpecials":
+            {
+
+            },
+        },
+    },
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Absorb_SwordFishSlash",
+			"onAdded":
+			[
+			],
+			"abilityMixins":
+			[
+				{
+					"$type": "SkillButtonHoldChargeMixin",
+					"skillID": 20050,
+					"beforeStateIDs" : ["SwordFishSlash_BS"],
+					"chargeLoopStateIDs" : ["SwordFishSlash_Charge"],
+					"chargeLoopDurations" : [5], //5秒其实并不能正确消耗掉体力，会剩一点点。
+					"nextLoopTriggerID" : "NextLoopTrigger",
+					"endHoldTrigger" : "EndHoldTrigger",
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["SwordFishSlash_Charge", "SwordFishSlash_Charge_Cast"],//"VortexSmash_BS",
+					"modifierName": "Focus",
+				},
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type":"AvatarSkillStart",
+					"skillID":20050,
+					"predicates":
+					[
+						{
+							"$type":"BySkillReady",
+							"skillID":20050,
+						},
+					],
+				},
+				{
+					"$type": "TriggerBullet",
+					"bulletID": 420004102,
+					"born":
+					{
+						"$type": "ConfigBornByAttachPoint",
+						"attachPointName": "FocusAnchor",
+						"attachPointTargetType": "Self",
+						"offset":
+						{
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.7,
+						},
+						"direction":
+						{
+							"$type": "ConfigDirectionByAttachPoint",
+							"attachPointName": "FocusAnchor",
+							"attachPointTargetType": "Self",
+							"angleOffset": //注意这个只对部分direction有效。例如这个attach的
+							{
+								"x": 0,
+								"y": 0,
+								"z": 0,
+							},
+							"maxAngle": 45,
+							"maxAngleType":"Vertical",//
+						},
+					},
+				},						
+				// {
+				// 	"$type": "ActCameraShake",
+		  //       	"cameraShake":
+		  //       	{
+		  //       		"shakeType": "Center",
+				// 		"shakeRange": 0.36,
+				// 		"shakeTime": 0.12,
+				// 		"shakeDistance": 30,
+		  //       	},
+				// 	"extension":
+				// 	{
+				// 		"baseOnCamera": true,
+				// 	},
+				// },
+				// {
+				// 	"$type": "ActCameraRadialBlur",
+				// 	"cameraRadialBlur":
+				// 	{
+				// 		"power": 1,
+				// 		"blurTime": 0.25,
+				// 		"fadeTime": 0.3,
+				// 	},
+				// },
+			],
+			"modifiers":
+			{
+				"Focus": //镜头相关
+				{
+					"onAdded":
+					[
+						{
+							"$type": "AvatarEnterFocus",
+							"cameraFollowLower":
+							{
+								"x": 0.8,
+								"y": 0.0,
+								"z": -2.5,
+							},
+							"cameraFollowUpper":
+							{
+								"x": 0.5,
+								"y": -0.2,
+								"z": 0.0,
+							},
+							"cameraFastFocusMode": true,
+							"dragButtonName": "Skill2",
+							"assistance":
+							{
+								"ps4":
+								{
+									"useGyro": false,
+								},
+								"ps5":
+								{
+									"useGyro": false,
+								},
+								"other":
+								{
+									"useGyro": true,
+								},
+							},
+							"canMove": false,
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "AvatarExitFocus",
+							"keepRotation": true,
+						},
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+			},
+		},
+	},
+
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Absorb_SwordFishSlash_Range",
+			"onAdded":
+			[
+			],
+			"abilityMixins":
+			[
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type":"AvatarSkillStart",
+					"skillID":20050,
+					"predicates":
+					[
+						{
+							"$type":"BySkillReady",
+							"skillID":20050,
+						},
+					],
+				},
+				{
+					"$type": "TriggerBullet",
+					"bulletID": 420004102,
+					"born":
+					{
+						"$type": "ConfigBornByAttachPoint",
+						"attachPointName": "FocusAnchor",
+						"attachPointTargetType": "Self",
+						"offset":
+						{
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.7,
+						},
+						"direction":
+						{
+							"$type": "ConfigDirectionByAttachPoint",
+							"attachPointName": "FocusAnchor",
+							"attachPointTargetType": "Self",
+							"angleOffset": //注意这个只对部分direction有效。例如这个attach的
+							{
+								"x": 0,
+								"y": 0,
+								"z": 0,
+							},
+							"maxAngle": 75,
+							"maxAngleType":"Vertical",//
+						},
+					},
+				},				
+				// {
+				// 	"$type": "ActCameraShake",
+		  //       	"cameraShake":
+		  //       	{
+		  //       		"shakeType": "Center",
+				// 		"shakeRange": 0.36,
+				// 		"shakeTime": 0.12,
+				// 		"shakeDistance": 30,
+		  //       	},
+				// 	"extension":
+				// 	{
+				// 		"baseOnCamera": true,
+				// 	},
+				// },
+				// {
+				// 	"$type": "ActCameraRadialBlur",
+				// 	"cameraRadialBlur":
+				// 	{
+				// 		"power": 1,
+				// 		"blurTime": 0.25,
+				// 		"fadeTime": 0.3,
+				// 	},
+				// },
+			],
+			"modifiers":
+			{
+			},
+			"abilitySpecials":
+			{
+			},
+		},
+	},
+
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "Avatar_Absorb_SwordFishSlash_Range_Bullet",
+            "onAdded":
+            [
+                {
+                    "$type": "AttachEffect",
+                    "effectPattern": "Eff_Monster_Samurai_Kairagi_BladeWind",
+                },     
+            ],
+            "onAbilityStart":
+            [
+        	
+                {
+                    "$type": "TriggerAttackEvent", //命中敌人时，产生攻击盒
+                    "targetType": "Enemy",
+                    "attackEvent":
+                    {
+                        "attackPattern":
+                        {
+                            "$type": "ConfigAttackSphere",
+                            "triggerType": "TriggerNoRepeat",
+                            "radius": 0.8,
+                            "born":
+                            {
+                                "$type": "ConfigBornByCollisionPoint",
+                                "offset":
+                                {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0,
+                                },
+                            },
+                        },
+                        "attackInfo":
+                        {
+                            "canBeModifiedBy": "OriginOwner",
+                            "attackTag": "ExtraAttack",
+                            "attenuationTag":"ExtraAttack",
+                            "attenuationGroup":"Avatar_Pole_ExtraAttack",
+                            "attackProperty":
+                            {
+                                "damagePercentage": 1.0,
+                                "strikeType": "Slash",
+                                "elementDurability": 25,
+                                "overrideByWeapon": true,
+                                "attackType": "Melee",
+                                "enBreak": 120,
+                            },
+                            "hitPattern":
+                            {
+                                "onHitEffectName": "default",
+                                "hitImpulseType":"LV5",
+                                "reboundRatio": 0,
+                                "canBeDefenceHalt": true,
+                                "hitHaltTime": 0.0,
+                                "hitHaltTimeScale": 0.01,
+                                "muteHitText": false
+                            },
+                            "forceCameraShake": false,
+                            "cameraShake":
+                            {
+                                "shakeType": "CustomVector",
+                                "shakeRange": 0.36,
+                                "shakeTime": 0.12,
+                                "shakeDistance": 30,
+                                "shakeDir":
+                                {
+                                    "x": 0,
+                                    "y": -1,
+                                    "z": 0,
+                                },
+                            },
+                        },
+                    },
+                },
+            ],
+            "abilitySpecials":
+            {
+
+            },
+        },
+    },
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Absorb_TrackingMissile",
+			"onAdded":
+			[
+			],
+			"abilityMixins":
+			[
+				{
+					"$type": "SkillButtonHoldChargeMixin",
+					"skillID": 20052,
+					"beforeStateIDs" : ["TrackingMissile_BS"],
+					"chargeLoopStateIDs" : ["TrackingMissile_Charge"],
+					"chargeLoopDurations" : [5], //5秒其实并不能正确消耗掉体力，会剩一点点。
+					"nextLoopTriggerID" : "NextLoopTrigger",
+					"endHoldTrigger" : "EndHoldTrigger",
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["TrackingMissile_Charge", "TrackingMissile_Cast"],//"VortexSmash_BS",
+					"modifierName": "Focus",
+				},
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type":"AvatarSkillStart",
+					"skillID":20052,
+					"predicates":
+					[
+						{
+							"$type":"BySkillReady",
+							"skillID":20052,
+						},
+					],
+				},
+				{
+					"$type" : "RemoveModifier",
+					"modifierName" : "Mark",
+                    "otherTargets":
+                    {
+                        "$type": "SelectTargetsByShape",
+                        "shapeName": "CircleR20",
+                        "centerBasedOn": "Self",
+                        "campTargetType": "All",
+                        "campBasedOn": "Self",
+                    },					
+				},
+				// {
+				// 	"$type": "TriggerBullet",
+				// 	"bulletID": 420004103,
+				// 	"born":
+				// 	{
+				// 		"$type": "ConfigBornByAttachPoint",
+				// 		"attachPointName": "FocusAnchor",
+				// 		"attachPointTargetType": "Applier",
+				// 		"offset":
+				// 		{
+				// 			"x": 0.0,
+				// 			"y": 0.0,
+				// 			"z": 0.7,
+				// 		},
+				// 		"direction":
+				// 		{
+				// 			"$type": "ConfigDirectionByAttachPoint",
+				// 			"attachPointName": "FocusAnchor",
+				// 			"attachPointTargetType": "Self",
+				// 			"angleOffset": //注意这个只对部分direction有效。例如这个attach的
+				// 			{
+				// 				"x": 0,
+				// 				"y": 0,
+				// 				"z": 0,
+				// 			},
+				// 			"maxAngle": 45,
+				// 			"maxAngleType":"Vertical",//
+				// 		},
+				// 	},
+				// },					
+				{
+					"$type": "ActCameraShake",
+		        	"cameraShake":
+		        	{
+		        		"shakeType": "Center",
+						"shakeRange": 0.36,
+						"shakeTime": 0.12,
+						"shakeDistance": 30,
+		        	},
+					"extension":
+					{
+						"baseOnCamera": true,
+					},
+				},
+				{
+					"$type": "ActCameraRadialBlur",
+					"cameraRadialBlur":
+					{
+						"power": 1,
+						"blurTime": 0.25,
+						"fadeTime": 0.3,
+					},
+				},
+			],
+			"modifiers":
+			{
+				"Focus": //镜头相关
+				{
+					"onAdded":
+					[
+		                {
+		                    "$type": "ApplyModifier",
+		                    "modifierName": "Mark",
+		                    "otherTargets":
+		                    {
+                                "$type": "SelectTargetsByShape",
+                                "shapeName": "CircleR20",
+                                "centerBasedOn": "Self",
+                                "campTargetType": "All",
+                                "campBasedOn": "Self",
+                                "topLimit":5,
+		                    },
+		                    "predicates":
+		                    [
+								{
+									"$type" : "ByEntityTypes",
+									"entityTypes" : ["Monster","Gadget"],
+								},		                    	
+		                    ]
+		                },  
+						{
+							"$type": "AvatarEnterFocus",
+							"cameraFollowLower":
+							{
+								"x": 0.8,
+								"y": 0.0,
+								"z": -2.5,
+							},
+							"cameraFollowUpper":
+							{
+								"x": 0.5,
+								"y": -0.2,
+								"z": 0.0,
+							},
+							"cameraFastFocusMode": true,
+							"dragButtonName": "Skill2",
+							"assistance":
+							{
+								"ps4":
+								{
+									"useGyro": false,
+								},
+								"ps5":
+								{
+									"useGyro": false,
+								},
+								"other":
+								{
+									"useGyro": true,
+								},
+							},
+							"canMove": false,
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "AvatarExitFocus",
+							"keepRotation": true,
+						},
+					],
+				},
+				"Bullet":
+				{
+					"duration": 0.2,
+					"stacking": "Multiple",
+					"onAdded":
+					[
+						{
+							"$type": "TriggerBullet",
+							"bulletID": 420004103,
+							"trackTarget": "Applier",
+							"campID": 1001,
+							"campTargetType": "Enemy",
+							"campBasedOn": "Self",							
+							"born":
+							{
+								"$type": "ConfigBornByAttachPoint",
+								"attachPointName": "FocusAnchor",
+								"attachPointTargetType": "Self",
+								"offset":
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": 2.0,
+								},
+								"direction":
+								{
+									"$type": "ConfigDirectionByAttackTarget",
+									"scatter":
+									{
+										"maxDistance": 20.0,
+										"maxScatterAngle": -45.0,//根据距离线性衰减
+										"centerRote": 0.0,
+										"randomRote": 45.0,
+									},
+								},
+							},
+
+						},
+					],
+				},
+				"Mark":
+				{
+					"duration": 10,
+					"onAdded":
+					[
+						{
+							"$type": "AttachEffect",
+							"effectPattern": "Eff_Avatar_Loli_Catalyst_Nahida_ElementalArt_Ray_Tag", 
+						},						
+					],
+					"onRemoved":
+					[
+						{
+		                    "$type": "ApplyModifier",
+		                    "target": "Applier",
+		                    "modifierName": "Bullet",
+						},
+						// {
+						// 	"$type": "TriggerBullet",
+						// 	"bulletID": 420004103,
+						// 	"trackTarget": "Self",
+						// 	// "campID": 1001,
+						// 	// "campTargetType": "Enemy",
+						// 	// "campBasedOn": "Self",							
+						// 	"born":
+						// 	{
+						// 		"$type": "ConfigBornByAttachPoint",
+						// 		"attachPointName": "FocusAnchor",
+						// 		"attachPointTargetType": "Applier",
+						// 		"offset":
+						// 		{
+						// 			"x": 0.0,
+						// 			"y": 0.0,
+						// 			"z": 0.7,
+						// 		},
+						// 		"direction":
+						// 		{
+						// 			"$type": "ConfigDirectionByAttachPoint",
+						// 			"attachPointName": "FocusAnchor",
+						// 			"attachPointTargetType": "Self",
+						// 			"angleOffset": //注意这个只对部分direction有效。例如这个attach的
+						// 			{
+						// 				"x": 0,
+						// 				"y": 0,
+						// 				"z": 0,
+						// 			},
+						// 			"maxAngle": 45,
+						// 			"maxAngleType":"Vertical",//
+						// 		},
+						// 	},
+
+						// },	
+					],					
+
+				},
+			},
+			"abilitySpecials":
+			{
+			},
+		},
+	},
+
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "Absorb_TrackingMissile_Bullet",
+            "onAdded":
+            [
+                {
+                    "$type": "AttachEffect",
+                    "effectPattern": "Eff_Avatar_Loli_Bow_Diona_ElementalArt_Bullet_Trail",
+                },     
+            ],
+            "onAbilityStart":
+            [
+                {
+                    "$type": "FireHitEffect",
+                    "hitScene":
+                    {
+                        "defaultEffect":"Eff_Avatar_Girl_Catalyst_Kokomi_NormalAttack_Bullet_Hit",
+                    },
+                },             	
+                {
+                    "$type": "TriggerAttackEvent", //命中敌人时，产生攻击盒
+                    "targetType": "Enemy",
+                    "attackEvent":
+                    {
+                        "attackPattern":
+                        {
+                            "$type": "ConfigAttackSphere",
+                            "triggerType": "TriggerNoRepeat",
+                            "radius": 1.5,
+                            "born":
+                            {
+                                "$type": "ConfigBornByCollisionPoint",
+                                "offset":
+                                {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0,
+                                },
+                            },
+                        },
+                        "attackInfo":
+                        {
+                            "canBeModifiedBy": "OriginOwner",
+                            "attackTag": "ExtraAttack",
+                            "attenuationTag":"ExtraAttack",
+                            "attenuationGroup":"Avatar_Pole_ExtraAttack",
+                            "attackProperty":
+                            {
+                                "damagePercentage": 1.0,
+                                "strikeType": "Blunt",
+                                "elementDurability": 25,
+                                "elementType": "Ice",
+                                "overrideByWeapon": true,
+                                "attackType": "Melee",
+                                "enBreak": 120,
+                            },
+                            "hitPattern":
+                            {
+                                "onHitEffectName": "Eff_Avatar_Girl_Catalyst_Kokomi_NormalAttack_Bullet_Hit",
+                                "hitImpulseType":"LV2",
+                                "reboundRatio": 0,
+                                "canBeDefenceHalt": true,
+                                "hitHaltTime": 0.0,
+                                "hitHaltTimeScale": 0.01,
+                                "muteHitText": false
+                            },
+                            "forceCameraShake": false,
+                            "cameraShake":
+                            {
+                                "shakeType": "CustomVector",
+                                "shakeRange": 0.36,
+                                "shakeTime": 0.12,
+                                "shakeDistance": 30,
+                                "shakeDir":
+                                {
+                                    "x": 0,
+                                    "y": -1,
+                                    "z": 0,
+                                },
+                            },
+                        },
+                    },
+                },
+            ],
+            "abilitySpecials":
+            {
+
+            },
+        },
+    },
+
+]

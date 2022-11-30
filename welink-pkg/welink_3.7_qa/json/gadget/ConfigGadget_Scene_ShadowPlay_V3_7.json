@@ -1,0 +1,69 @@
+{
+    "SceneObj_Level_WhiteBox_ShadowPlay_BackGround":{
+        "$type": "ConfigGadget",
+        "hasModel": true,
+		"combat" ://该注释用于探索元素视野的最小集合设置
+		{
+			"property":
+			{
+				"HP" : 99999,
+				"isInvincible":true,
+				"isLockHP":true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+			},		
+		},
+        "uiInteract": 
+		{
+			"uiName": "UI_MAP_TAG_CHANGE_CONFIRM",
+			"canInteractInCombat": true,
+			"canOnlyInteractInStandStill": false,
+            "onTouch" : "WidgetMPSupport",
+            "icon": "UI_Icon_Intee_Mechanism",
+            "touchParams" : 
+            [
+                "SceneObj_Level_WhiteBox_ShadowPlay_BackGround"
+            ],
+		},
+		"intee":
+		{
+			"$type": "ConfigIntee",
+			"triggerRadius": 10,
+		},
+        "gadgetAction": {
+			"gadgetStateActionList":
+			[
+				{
+					"$type": "ConfigGadgetStateSetAnimInt",
+					"intID": "State",
+					"syncState": true,
+				},
+			],
+        },
+        "abilities": [
+            {
+                "abilityID": "SceneObj_Level_WhiteBox_ShadowPlay_BackGround",
+                "abilityName": "SceneObj_Level_WhiteBox_ShadowPlay_BackGround"
+            }
+        ]
+    },
+    "SceneObj_Level_WhiteBox_ShadowPlay_Decal":{
+        "$type": "ConfigGadget",
+        "hasModel": true,
+        "move":{
+			"$type": "ConfigFollowMove",
+			"target": "LocalAvatar",
+			"followRotation": false,
+        },
+        "abilities": [
+            {
+                "abilityID": "SceneObj_Level_WhiteBox_ShadowPlay_Decal",
+                "abilityName": "SceneObj_Level_WhiteBox_ShadowPlay_Decal"
+            }
+        ]
+    }
+}

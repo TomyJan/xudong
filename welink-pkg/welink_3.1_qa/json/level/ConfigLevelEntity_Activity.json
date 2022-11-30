@@ -1,0 +1,63 @@
+{
+	"LevelEntity_Activity_TowerDefence_AvatarDebuff" :
+	{
+		"$type" : "ConfigLevelEntity",
+	    "avatarAbilities": [
+			{
+				"abilityID": "ActivityAbility_TowerDefence_AvatarDebuff",
+				"abilityName": "ActivityAbility_TowerDefence_AvatarDebuff",
+			},
+	    ],
+
+	},
+	"LevelEntity_Activity_BlitzRush_FlipCard" :
+	{
+		"$type" : "ConfigLevelEntity",
+	    "avatarAbilities": [
+			{
+				"abilityName": "ActivityAbility_BlitzRush_AvatarFlipCard",
+			},
+	    ],
+        "monsterAbilities": [
+	      {
+	        "abilityName": "ActivityAbility_BlitzRush_MonsterFlipCard",
+	      },
+	    ],
+	},
+	"LevelEntity_Activity_V2_7_CYRogue_20128" :
+	{
+		"$type" : "ConfigLevelEntity",
+	    "avatarAbilities": [
+			{
+				"abilityName": "ActivityAbility_Activity_V2_7_CYRogue_20128",
+			},
+	    ],
+	},
+	"LevelEntity_Activity_V2_7_CYRogue_46201" :
+	{
+		"$type" : "ConfigLevelEntity",
+	    "avatarAbilities": [
+			{
+				"abilityName": "ActivityAbility_Activity_V2_7_CYRogue_46201",
+			},
+	    ],
+	},
+	"LevelEntity_Activity_V2_7_CYRogue_46202" :
+	{
+		"$type" : "ConfigLevelEntity",
+	    "avatarAbilities": [
+			{
+				"abilityName": "ActivityAbility_Activity_V2_7_CYRogue_46202",
+			},
+	    ],
+	},
+	"LevelEntity_Activity_V2_7_CYRogue_46203" :
+	{
+		"$type" : "ConfigLevelEntity",
+	    "avatarAbilities": [
+			{
+				"abilityName": "ActivityAbility_Activity_V2_7_CYRogue_46203",
+			},
+	    ],
+	},
+}

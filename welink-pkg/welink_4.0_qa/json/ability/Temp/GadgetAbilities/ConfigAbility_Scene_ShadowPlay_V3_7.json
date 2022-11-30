@@ -1,0 +1,292 @@
+[
+    {
+        "Default":{
+            "$type": "ConfigAbility",
+            "abilityName": "TeamAbility_Scene_ShadowPlay_ButtonController",
+            "onAdded": [
+                {
+                    "$type": "ShowExtraAbility",
+                    "skillID": 20028,
+                    "target":"CurTeamAvatars"
+                },
+                {
+                    "$type": "SetGlobalValue",
+                    "key": "GV_Scene_ShadowPlay_Transfer",
+                    "value": 100,
+                    "target": "Team",
+                },
+            ],
+            "onRemoved": [
+                {
+                    "$type": "ShowExtraAbility",
+                    "skillID": 0,
+                    "target":"CurTeamAvatars"
+                },
+                {
+                    "$type": "SetGlobalValue",
+                    "key": "GV_Scene_ShadowPlay_Transfer",
+                    "value": 0,
+                    "target": "Team",
+                },
+            ]
+        }
+    },
+    {
+        "Default":{
+            "$type": "ConfigAbility",
+            "abilityName": "TeamAbility_Scene_ShadowPlay_Transfer",
+            "onAdded": [
+                {
+                    "$type": "SetGlobalValue",
+                    "key": "_Is_In_Shadow",
+                    "value": 0
+                }
+            ],
+            "onAbilityStart": [
+                {//设置t键状态，不设则cd无效
+                    "$type": "SetExtraAbilityState",
+                    "state": "Start",
+                },
+                {
+                    "$type": "Predicated",
+                    "otherTargets":{
+                        "$type": "SelectTargetsByTag",
+                        "tag": "_ShadowPlay_Background",
+                        "entityTypePriority": ["Gadget"]
+                    },
+                    "successActions": [
+                        {
+                            "$type": "Predicated",
+                            "target": "Other",
+                            "targetPredicates": [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_Is_In_Shadow",
+                                    "compareType": "Equal",
+                                    "value": 1,
+                                }
+                            ],
+                            "successActions": [
+                                {
+                                    "$type": "SetGlobalValue",
+                                    "key": "_Is_In_Shadow",
+                                    "value": 0,
+                                    "target": "Other",
+                                },
+                            ],
+                            "failActions": [
+                                {
+                                    "$type": "SetGlobalValue",
+                                    "key": "_Is_In_Shadow",
+                                    "value": 1,
+                                    "target": "Other",
+                                },
+                            ]
+                        }
+                    ],
+                },
+            ],
+            "abilityMixins": [
+                {
+                    "$type": "AttachModifierToGlobalValueMixin",
+                    "globalValueKey": "_Is_In_Shadow",
+                    "valueSteps": [-0.5,0.5,1.5],
+                    "globalValueTarget": "Team",
+                    "modifierNameSteps": ["_Is_In_Shadow_0","_Is_In_Shadow_1"]
+                },
+            ],
+            "modifiers": {
+                "_Is_In_Shadow_0":{},
+                "_Is_In_Shadow_1":{
+                    "onAdded": [
+                        {
+                            "$type": "AttachModifier",
+                            "modifierName": "_Is_In_Shadow_1_Avatar",
+                            "target": "CurLocalAvatar"
+                        }
+                    ],
+                },
+                "_Is_In_Shadow_1_Avatar":{
+                    "modifierMixins": [
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Default":{
+            "$type": "ConfigAbility",
+            "abilityName": "SceneObj_Level_WhiteBox_ShadowPlay_Decal",
+        }
+    },
+    {
+        "Default":{
+            "$type": "ConfigAbility",
+            "abilityName": "SceneObj_Level_WhiteBox_ShadowPlay_BackGround",
+            "onAdded": [
+                {
+                    "$type": "ChangeTag",
+                    "tag": "_ShadowPlay_Background",
+                    "isAdd": true
+                }
+            ],
+            "abilityMixins": [
+                {
+                    "$type": "DoActionOnGlobalValueChangeMixin",
+                    "globalValueKey": "_Is_In_Shadow",
+                    "actions": [
+                        {
+                            "$type": "Predicated",
+                            "targetPredicates": [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_Is_In_Shadow",
+                                    "compareType": "NoneOrEqual",
+                                    "value": 0,
+                                }
+                            ],
+                            "successActions": [
+                                {
+                                    "$type": "SetGlobalValue",
+                                    "key": "_Is_In_Shadow",
+                                    "value": 0,
+                                    "target": "Team",
+                                },
+                                {
+                                    "$type":"SetGlobalPos",
+                                    "key": "_ShadowPlay_Trans_Pos",
+                                    "born":{
+                                        "$type": "ConfigBornByAttachPoint",
+                                        "attachPointName": "Exit_Point"
+                                    },
+                                },
+                                {
+                                    "$type": "CopyGlobalValue",
+                                    "srcKey": "_ShadowPlay_Trans_Pos_0",
+                                    "dstKey": "_ShadowPlay_Trans_Pos_0",
+                                    "srcTarget": "Self",
+                                    "dstTarget": "CurLocalAvatar",
+                                },
+                                {
+                                    "$type": "CopyGlobalValue",
+                                    "srcKey": "_ShadowPlay_Trans_Pos_1",
+                                    "dstKey": "_ShadowPlay_Trans_Pos_1",
+                                    "srcTarget": "Self",
+                                    "dstTarget": "CurLocalAvatar",
+                                },
+                                {
+                                    "$type": "CopyGlobalValue",
+                                    "srcKey": "_ShadowPlay_Trans_Pos_2",
+                                    "dstKey": "_ShadowPlay_Trans_Pos_2",
+                                    "srcTarget": "Self",
+                                    "dstTarget": "CurLocalAvatar",
+                                },
+                                {
+                                    "$type": "ApplyModifier",
+                                    "modifierName": "Action_Trans",
+                                    "target": "CurLocalAvatar",
+                                },
+                                {
+                                    "$type": "EnableGadgetIntee",
+                                    "enable": true,
+                                },
+                            ],
+                            "failActions": [
+                                {
+                                    "$type": "SetGlobalValue",
+                                    "key": "_Is_In_Shadow",
+                                    "value": 1,
+                                    "target": "Team",
+                                },
+                                {
+                                    "$type":"SetGlobalPos",
+                                    "key": "_ShadowPlay_Trans_Pos",
+                                    "born":{
+                                        "$type": "ConfigBornByAttachPoint",
+                                        "attachPointName": "Start_Point"
+                                    },
+                                },
+                                {
+                                    "$type": "CopyGlobalValue",
+                                    "srcKey": "_ShadowPlay_Trans_Pos_0",
+                                    "dstKey": "_ShadowPlay_Trans_Pos_0",
+                                    "srcTarget": "Self",
+                                    "dstTarget": "CurLocalAvatar",
+                                },
+                                {
+                                    "$type": "CopyGlobalValue",
+                                    "srcKey": "_ShadowPlay_Trans_Pos_1",
+                                    "dstKey": "_ShadowPlay_Trans_Pos_1",
+                                    "srcTarget": "Self",
+                                    "dstTarget": "CurLocalAvatar",
+                                },
+                                {
+                                    "$type": "CopyGlobalValue",
+                                    "srcKey": "_ShadowPlay_Trans_Pos_2",
+                                    "dstKey": "_ShadowPlay_Trans_Pos_2",
+                                    "srcTarget": "Self",
+                                    "dstTarget": "CurLocalAvatar",
+                                },
+                                {
+                                    "$type": "ApplyModifier",
+                                    "modifierName": "Action_Trans",
+                                    "target": "CurLocalAvatar",
+                                },
+                                {
+                                    "$type": "EnableGadgetIntee",
+                                    "enable": false,
+                                },
+                            ]
+                        },
+                    ]
+                },
+                {
+                    "$type": "WidgetMpSupportMixin",
+                    "succActions": [
+                        {
+                            "$type": "TriggerAbility",
+                            "abilityName": "SceneObj_Level_WhiteBox_ShadowPlay_BackGround"
+                        }
+                    ]
+                }
+            ],
+            "onAbilityStart": [
+                {
+                    "$type": "DebugLog",
+                    "content": "onAbilityStart"
+                },
+                {
+                    "$type": "ChangeGadgetState",
+                    "state": 201,
+                    "predicates": [
+                        {
+                            "$type": "ByTargetGadgetState",
+                            "gadgetState": 0,
+                        }
+                    ]
+                },
+                {
+                    "$type": "ChangeGadgetState",
+                    "state": 0,
+                    "predicates": [
+                        {
+                            "$type": "ByTargetGadgetState",
+                            "gadgetState": 201,
+                        }
+                    ]
+                },
+            ],
+            "modifiers": {
+                "Action_Trans":{
+                    "duration": 0.1,
+                    "onAdded": [
+                        {
+                            "$type": "DoBlinkByGlobalPos",
+                            "positionKey": "_ShadowPlay_Trans_Pos"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+]

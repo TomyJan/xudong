@@ -1,0 +1,72 @@
+{
+  "$type": "ConfigGCGSkill",
+  "name": "Char_Skill_15032_Ex_4",
+  "declaredValueMap": {
+    "__KEY__TOKENTYPE": {
+      "$type": "GCGDeclaredValueToken",
+      "type": "TokenType",
+      "value": "GCG_TOKEN_LIFE"
+    }
+  },
+  "limitList": [
+    {
+      "$type": "ConfigGCGLimit",
+      "type": "BindToToken",
+      "declareValue": {
+        "$type": "GCGDeclare",
+        "key": "__KEY__TOKENTYPE"
+      },
+      "isNeedNotify": false
+    }
+  ],
+  "triggerList": [
+    {
+      "$type": "ConfigGCGTrigger",
+      "type": "GCG_TRIGGER_DURATION",
+      "condition": {
+        "$type": "ConfigGCGLogicCondition"
+      }
+    }
+  ],
+  "effectList": [
+    {
+      "$type": "ConfigGCGEffectSkillUseCostRevise",
+      "condition": {
+        "$type": "ConfigGCGLogicCondition",
+        "conditions": [
+          {
+            "$type": "ConfigGCGLogicCondition",
+            "conditions": [
+              {
+                "$type": "ConfigGCGConditionGlobalFetchSourceCharacterObject",
+                "condition": {
+                  "$type": "ConfigGCGLogicCondition",
+                  "conditions": [
+                    {
+                      "$type": "ConfigGCGConditionCheckCurCharacterCamp",
+                      "campType": "CAMP_FRIENDLY"
+                    }
+                  ]
+                }
+              },
+              {
+                "$type": "ConfigGCGConditionGlobalFetchCurSkillObject",
+                "condition": {
+                  "$type": "ConfigGCGLogicCondition",
+                  "conditions": [
+                    {
+                      "$type": "ConfigGCGConditionCheckCurSkillHasTag",
+                      "skillTagType": "GCG_SKILL_TAG_A"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "costType": "GCG_COST_DICE_VOID",
+      "reviseNum": 1
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "$type": "ConfigGCGSkill",
+  "name": "Card_Support_3210081",
+  "declaredValueMap": {
+    "__KEY__EFFECTNUM_ADD": {
+      "$type": "GCGDeclaredValueEffectAmount",
+      "type": "EffectNum",
+      "value": 1
+    },
+    "__KEY__EFFECTNUM": {
+      "$type": "GCGDeclaredValueEffectAmount",
+      "type": "EffectNum",
+      "value": 1
+    }
+  },
+  "triggerList": [
+    {
+      "$type": "ConfigGCGTrigger",
+      "type": "GCG_TRIGGER_PHASE_END_DRAW_BEFORE",
+      "condition": {
+        "$type": "ConfigGCGLogicCondition"
+      }
+    }
+  ],
+  "effectList": [
+    {
+      "$type": "ConfigGCGExecEffectChangeCardShowTokenVar",
+      "condition": {
+        "$type": "ConfigGCGLogicCondition"
+      },
+      "campType": "CAMP_FRIENDLY",
+      "targetType": "GCG_CARD_SUMMON",
+      "chooseType": "CHOOSE_LEAST_SHOW_TOKEN_VALUE",
+      "operatorType": "OPEATER_ADD",
+      "declaredOutputKey": {
+        "$type": "GCGDeclare",
+        "key": "__KEY__EFFECTNUM_ADD"
+      }
+    },
+    {
+      "$type": "ConfigGCGExecEffectChangeCardVar",
+      "condition": {
+        "$type": "ConfigGCGLogicCondition"
+      },
+      "campType": "CAMP_FRIENDLY",
+      "targetType": "GCG_CARD_ASSIST",
+      "chooseType": "CHOOSE_CUR",
+      "tokenType": "GCG_TOKEN_LIFE",
+      "operatorType": "OPEATER_MINUS",
+      "declaredOutputKey": {
+        "$type": "GCGDeclare",
+        "key": "__KEY__EFFECTNUM"
+      }
+    }
+  ]
+}

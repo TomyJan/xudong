@@ -1,0 +1,1124 @@
+[
+    {
+        "Default": {
+            "$type" : "ConfigAbility",
+            "abilityName" : "SceneObj_Area_Common_Property_Ani_Prop_WhiteBox_Coin_01",
+            "onAdded": [
+                {
+                    "$type": "AttachModifier",
+                    "modifierName": "State_Default"
+                },
+            ],
+            "abilityMixins": [
+                {
+                    "$type": "AttachModifierToGlobalValueMixin",
+                    "globalValueKey": "_EFF",
+                    "valueSteps": [-0.5,0.5,1.5],
+                    "modifierNameSteps": ["_EFF_0","_EFF_1"]
+                }
+            ],
+            "modifiers":
+            {
+                "State_Default":{
+                    "onBeingHit": [
+                        {
+                            "$type": "Predicated",
+                            "target": "Target",
+                            "targetPredicates": 
+                            [
+                                {
+                                    "$type": "ByAttackTags",
+                                    "attackTags": ["Firecracker"],
+                                },
+                            ],
+                            "successActions": [
+                                {
+                                    "$type": "SetAnimatorTrigger",
+                                    "triggerID": "Die"
+                                },
+                                {
+                                    "$type": "KillSelf",
+                                    "target": "Self",
+                                },
+                            ]
+                        },
+                        {
+                            "$type": "Predicated",
+                            "target": "Target",
+                            "targetPredicates": 
+                            [
+                                {
+                                    "$type": "ByAttackTags",
+                                    "attackTags": ["ShowIcon"],
+                                },
+                            ],
+                            "successActions": [
+                                {
+                                    "$type": "ApplyModifier",
+                                    "modifierName": "UNIQUE_ShowIcon"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "UNIQUE_ShowIcon":{
+                    "isUnique": true,
+                    "stacking": "Refresh",
+                    "duration": 3,
+                    "onAdded": [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_EFF",
+                            "value": 1
+                        }
+                    ],
+                    "onRemoved": [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_EFF",
+                            "value": 0
+                        }
+                    ]
+                },
+                "_EFF_0":{},
+                "_EFF_1":{
+                    "onAdded": [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_SceneObj_GrappleHook_01",
+                            "born":{
+                                "$type": "ConfigBornByAttachPoint",
+                                "attachPointName": "Eff_Point"
+                            }
+                        }
+                    ]
+                }
+            },
+        },
+    },	
+    {//3.8灯光玩法白盒_宝石 70800601 70800602 70800603
+        "Default":{
+            "$type": "ConfigAbility",
+            "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Gem_00",
+            "abilitySpecials": {
+                "_COLOR": 0,
+            },
+            "abilityMixins": [
+                {
+                    "$type": "AttachToGadgetStateMixin",
+                    "gadgetState": 0,
+                    "modifierName": "State_0"
+                },
+                {
+                    "$type": "AttachToGadgetStateMixin",
+                    "gadgetState": 201,
+                    "modifierName": "State_201"
+                },
+                {
+                    "$type": "DoActionOnGlobalValueChangeMixin",
+                    "globalValueKey": "_LIGHT_COLOR",
+                    "actions": [
+                        {
+                            "$type": "SetGlobalValueToOverrideMap",
+                            "globalValueKey": "SGV_COLOR",
+                            "overrideMapKey": "_COLOR",
+                        },
+                        {
+                            "$type": "Predicated",
+                            "target": "Self",
+                            "targetPredicates": [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "compareType": "Equal",
+                                    "key": "_LIGHT_COLOR",
+                                    "value": "%_COLOR"
+                                }
+                            ],
+                            "successActions": [
+                                {
+                                    "$type": "ChangeGadgetState",
+                                    "state": 201,
+                                    "target": "Self"
+                                }
+                            ],
+                            "failActions": [
+                                {
+                                    "$type": "ChangeGadgetState",
+                                    "state": 0,
+                                    "target": "Self"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "modifiers": {
+                "State_0":{},
+                "State_201":{
+                    "onAdded": [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_Stages_Item_Clue01_FollowPlayer",
+                            "born":{
+                                "$type": "ConfigBornType",
+                                "offset": {
+                                    "y": 1.1
+                                }
+                            }
+                        }
+                    ]
+                },
+            }
+        }
+    },
+    {//70800600	3.8灯光玩法白盒_灯
+        "Default":{
+            "$type": "ConfigAbility",
+            "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Light_00",
+            "abilityMixins": [
+                {//插入插片
+                    "$type": "WidgetMpSupportMixin",
+                    "succActions": [
+                        {
+                            "$type": "Predicated",
+                            "target": "Team",
+                            "targetPredicates": [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_CARD_COLOR",
+                                    "compareType": "MoreThan",
+                                    "value": 0
+                                }
+                            ],
+                            "successActions": [
+                                {
+                                    "$type": "CopyGlobalValue",
+                                    "srcTarget": "Team",
+                                    "srcKey": "_CARD_COLOR",
+                                    "dstTarget": "Self",
+                                    "dstKey": "_COLOR"
+                                },
+                                {
+                                    "$type": "SetGlobalValue",
+                                    "key": "_CARD_COLOR",
+                                    "value": 0,
+                                    "target": "Team",
+                                },
+                            ],
+                            "failActions": [
+                                {
+                                    "$type": "ShowReminder",
+                                    "id": 470240105,
+                                }
+                            ]
+                        },
+                    ]
+                },
+                {//颜色表现
+                    "$type": "AttachModifierToGlobalValueMixin",
+                    "globalValueKey": "_COLOR",
+                    "valueSteps": [0.5,1.5,2.5,3.5],
+                    "modifierNameSteps": ["_COLOR_1","_COLOR_2","_COLOR_3"]
+                },
+                {
+                    "$type": "AttachToGadgetStateMixin",
+                    "gadgetState": 201,
+                    "modifierName": "State_201"
+                },
+                {
+                    "$type": "AttachToGadgetStateMixin",
+                    "gadgetState": 0,
+                    "modifierName": "State_0"
+                },
+                {
+                    "$type": "AttachToGadgetStateMixin",
+                    "gadgetState": 202,
+                    "modifierName": "State_202"
+                },
+            ],
+            "onAdded": [
+                {
+                    "$type": "SetGlobalValue",
+                    "key": "_COLOR",
+                    "value": 1
+                },
+                {
+                    "$type": "AttachModifier",
+                    "modifierName": "State_Tick"
+                }
+            ],
+            "onFieldEnter": [
+                {
+                    "$type": "DebugLog",
+                    "content": "onFieldEnter"
+                },
+            ],
+            "onFieldExit": [
+                {//avatar
+                    "$type": "Predicated",
+                    "target": "Target",
+                    "targetPredicates": [
+                        {
+                            "$type": "ByEntityTypes",
+                            "entityTypes": ["Avatar"]
+                        }
+                    ],
+                    "successActions": [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_LIGHT_COLOR",
+                            "value": 0,
+                            "target": "TargetTeam"
+                        }
+                    ]
+                },
+                {//gadget
+                    "$type": "Predicated",
+                    "target": "Target",
+                    "targetPredicates": [
+                        {
+                            "$type": "ByTargetGlobalValue",
+                            "key": "SGV_COLOR",
+                            "compareType": "MoreThan",
+                            "value": 0
+                        }
+                    ],
+                    "successActions": [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_LIGHT_COLOR",
+                            "value": 0,
+                            "target": "Other"
+                        }
+                    ]
+                },
+            ],
+            "modifiers": {
+                "State_Tick":{
+                    "thinkInterval": 0.2,
+                    "onThinkInterval": [
+                        {
+                            "$type": "Predicated",
+                            "otherTargets":{
+                                "$type": "SelectTargetsByLCTrigger",
+                                "campTargetType": "All",
+                            },
+                            "successActions": [
+                                {//射中avatar
+                                    "$type": "Predicated",
+                                    "target": "Target",
+                                    "targetPredicates": [
+                                        {
+                                            "$type": "ByEntityTypes",
+                                            "entityTypes": ["Avatar"]
+                                        }
+                                    ],
+                                    "successActions": [
+                                        {//将值传给team：
+                                            "$type": "CopyGlobalValue",
+                                            "srcTarget": "Self",
+                                            "srcKey": "_COLOR",
+                                            "dstTarget": "Other",
+                                            "dstKey": "_LIGHT_COLOR",
+                                            "target": "Other"
+                                        },
+                                        {
+                                            "$type": "ApplyModifier",
+                                            "modifierName": "_CopyGV",
+                                            "target": "Other",
+                                        }
+                                    ]
+                                },
+                                {//射中gadget
+                                    "$type": "Predicated",
+                                    "target": "Target",
+                                    "targetPredicates": [
+                                        {
+                                            "$type": "ByTargetGlobalValue",
+                                            "key": "SGV_COLOR",
+                                            "compareType": "MoreThan",
+                                            "value": 0
+                                        }
+                                    ],
+                                    "successActions": [
+                                        {
+                                            "$type": "CopyGlobalValue",
+                                            "srcTarget": "Self",
+                                            "srcKey": "_COLOR",
+                                            "dstTarget": "Other",
+                                            "dstKey": "_LIGHT_COLOR",
+                                            "target": "Other"
+                                        }
+                                    ]
+                                },
+                            ]
+                        }
+                    ]
+                },
+                "_CopyGV":{
+                    "duration": 0.3,
+                    "stacking": "Refresh",
+                    "onAdded": [
+                        {
+                            "$type": "CopyGlobalValue",
+                            "srcKey": "_LIGHT_COLOR",
+                            "srcTarget": "Self",
+                            "dstKey": "_LIGHT_COLOR",
+                            "dstTarget": "Team"
+                        },
+                    ],
+                    "onRemoved": [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_LIGHT_COLOR",
+                            "value": 0,
+                            "target": "Self"
+                        },
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_LIGHT_COLOR",
+                            "value": 0,
+                            "target": "Team"
+                        }
+                    ]
+                },
+                "_COLOR_1":{
+                    "onAdded": [
+                        {
+                            "$type": "EnableSceneTransformByName",
+                            "transformNames": ["Color_1"],
+                            "setEnable": true,
+                        },
+                        {
+                            "$type": "EnableSceneTransformByName",
+                            "transformNames": ["Color_2","Color_3"],
+                            "setEnable": false,
+                        },
+                    ]
+                },
+                "_COLOR_2":{
+                    "onAdded": [
+                        {
+                            "$type": "EnableSceneTransformByName",
+                            "transformNames": ["Color_2"],
+                            "setEnable": true,
+                        },
+                        {
+                            "$type": "EnableSceneTransformByName",
+                            "transformNames": ["Color_1","Color_3"],
+                            "setEnable": false,
+                        },
+                    ]
+                },
+                "_COLOR_3":{
+                    "onAdded": [
+                        {
+                            "$type": "EnableSceneTransformByName",
+                            "transformNames": ["Color_3"],
+                            "setEnable": true,
+                        },
+                        {
+                            "$type": "EnableSceneTransformByName",
+                            "transformNames": ["Color_2","Color_1"],
+                            "setEnable": false,
+                        },
+                    ]
+                },
+                //三个state的按钮
+                "State_0":{
+                    "thinkInterval": 2,
+                    "onThinkInterval": [
+                        {
+                            "$type": "EnableGadgetExtraButton",
+                            "enable": true,
+                            "extraId": 1,
+                            "canBeHandledOnRecover": true
+                        },
+                        {
+                            "$type": "EnableGadgetExtraButton",
+                            "enable": true,
+                            "extraId": 2,
+                            "canBeHandledOnRecover": true
+                        },
+                    ],
+                    "onRemoved": [
+                        {
+                            "$type": "EnableGadgetExtraButton",
+                            "enable": false,
+                            "extraId": 1,
+                            "canBeHandledOnRecover": true
+                        },
+                        {
+                            "$type": "EnableGadgetExtraButton",
+                            "enable": false,
+                            "extraId": 2,
+                            "canBeHandledOnRecover": true
+                        },
+                    ]
+                },
+                "State_201":{
+                    "thinkInterval": 2,
+                    "onThinkInterval": [
+                        {
+                            "$type": "EnableGadgetExtraButton",
+                            "enable": false,
+                            "extraId": 1,
+                            "canBeHandledOnRecover": true
+                        },
+                        {
+                            "$type": "EnableGadgetExtraButton",
+                            "enable": true,
+                            "extraId": 2,
+                            "canBeHandledOnRecover": true
+                        },
+                    ],
+                    "onRemoved": [
+                        {
+                            "$type": "EnableGadgetExtraButton",
+                            "enable": false,
+                            "extraId": 1,
+                            "canBeHandledOnRecover": true
+                        },
+                        {
+                            "$type": "EnableGadgetExtraButton",
+                            "enable": false,
+                            "extraId": 2,
+                            "canBeHandledOnRecover": true
+                        },
+                    ]
+                },
+                "State_202":{
+                    "thinkInterval": 2,
+                    "onThinkInterval": [
+                        {
+                            "$type": "EnableGadgetExtraButton",
+                            "enable": true,
+                            "extraId": 1,
+                            "canBeHandledOnRecover": true
+                        },
+                        {
+                            "$type": "EnableGadgetExtraButton",
+                            "enable": false,
+                            "extraId": 2,
+                            "canBeHandledOnRecover": true
+                        },
+                    ],
+                    "onRemoved": [
+                        {
+                            "$type": "EnableGadgetExtraButton",
+                            "enable": false,
+                            "extraId": 1,
+                            "canBeHandledOnRecover": true
+                        },
+                        {
+                            "$type": "EnableGadgetExtraButton",
+                            "enable": false,
+                            "extraId": 2,
+                            "canBeHandledOnRecover": true
+                        },
+                    ]
+                },
+            }
+        }
+    },
+    {
+        "Default":{
+            "$type": "ConfigAbility",
+            "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Light_00_Clockwise",
+            "abilityMixins": [
+                {
+                    "$type": "WidgetMpSupportMixin",
+                    "succActions": [
+                        {
+                            "$type": "ChangeGadgetState",
+                            "state": 201,
+                            "predicates": [
+                                {
+                                    "$type": "ByTargetGadgetState",
+                                    "gadgetState": 0,
+                                }
+                            ]
+                        },
+                        {
+                            "$type": "ChangeGadgetState",
+                            "state": 0,
+                            "predicates": [
+                                {
+                                    "$type": "ByTargetGadgetState",
+                                    "gadgetState": 202,
+                                }
+                            ]
+                        },
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "Default":{
+            "$type": "ConfigAbility",
+            "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Light_00_AntiClockwise",
+            "abilityMixins": [
+                {
+                    "$type": "WidgetMpSupportMixin",
+                    "succActions": [
+                        {
+                            "$type": "ChangeGadgetState",
+                            "state": 202,
+                            "predicates": [
+                                {
+                                    "$type": "ByTargetGadgetState",
+                                    "gadgetState": 0,
+                                }
+                            ]
+                        },
+                        {
+                            "$type": "ChangeGadgetState",
+                            "state": 0,
+                            "predicates": [
+                                {
+                                    "$type": "ByTargetGadgetState",
+                                    "gadgetState": 201,
+                                }
+                            ]
+                        },
+                    ]
+                }
+            ]
+        }
+    },
+    {//70800604	3.8灯光玩法白盒_蓝插片
+        "Default":{
+            "$type": "ConfigAbility",
+            "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_LightPlay_Card_01",
+            "abilitySpecials": {
+                "SGV_COLOR":0,
+                "_CARD_COLOR":0
+            },
+            "onAdded": [
+                {
+                    "$type": "SetGlobalValueToOverrideMap",
+                    "globalValueKey": "SGV_COLOR",
+                    "overrideMapKey": "SGV_COLOR",
+                    "canBeHandledOnRecover": true
+                }
+            ],
+            "abilityMixins": [
+                {
+                    "$type": "AttachToGadgetStateMixin",
+                    "gadgetState": 201,
+                    "modifierName": "State_201",
+                },
+                {
+                    "$type": "AttachToGadgetStateMixin",
+                    "gadgetState": 0,
+                    "modifierName": "State_0",
+                },
+            ],
+            "onFieldEnter": [
+                {
+                    "$type": "Predicated",
+                    "target": "Target",
+                    "targetPredicates": [
+                        {
+                            "$type": "ByEntityTypes",
+                            "entityTypes": ["Avatar"],
+                        }
+                    ],
+                    "successActions": [
+                        {
+                            "$type": "CopyGlobalValue",
+                            "srcKey": "SGV_COLOR",
+                            "srcTarget": "Self",
+                            "dstKey": "_CARD_COLOR",
+                            "dstTarget": "Other",
+                            "target": "Other"
+                        },
+                        {
+                            "$type": "ApplyModifier",
+                            "modifierName": "_CopyGV",
+                            "target": "Other"
+                        },
+                        {//重新上modifier使applier为自己
+                            "$type": "RemoveModifier",
+                            "modifierName": "UNIQUE_Team_State_Card",
+                            "target": "TargetTeam"
+                        },
+                        {
+                            "$type": "ApplyModifier",
+                            "modifierName": "UNIQUE_Team_State_Card",
+                            "target": "TargetTeam",
+                        },
+                        {
+                            "$type": "ChangeGadgetState",
+                            "state": 201,
+                        }
+                    ],
+                    "predicates": [
+                        {
+                            "$type": "ByTargetGadgetState",
+                            "gadgetState": 0,
+                            "target": "Self"
+                        }
+                    ]
+                }
+            ],
+            "modifiers": {
+                "_CopyGV":{
+                    "stacking": "Multiple",
+                    "duration": 0.1,
+                    "onAdded": [
+                        {
+                            "$type": "CopyGlobalValue",
+                            "srcKey": "_CARD_COLOR",
+                            "srcTarget": "Self",
+                            "dstKey": "_CARD_COLOR",
+                            "dstTarget": "Team"
+                        },
+                    ]
+                },
+                "State_0":{
+                    "onAdded": [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_SceneObj_GlideChampOrb_01",
+                            "predicates": [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "SGV_COLOR",
+                                    "compareType": "Equal",
+                                    "value": 3,
+                                    "target": "Self",
+                                }
+                            ],
+                            "canBeHandledOnRecover": true
+                        },
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_SceneObj_GlideChampOrb_02",
+                            "predicates": [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "SGV_COLOR",
+                                    "compareType": "Equal",
+                                    "value": 2,
+                                    "target": "Self",
+                                }
+                            ],
+                            "canBeHandledOnRecover": true
+                        },
+                    ]
+                },
+                "State_201":{},
+                "UNIQUE_Team_State_Card":{//发给team的modifier
+                    "isUnique": true,
+                    "thinkInterval": 0.5,
+                    "onThinkInterval": [//不能携带太远
+                        {
+                            "$type": "SetGlobalValueByTargetDistance",
+                            "key": "_Card_Distance",
+                            "target": "Applier",
+                        },
+                        {
+                            "$type": "Predicated",
+                            "target": "Self",
+                            "targetPredicates": [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_Card_Distance",
+                                    "compareType": "MoreThan",
+                                    "value": 30,
+                                }
+                            ],
+                            "successActions": [
+                                {//恢复插片state
+                                    "$type": "ChangeGadgetState",
+                                    "state": 0,
+                                    "target": "Applier",
+                                },
+                                {//重置插片gv
+                                    "$type": "SetGlobalValue",
+                                    "key": "_CARD_COLOR",
+                                    "value": 0
+                                },
+                            ]
+                        }
+                    ],
+                    "onAdded": [
+                        {
+                            "$type": "AttachModifier",
+                            "modifierName": "UNIQUE_Team_State_Card_AttachEff"
+                        }
+                    ],
+                    "modifierMixins": [
+                        {//被错误的光照射后移除自己，恢复插片state
+                            "$type": "DoActionOnGlobalValueChangeMixin",
+                            "globalValueKey": "_LIGHT_COLOR",
+                            "actions": [
+                                {
+                                    "$type": "SetGlobalValueToOverrideMap",
+                                    "globalValueKey": "_CARD_COLOR",
+                                    "overrideMapKey": "_CARD_COLOR"
+                                },
+                                {
+                                    "$type": "Predicated",
+                                    "targetPredicates": [
+                                        {
+                                            "$type": "ByAny",
+                                            "predicates": [
+                                                {//等于，代表光照正确
+                                                    "$type": "ByTargetGlobalValue",
+                                                    "key": "_LIGHT_COLOR",
+                                                    "compareType": "Equal",
+                                                    "value": "%_CARD_COLOR"
+                                                },
+                                                {//为零，代表没被光照
+                                                    "$type": "ByTargetGlobalValue",
+                                                    "key": "_LIGHT_COLOR",
+                                                    "compareType": "Equal",
+                                                    "value": 0
+                                                },
+                                            ]
+                                        }
+                                    ],
+                                    "failActions": [//都不是，代表被错误的光照射
+                                        {//恢复插片state
+                                            "$type": "ChangeGadgetState",
+                                            "state": 0,
+                                            "target": "Applier",
+                                        },
+                                        {//重置插片gv
+                                            "$type": "SetGlobalValue",
+                                            "key": "_CARD_COLOR",
+                                            "value": 0
+                                        },
+                                    ]
+                                }
+                            ]
+                        },
+                        {//修改插片gv————变成其他值代表吃了别的插片，恢复原插片；变成0代表被使用
+                            "$type": "DoActionOnGlobalValueChangeMixin",
+                            "globalValueKey": "_CARD_COLOR",
+                            "actions": [
+                                //改颜色
+                                {
+                                    "$type": "RemoveModifier",
+                                    "modifierName": "UNIQUE_Team_State_Card_AttachEff",
+                                },
+                                {
+                                    "$type": "AttachModifier",
+                                    "modifierName": "UNIQUE_Team_State_Card_AttachEff",
+                                },
+                                //0时移除自己
+                                {
+                                    "$type": "Predicated",
+                                    "targetPredicates": [
+                                        {
+                                            "$type": "ByTargetGlobalValue",
+                                            "key": "_CARD_COLOR",
+                                            "compareType": "NoneOrEqual",
+                                            "value": 0
+                                        }
+                                    ],
+                                    "successActions": [
+                                        {//移除自己（放在最后）
+                                            "$type": "RemoveModifier",
+                                            "modifierName": "UNIQUE_Team_State_Card",
+                                        },
+                                    ],
+                                    "failActions": [
+                                        {//恢复插片state
+                                            "$type": "ChangeGadgetState",
+                                            "state": 0,
+                                            "target": "Applier",
+                                        },
+                                    ]
+                                }
+                            ]
+                        },
+                    ],
+                },
+                "UNIQUE_Team_State_Card_AttachEff":{
+                    "isUnique": true,
+                    "modifierMixins": [
+                        {
+                            "$type": "CurLocalAvatarMixinV2",
+                            "modifierName": "UNIQUE_Avatar_State_Card_AttachEff"
+                        }
+                    ],
+                },
+                "UNIQUE_Avatar_State_Card_AttachEff":{
+                    "isUnique": true,
+                    "onAdded": [//各种颜色特效
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_SceneObj_GlideChampOrb_01_WhiteBox",
+                            "predicates": [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_CARD_COLOR",
+                                    "compareType": "Equal",
+                                    "value": 3,
+                                    "target": "Team",
+                                }
+                            ],
+                            "canBeHandledOnRecover": true
+                        },
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_SceneObj_GlideChampOrb_02_WhiteBox",
+                            "predicates": [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_CARD_COLOR",
+                                    "compareType": "Equal",
+                                    "value": 2,
+                                    "target": "Team",
+                                }
+                            ],
+                            "canBeHandledOnRecover": true
+                        },
+                    ],
+                }
+            }
+        }
+    },
+    {
+        "Default":{
+            "$type": "ConfigAbility",
+            "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_WhiteBox_Specter_01",
+            "abilityMixins": [
+                {
+                    "$type": "PlatformMoveMixin",
+                    "moveModifiers": ["State_Moving"],
+                },
+                {
+                    "$type": "AttachToGadgetStateMixin",
+                    "gadgetState": 201,
+                    "modifierName": "State_201"
+                }
+            ],
+            "modifiers": {
+                "State_Moving":{
+                    "onAdded": [
+                        {
+                            "$type": "SetAnimatorInt",
+                            "intID": "MotionFlag",
+                            "value": 1
+                        }
+                    ],
+                    "onRemoved": [
+                        {
+                            "$type": "SetAnimatorInt",
+                            "intID": "MotionFlag",
+                            "value": 0
+                        }
+                    ]
+                },
+                "State_201":{
+                    "onAdded": [
+                        {
+                            "$type": "SetAnimatorInt",
+                            "intID": "MotionFlag",
+                            "value": 1
+                        }
+                    ],
+                    "onRemoved": [
+                        {
+                            "$type": "SetAnimatorInt",
+                            "intID": "MotionFlag",
+                            "value": 0
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Default":{
+            "$type": "ConfigAbility",
+            "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_WhiteBox_light_detect",
+            "onAdded": [
+                {
+                    "$type": "DebugLog",
+                    "content": "onAdded"
+                }
+            ],
+            "abilityMixins": [
+                {
+                    "$type": "AttachToGadgetStateMixin",
+                    "gadgetState": 0,
+                    "modifierName": "State_0"
+                },
+                {
+                    "$type": "AttachToGadgetStateMixin",
+                    "gadgetState": 201,
+                    "modifierName": "State_201"
+                }
+            ],
+            "modifiers": {
+                "State_0":{},
+                "State_201":{}
+            },
+            "onFieldEnter": [
+                {
+                    "$type": "DebugLog",
+                    "content": "onFieldEnter"
+                },
+                {
+                    "$type": "ChangeGadgetState",
+                    "state": 201
+                }
+            ],
+            "onFieldExit": [
+                {
+                    "$type": "DebugLog",
+                    "content": "onFieldExit"
+                },
+                {
+                    "$type": "ChangeGadgetState",
+                    "state": 0
+                }
+            ]
+        }
+    },
+    {
+        "Default":{
+            "$type": "ConfigAbility",
+            "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_WhiteBox_Bullet_Trigger",
+            "onAdded": [
+                {
+                    "$type": "AttachModifier",
+                    "modifierName": "State_Bullet"
+                }
+            ],
+            "modifiers": {
+                "State_Bullet":{
+                    "thinkInterval": 5,
+                    "onThinkInterval": [
+                        {
+                            "$type": "TriggerBullet",
+                            "bulletID": 70800616,
+                            "isPeerIdFromPlayer": true,
+                            "born":
+                            {
+                                "$type": "ConfigBornByAttachPoint",
+                                "attachPointName": "bullet_point",
+                                "offset":
+                                {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0,
+                                },
+                                "direction":
+                                {
+                                    "$type": "ConfigDirectionByAttachPoint",
+                                    "attachPointName": "TriggerBullentPoint",
+                                    "attachPointTargetType": "Self",
+                                }
+                            },
+                        },
+                    ]
+                }
+            }
+        }
+    },
+    {
+        "Default":{
+            "$type": "ConfigAbility",
+            "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_WhiteBox_Bullet",
+            "onAdded": [
+                {
+                    "$type": "DebugLog",
+                    "content": "SceneObj_Area_Common_Property_Ani_Prop_WhiteBox_Bullet onadded"
+                }
+            ],
+            "onAbilityStart": [
+                {
+                    "$type": "DebugLog",
+                    "content": "SceneObj_Area_Common_Property_Ani_Prop_WhiteBox_Bullet onAbilityStart"
+                },
+                {
+                    "$type": "Predicated",
+                    "otherTargets":{
+                        "$type": "SelectTargetsByLCTrigger",
+                        "campTargetType": "All",
+                    },
+                    "successActions": [
+                        {
+                            "$type": "ApplyModifier",
+                            "modifierName": "UNIQUE_Bullet_Count",
+                            "target": "Other",
+                        },
+                        {
+                            "$type": "ApplyModifier",
+                            "modifierName": "_Bullet_Add_GV",
+                            "target": "Other"
+                        },
+                        {
+                            "$type": "KillSelf",
+                            "hideEntity": true,
+                        }
+                    ]
+                }
+            ],
+            "modifiers": {
+                "UNIQUE_Bullet_Count":{
+                    "duration": 10,
+                    "isUnique": true,
+                    "modifierMixins": [
+                        {
+                            "$type": "AttachModifierToGlobalValueMixin",
+                            "globalValueKey": "_Bullet_Count",
+                            "valueSteps": [-0.5,0.5,1.5,2.5,3.5],
+                            "modifierNameSteps": ["_Bullet_Count_0","_Bullet_Count_1","_Bullet_Count_2","_Bullet_Count_3"]
+                        }
+                    ],
+                    "onRemoved": [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_Bullet_Count",
+                            "value": 0,
+                        }
+                    ]
+                },
+                "_Bullet_Count_0":{},
+                "_Bullet_Count_1":{
+                    "onAdded": [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_SceneObj_MagatamaDoor_Gouyu_Around_01"
+                        }
+                    ]
+                },
+                "_Bullet_Count_2":{
+                    "onAdded": [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_SceneObj_MagatamaDoor_Gouyu_Around_02"
+                        }
+                    ]},
+                "_Bullet_Count_3":{
+                    "onAdded": [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_SceneObj_MagatamaDoor_Gouyu_Around_03"
+                        }
+                    ]},
+                "_Bullet_Add_GV":{
+                    "duration": 0.1,
+                    "stacking": "Multiple",
+                    "onAdded": [
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_Bullet_Count",
+                            "value": 1,
+                            "useLimitRange": true,
+                            "maxValue": 3
+                        }
+                    ]
+                }
+            }
+        }
+    }
+]

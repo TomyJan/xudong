@@ -1,0 +1,63 @@
+[
+	{
+		"Default": {
+			/// desc 针对4.0枫丹可吸收小动物的特殊测试用配置
+			"$type": "ConfigAbility",
+			"abilityName": "Animal_DivingAbsorb_Testing",
+			"onAdded": [
+				{
+					"$type": "ApplyModifier",
+					"modifierName": "Diving_Animal_Special_State",
+					"canBeHandledOnRecover": true
+				}
+			],
+			"modifiers": {
+				"Diving_Animal_Special_State": {
+					"state": "LockHP",
+					"modifierMixins": [
+						{
+							"$type": "DivingAbsorbPointMixin"
+						}
+					],
+					"onAdded": [
+						{
+							"$type": "ResetAIThreatBroadcastRange",
+							"range": 0
+						}
+					]
+				}
+			}
+		}
+	},
+	{
+		"Default": {
+			/// desc 针对4.0枫丹可吸收小动物的特殊测试用配置 -动态版本
+			"$type": "ConfigAbility",
+			"abilityName": "Animal_DivingAbsorb_Testing_Dynamic",
+			"isDynamicAbility": true,
+			"onAdded": [
+				{
+					"$type": "ApplyModifier",
+					"modifierName": "Diving_Animal_Special_State",
+					"canBeHandledOnRecover": true
+				}
+			],
+			"modifiers": {
+				"Diving_Animal_Special_State": {
+					"state": "LockHP",
+					"modifierMixins": [
+						{
+							"$type": "DivingAbsorbPointMixin"
+						}
+					],
+					"onAdded": [
+						{
+							"$type": "ResetAIThreatBroadcastRange",
+							"range": 0
+						}
+					]
+				}
+			}
+		}
+	}
+]

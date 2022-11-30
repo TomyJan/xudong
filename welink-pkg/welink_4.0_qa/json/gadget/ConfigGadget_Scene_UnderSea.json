@@ -1,0 +1,1388 @@
+{
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界  海绵门
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_SpongeGate" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,	
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible": false,
+				"isLockHP": true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_SpongeGate",
+				"abilityName" : "SceneObj_UnderSea_SpongeGate"
+			},
+		]
+	},
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界  重生之我是海草
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_SeaWeed" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,	
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible": false,
+				"isLockHP": true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_SeaWeed",
+				"abilityName" : "SceneObj_UnderSea_SeaWeed"
+			},
+		]
+	},
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界  笼子
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_Cage" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,	
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible": false,
+				"isLockHP": true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_Cage",
+				"abilityName" : "SceneObj_UnderSea_Cage"
+			},
+		]
+	},
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界  元素门
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_ElementGate" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,	
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible": false,
+				"isLockHP": true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+		"gadgetAction":
+		{
+			"gadgetStateActionList":
+			[
+				{
+					"$type": "ConfigGadgetStateSetAnimInt",
+					"intID": "gadgetState",
+					"syncState": true
+				}
+			]
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_ElementGate",
+				"abilityName" : "SceneObj_UnderSea_ElementGate"
+			},
+		]
+	},
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界  斩击移动靶标
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_SlashTarget" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,
+		"move": 
+		{
+		  "$type": "ConfigPlatformMove"
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible": false,
+				"isLockHP": true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_SlashTarget",
+				"abilityName" : "SceneObj_UnderSea_SlashTarget"
+			},
+		]
+	},
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界  元素移动靶标
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_ElementTarget" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,
+		"move": 
+		{
+		  "$type": "ConfigPlatformMove"
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible": false,
+				"isLockHP": true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_ElementTarget",
+				"abilityName" : "SceneObj_UnderSea_ElementTarget"
+			},
+		]
+	},
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界  喷泉石头
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_HualaStone" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,
+		"move": 
+		{
+		  "$type": "ConfigPlatformMove"
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible": false,
+				"isLockHP": true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_HualaStone",
+				"abilityName" : "SceneObj_UnderSea_HualaStone"
+			},
+		]
+	},
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界  喷泉
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_Huala" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,
+		"move": 
+		{
+		  "$type": "ConfigPlatformMove"
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible": false,
+				"isLockHP": true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_Huala",
+				"abilityName" : "SceneObj_UnderSea_Huala"
+			},
+		]
+	},
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界  玩家法身
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_PlayerBoy" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible": false,
+				"isLockHP": true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : true,
+				"muteAllHitEffect" : true,
+				"muteAllHitText" : true
+			}
+		},
+
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_PlayerBoy",
+				"abilityName" : "SceneObj_UnderSea_PlayerBoy"
+			},
+		]
+	},
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  海底世界 指针 底盘
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_Compass_Base":
+	{
+		"$type" : "ConfigGadget",
+		"hasModel" : true,
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible":false,
+				"isLockHP":true,
+				"isGhostToAllied" : false,
+				"isGhostToEnemy" : true,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1",
+			},
+			"beHit" :
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true,
+			},
+		},
+		"gadgetAction":
+		{
+			"gadgetStateActionList":
+			[
+				{
+					"$type": "ConfigGadgetStateSetAnimInt",
+					"intID": "GadgetState",
+					"syncState": true,
+				},
+			],
+		},
+		"field" :
+		{
+			"shape" : "CircleR10",		//形状，不填为collider
+			"concernType":"AllAvatars",
+			"startCheckTime" : 0.0,		//触发开始延时
+			"checkInterval" : 1.0,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"triggerCount" : 0,			//这里要一直触发，且不能限制触发次数，保证联机时先后有玩家靠近都能触发
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_Compass_Base",
+				"abilityName": "SceneObj_UnderSea_Compass_Base"
+			},
+			{
+				"abilityID": "Scene_RockGadget_Summon_Detect",
+				"abilityName":"Scene_RockGadget_Summon_Detect"
+			},
+		],
+	},
+///////////////////////////////////////
+//
+//   海底世界 指针
+//
+//////////////////////////////////////////
+	"SceneObj_UnderSea_Compass" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel":true,
+		"partControl":
+		{
+			"parts":
+			[
+				{
+					"$type" : "ConfigControlPart",
+					"partRootName": "RootNode",
+					"angularSpeed": 60.0,
+					"forwardBy": "EntityForward",
+					"forwardByTransName": "",
+					"limitHorizontal": 360.0,
+					"limitVertical": 0.0,
+					"doOnUnEabled":"Stay"
+				},
+			],
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 5000,
+				"attack" : 150,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible":false,
+				"isLockHP":true,
+				"endure":99,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : true,
+				"canTriggerBullet" : true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1",
+			},
+			"beHit" :
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : false,
+			},
+			"die" :
+			{
+				"hasAnimatorDie": true,
+				"dieEndTime" : 0.4,
+				"dieForceDisappearTime" : 0.4,
+				"dieModelFadeDelay": 0.4,
+			},
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_Compass",
+				"abilityName": "SceneObj_UnderSea_Compass"
+			},
+			{
+				"abilityID": "SceneObj_UnderSea_Compass",
+				"abilityName":"SceneObj_UnderSea_Compass"
+			},
+		],
+	},
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界 指针 能量
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_Compass_Energy" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,	
+		"uiInteract":
+		{
+			"onTouch" : "WidgetMPSupport",
+			"showCondTypes": ["HOST"],
+			"touchParams" : 
+			[
+				"SceneObj_UnderSea_Compass_Energy"
+			],
+			"canInteractInCombat": false
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible":false,
+				"isLockHP":true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : true,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_Compass_Energy",
+				"abilityName" : "SceneObj_UnderSea_Compass_Energy"
+			},
+		]
+	},
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界 水下泪水板
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_TearsPlat_UnderWater" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,	
+		"field" :
+		{
+			"shape" : "",		//形状，不填为collider
+			"concernType":"AllAvatars",
+			"startCheckTime" : 0.0,		//触发开始延时
+			"checkInterval" : 1.0,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"triggerCount" : 0,			//这里要一直触发，且不能限制触发次数，保证联机时先后有玩家靠近都能触发
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible":false,
+				"isLockHP":true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_TearsPlat_UnderWater",
+				"abilityName" : "SceneObj_UnderSea_TearsPlat_UnderWater"
+			},
+		]
+	},
+
+	/////////////////////////////////////////////////////////////
+	//
+	//   海底世界 泪水炮台
+	//
+	////////////////////////////////////////////////////////////////
+	"SceneObj_Undersea_HeadControlShooter" :
+	{
+		"common":
+		{
+			"disableTickDistance": 100001
+		},
+		"$type" : "ConfigGadget",
+		"hasModel": true,
+		"partControl":
+		{
+			"parts":
+			[
+				{
+                    "$type" : "ConfigControlPart",
+                    "partRootName": "ShootControl",
+                    "angularSpeed": 1800,
+                    "forwardBy": "EntityForward",
+                    "forwardByTransName": "",
+                    "limitHorizontal": 180.0,
+                    "limitVertical": 180.0
+                }
+			]
+		},
+        "stateLayers":
+		{
+			"defaultLayer":
+			{
+				"$type": "ConfigNormalStateLayer",
+				"stateIDs":
+				{
+					"Shoot":
+					{
+						"$type": "ConfigNormalStateIDInfo",
+						"animatorStates":
+						{
+							"Shoot": []
+						}
+					},
+					"Charge":
+					{
+						"$type": "ConfigNormalStateIDInfo",
+						"animatorStates":
+						{
+							"Charge": []
+						}
+					}
+				}
+			}
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_Undersea_HeadControlShooter",
+
+				"abilityName": "SceneObj_Undersea_HeadControlShooter"
+			}
+		]
+	},
+
+///////////////////////////////
+//
+// 海底世界 固定泪水
+//
+////////////////////////////////////
+	"SceneObj_Undersea_Bubble": 
+	{
+		"$type": "ConfigGadget",
+		"gadget":
+		{
+			"$type": "ConfigGadgetCollidedPattern",
+			"collision":
+			{
+				"targetType": "All",
+				"triggerType": "TriggerAlways"
+			},
+			"collisionActions":
+			[
+				{
+					"$type": "ConfigGadgetTriggerAbility",
+					"abilityName": "SceneObj_Undersea_Bubble"
+				}
+			]
+		},
+		"hasModel": true,
+		"model":
+		{
+		  "attachEffect": "Eff_SceneObj_BubbleShoot_01_Bubble"
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 1000,
+				"attack" : 100,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible": false,
+				"isLockHP": true,
+				"isGhostToAllied" : false,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit" :
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : true,
+				"muteAllHitText" : true
+			},
+			"die" :
+			{
+				"dieEndTime" : 0,
+				"dieForceDisappearTime": 0,
+				"dieDisappearEffect": "Eff_SceneObj_BubbleShoot_01_Bubble_Die"
+			}
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_Undersea_Bubble",
+				"abilityName" : "SceneObj_Undersea_Bubble"
+			}
+		]
+	},
+
+	///////////////////////////////////////////////////
+	//
+	// 	海底世界 泪水大炮 子弹
+	//
+	///////////////////////////////////////////////////
+    "SceneObj_Undersea_HeadControlShooter_Bullet":
+    {
+        "common":
+        {
+            "disableTickDistance": 10000
+        },
+        "$type" : "ConfigGadget",
+        "hasModel": true,
+        "model":
+        {
+        	"attachEffect": "Eff_Monster_Oceanid_TraceWaterBall",
+        },
+        "combat" :
+        {
+            "property":
+            {
+                "useCreatorProperty": false,
+                "HP": 99999,
+                "attack" : 400,
+                "defense": 99999,
+                "isLockHP":true,
+                "weight": 1,
+                "canTriggerBullet" : false
+            },
+            "combatLock":
+            {
+                "denyLockOn": true,
+                "lockType": "Gadget_Lv1"
+            },
+            "beHit":
+            {
+                "hitBloodEffect" : "",
+                "muteAllHit" : true,
+                "muteAllHitEffect" : true,
+                "muteAllHitText" : true
+            },
+            "die": 
+            {
+                "dieEndTime": 0
+            }
+        },
+        "gadget":
+        {
+            "$type" : "ConfigBulletPattern",
+            "enableCollisionDelay": 0.5,
+            "collision" :
+            {
+                "targetType" : "All",
+                "triggerType" : "TriggerOnce",
+                "ignoreScene": false,
+                "ccd":
+				{
+					"type" : "Always",
+				}
+            },
+            "triggerActions" :
+            [
+                {
+                    "$type" : "ConfigGadgetTriggerAbility",
+                    "abilityName" : "SceneObj_Undersea_HeadControlShooter_Bullet"
+                }
+            ]
+        },
+        "timer" :
+        {
+            "lifeInfinite" : false,		//如果未触发是否一致存�?
+            "lifeTime" : 30			//存在时间
+        },
+        // 子弹线性移�?
+        "move" :
+        {
+            "$type" : "ConfigLinerBulletMove",
+            "speed" : 25.0
+        },
+        "abilities":
+        [
+            {
+                "abilityID": "SceneObj_Undersea_HeadControlShooter_Bullet",
+
+                "abilityName" : "SceneObj_Undersea_HeadControlShooter_Bullet"
+            }
+        ]
+    },
+
+   	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界 冥想盆
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_Undersea_Pensieve" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,
+		"uiInteract": 
+		{
+			"gadgetUIBtnCfgPath": "UI/open_gadget_giving_page",
+			"uiName": "UI_Dreamconch_Give_01",
+			"touchParams": ["10000117"],
+		},
+		"intee":
+		{
+			"$type" : "ConfigIntee",
+			"triggerRadius": 2.95,
+			"triggerHeight": 3,
+		},
+		"gadgetAction":
+		{
+			"gadgetStateActionList":
+			[
+				//202时不能交互
+				{
+					"$type": "ConfigGadgetStateEnableGadgetIntee",
+					"enable": false,
+					"gadgetState": "GearStop",
+				},
+				//Default 未交付（可交互）
+				{
+					"$type": "ConfigGadgetStateEnableGadgetIntee",
+					"enable": true,
+					"gadgetState": "Default",
+				},
+				//101 交付不可取回（不可交互）
+				{
+					"$type": "ConfigGadgetStateEnableGadgetIntee",
+					"enable": false,
+					"gadgetState": "ChestLocked",
+				},
+				//102 交付可取回
+				{
+					"$type": "ConfigGadgetStateEnableGadgetIntee",
+					"enable": true,
+					"gadgetState": "ChestOpened",
+				},
+			],
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 200,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible":true,
+				"isLockHP":true,
+				"endure":99,
+				"isGhostToAllied" : false,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+			},
+			"beHit" :
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true,
+			},
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_Undersea_Pensieve",
+				"abilityName" : "SceneObj_Undersea_Pensieve"
+			},
+		],
+	},
+
+	////////////////////////////////////////////////////////////////
+	//
+	//  水下玩法-体力球
+	//
+	////////////////////////////////////////////////////////////////
+	"SceneObj_Undersea_StaminaBall":
+	{
+		"$type": "ConfigGadget",
+		"hasModel": true,
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty": false,
+				"HP" : 10000,
+				"attack" : 30,
+				"isLockHP":true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : true,
+				"canTriggerBullet" : true,
+				"ignorePurgeRate": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit" :
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : true,
+				"muteAllHitText" : false,
+			},
+			"die" :
+			{
+				"dieForceDisappearTime" : 0.3,
+			},
+		},
+		"field" :
+		{
+			"concernType" : "AllAvatars",
+			"shape" : "CircleR3H3",		//形状，不填为collider
+			"checkInterval" : 0.5,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"lifeInfinite" : true,		//如果未触发是否一致存在
+			"overwriteCampType" : true,
+			"campType": "All",
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_Undersea_StaminaBall",
+				"abilityName": "SceneObj_Undersea_StaminaBall",
+			},
+		],
+	},
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//	海底世界 泪水大炮显示屏
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_Undersea_Display" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel":true,
+		"uiInteract":
+		{
+			"gadgetUIBtnCfgPath": "UI/open_robot_control_page2",
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"isLockHP":true,
+				"endure" :99,
+				"isInvincible": false,
+				"isGhostToAllied" : false,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_Undersea_Display",
+				"abilityName" : "SceneObj_Undersea_Display"
+			}
+		]
+	},
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界  泪水移动泡泡
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_MoveableBubble" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,
+		"move": 
+		{
+		  "$type": "ConfigPlatformMove"
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible": false,
+				"isLockHP": true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+		"field" :
+		{
+			"concernType" : "AllExcludeGWGO",
+			"shape" : "CircleR3H3",		//形状，不填为collider
+			"checkInterval" : 0.5,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"lifeInfinite" : true,		//如果未触发是否一致存在
+			"overwriteCampType" : true,
+			"campType": "All",
+		},
+
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_MoveableBubble",
+				"abilityName" : "SceneObj_UnderSea_MoveableBubble"
+			},
+		]
+	},
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界 洋流入口
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_OceanCurrent_Entrance" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,	
+		"field" :
+		{
+			"shape" : "CircleR5",		//形状，不填为collider
+			"concernType":"AllAvatars",
+			"startCheckTime" : 0.0,		//触发开始延时
+			"checkInterval" : 1.0,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"triggerCount" : 0,			//这里要一直触发，且不能限制触发次数，保证联机时先后有玩家靠近都能触发
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible":false,
+				"isLockHP":true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_OceanCurrent_Entrance",
+				"abilityName" : "SceneObj_UnderSea_OceanCurrent_Entrance"
+			},
+		]
+	},
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界 水上幻影板 主板
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_TearsPlat_AboveWater" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,	
+		"field" :
+		{
+			"shape" : "",		//形状，不填为collider
+			"concernType":"AllAvatars",
+			"startCheckTime" : 0.0,		//触发开始延时
+			"checkInterval" : 1.0,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"triggerCount" : 0,			//这里要一直触发，且不能限制触发次数，保证联机时先后有玩家靠近都能触发
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible":false,
+				"isLockHP":true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_TearsPlat_AboveWater",
+				"abilityName" : "SceneObj_UnderSea_TearsPlat_AboveWater"
+			},
+		]
+	},
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//
+	//	海底世界 加速鱼群
+	//
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	"SceneObj_UnderSea_Fish_SpeedUp" :
+	{
+		"$type" : "ConfigGadget",
+		"hasModel": true,	
+		"field" :
+		{
+			"shape" : "CircleR5",		//形状，不填为collider
+			"concernType":"AllAvatars",
+			"startCheckTime" : 0.0,		//触发开始延时
+			"checkInterval" : 1.0,		//触发间隔
+			"triggerInfinite" : true,	//是否永远触发
+			"triggerCount" : 0,			//这里要一直触发，且不能限制触发次数，保证联机时先后有玩家靠近都能触发
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : false,
+				"HP" : 99999,
+				"attack" : 20,
+				"defense" : 0,
+				"weight" : 50,
+				"isInvincible":false,
+				"isLockHP":true,
+				"isGhostToAllied" : true,
+				"isGhostToEnemy" : false,
+				"canTriggerBullet" : true,
+				"ignoreDamageToSelf": true
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+				"lockType": "Gadget_Lv1"
+			},
+			"beHit":
+			{
+				"hitBloodEffect" : "",
+				"hitAutoRedirect": false,
+				"muteAllHit" : false,
+				"muteAllHitEffect" : false,
+				"muteAllHitText" : true
+			}
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SceneObj_UnderSea_Fish_SpeedUp",
+				"abilityName" : "SceneObj_UnderSea_Fish_SpeedUp"
+			},
+		]
+	},
+
+}
